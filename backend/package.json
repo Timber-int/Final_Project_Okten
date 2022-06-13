@@ -1,0 +1,53 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "rimraf dist && copyfiles -f src/emailTemplates/*.* dist/emailTemplates/ && copyfiles -f src/docs/*.json dist/docs/ && tsc-watch --onSuccess \"nodemon ./src/app.ts\"",
+    "lint": "eslint --cache --ext .js,.ts src",
+    "lint:fix": "npm run lint -- --fix",
+    "typeorm": "node -r ts-node/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "typeorm migration:create -n",
+    "migration:run": "npm run typeorm migration:run",
+    "migration:revert": "npm run typeorm migration:revert"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.3",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.45",
+    "typescript": "^4.5.5",
+    "express-handlebars": "^6.0.3",
+    "copyfiles": "^2.4.1",
+    "nodemailer": "^6.7.5",
+    "email-templates": "^9.0.0",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/email-templates": "^8.0.4",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^17.0.19",
+    "@types/nodemailer": "^6.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.5.0",
+    "tsc-watch": "^4.6.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
