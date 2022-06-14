@@ -5,6 +5,7 @@ import { userRouter } from './userRouter';
 import { authRouter } from './authRouter';
 import { categoryRouter } from './categoryRouter';
 import { productRouter } from './productRouter';
+import { productInformationRoute } from './productInformationRoute';
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.use('/users', userRouter);
 router.use('/categories', categoryRouter);
 router.use('/products', productRouter);
 router.use('/auth', authRouter);
+router.use('/productInformation', productInformationRoute);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {

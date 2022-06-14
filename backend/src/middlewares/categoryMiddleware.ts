@@ -6,9 +6,24 @@ import { MESSAGE } from '../message';
 import { STATUS } from '../errorCode';
 
 class CategoryMiddleware {
-    public async checkIsCategoryExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+    public async checkIsCategoryNameExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const categoryFromDB = await categoryService.getCategoryByName(req.body.name);
+
+            if (categoryFromDB) {
+                next(new ErrorHandler(MESSAGE.CATEGORY_EXIST, STATUS.CODE_404));
+                return;
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    public async checkIsCategoryLogoExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            const categoryFromDB = await categoryService.getCategoryByLogo(req.body.logo);
 
             if (categoryFromDB) {
                 next(new ErrorHandler(MESSAGE.CATEGORY_EXIST, STATUS.CODE_404));

@@ -18,6 +18,12 @@ class CategoryRepository extends Repository<Category> implements ICategoryReposi
             .findOne({ name });
     }
 
+    public async getCategoryByLogo(logo: string): Promise<Category | undefined> {
+        return getManager()
+            .getRepository(Category)
+            .findOne({ logo });
+    }
+
     public async getCategoryById(id: number): Promise<Category | undefined> {
         return getManager()
             .getRepository(Category)
