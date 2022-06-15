@@ -3,6 +3,7 @@ export const MESSAGE = {
     USER_EXIST: 'User is already exists',
     CATEGORY_EXIST: 'Category is already exists',
     PRODUCT_EXIST: 'Product is already exists',
+    PRODUCT_PHOTO_NOT_EXIST: 'Product photo is not provided',
     NOT_CATEGORY: 'Sorry but this category doesn\'t exist',
     NOT_PRODUCT: 'Sorry but this product doesn\'t exist',
     USER_UPDATED: 'User updated',
@@ -12,4 +13,6 @@ export const MESSAGE = {
     NOT_TOKEN: 'Not token',
     TOKEN_NOT_VALID: 'Token not valid',
     LOGOUT_USER: 'Logout',
+    TO_BIG_PHOTO_FILE: 'Photo file if to big',
+    WRONG_FILE_FORMAT: 'Wrong file format',
 };

@@ -15,7 +15,7 @@ class ProductMiddleware {
                 return;
             }
 
-            const productFromDB = await productService.getProductByName(req.body.name);
+            const productFromDB = await productService.getProductByName(req.body.productName);
 
             if (productFromDB) {
                 next(new ErrorHandler(MESSAGE.PRODUCT_EXIST, STATUS.CODE_404));

@@ -11,15 +11,6 @@ export const createProductValidator = Joi.object({
             'string.empty': '"productName" Can not be empty',
             'string.pattern.base': 'Enter only letter min 3 max 30',
         }),
-    productPhoto: Joi.string()
-        .min(3)
-        .max(255)
-        .required()
-        .trim()
-        .messages({
-            'string.empty': '"productPhoto" Can not be empty',
-            'string.pattern.base': 'Enter only letter min 3 max 255',
-        }),
 
     description: Joi.string()
         .min(3)
