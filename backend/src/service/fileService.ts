@@ -1,8 +1,8 @@
-import * as uuid from 'uuid';
 import path from 'path';
+import * as uuid from 'uuid';
 
 class FileService {
-    public async saveFile(file: any) {
+    public async saveFile(file: any):Promise<string> {
         try {
             const fileName = `${uuid.v4()}.jpg`;
             const filePath = path.resolve(__dirname, '../', 'fileDirectory', fileName);
