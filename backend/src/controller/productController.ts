@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
-import { UploadedFile } from 'express-fileupload';
-import * as fs from 'fs';
+import fs from 'fs';
 import path from 'path';
+import { UploadedFile } from 'express-fileupload';
 import { IRequestExtended } from '../interface';
 import { fileService, productService } from '../service';
 
@@ -42,11 +42,10 @@ class ProductController {
 
             const readStream = await fs.createReadStream(path.join(__dirname, '../', 'fileDirectory', productFilePath));
 
-            // eslint-disable-next-line no-buffer-constructor
-            const x = await readStream.on('data', (chunk: Buffer) => new Buffer(chunk).toString('base64url'));
+            const x = await readStream.on('data', (chunk: Buffer) => Buffer.from(chunk)
+                .toString('base64'));
 
-            console.log('asd', x);
-
+            console.log(x);
             // const product = await productService.createProduct({
             //     ...req.body,
             //     productPhoto: productFilePath,
