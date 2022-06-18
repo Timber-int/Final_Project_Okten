@@ -10,6 +10,8 @@ router.get('/', productController.getAllProducts);
 
 router.get('/:id', productController.getProductById);
 
+router.get('/photo/:photo', productMiddleware.checkIsProductPhotoExist, productController.getProductPhoto);
+
 router.post('/',
     (req: IRequestExtended, res: Response, next: NextFunction) => {
         req.chosenValidationType = createProductValidator;

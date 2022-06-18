@@ -7,7 +7,6 @@ class FileService {
             const fileName = `${uuid.v4()}.jpg`;
             const filePath = path.resolve(__dirname, '../', 'fileDirectory', fileName);
             file.mv(filePath);
-            console.log(file);
             return fileName;
         } catch (e: any) {
             throw new Error(e.message);
