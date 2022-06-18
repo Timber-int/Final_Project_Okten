@@ -7,7 +7,8 @@ import { productInformationMiddleware } from '../middlewares/productInformationM
 
 const router = Router();
 
-router.get('/', productInformationController.getAllProductInformation);
+router.get('/',
+    productInformationController.getAllProductInformation);
 router.get('/:id', productInformationController.getProductInformationById);
 router.post('/',
     (req: IRequestExtended, res: Response, next: NextFunction) => {
