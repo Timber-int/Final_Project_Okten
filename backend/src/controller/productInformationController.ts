@@ -7,7 +7,7 @@ class ProductInformationController {
         try {
             const productInformation = await productInformationService.getAllProductInformation();
 
-            res.json(productInformation);
+            res.json({ data: productInformation });
         } catch (e) {
             next(e);
         }

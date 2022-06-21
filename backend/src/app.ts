@@ -14,6 +14,7 @@ const app = express();
 
 app.use(fileUpload());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'fileDirectory')));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cors());

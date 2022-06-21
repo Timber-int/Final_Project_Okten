@@ -1,6 +1,5 @@
 import { NextFunction, Response } from 'express';
 import { UploadedFile } from 'express-fileupload';
-import path from 'path';
 import { IRequestExtended } from '../interface';
 import { fileService, productService } from '../service';
 
@@ -27,7 +26,7 @@ class ProductController {
 
             const product = await productService.getProductById(Number(id));
             //     res.sendFile(product?.productPhoto, { root: `${path.join(__dirname, '../', 'fileDirectory')}` });
-            res.json(product);
+            res.json({ data: product });
         } catch (e) {
             next(e);
         }
@@ -74,15 +73,6 @@ class ProductController {
             const product = await productService.deleteProductById(Number(id));
 
             res.json(product);
-        } catch (e) {
-            next(e);
-        }
-    }
-
-    public async getProductPhoto(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
-        try {
-            const { photo } = req.params;
-            res.sendFile(photo, { root: `${path.join(__dirname, '../', 'fileDirectory')}` });
         } catch (e) {
             next(e);
         }

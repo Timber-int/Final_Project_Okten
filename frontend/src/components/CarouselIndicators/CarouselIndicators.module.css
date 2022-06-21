@@ -1,0 +1,22 @@
+.carousel_indicators {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 1.5em;
+    z-index: 2;
+}
+
+.carousel_indicator_item, .carousel_indicator_item_active {
+    width: 15px;
+    height: 15px;
+    border: none;
+    background: #fff;
+    opacity: 0.5;
+    margin: 0.2em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel_indicator_item_active {
+    opacity: 1;
+}
