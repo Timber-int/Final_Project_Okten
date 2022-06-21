@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components';
-import { ProductDetailsPage, ProductPage, RegistrationPage } from './pages';
+import { DeliveryHardPage, ProductDetailsPage, ProductPage, RegistrationPage } from './pages';
 
 const App = () => {
     return (
@@ -10,6 +10,7 @@ const App = () => {
                 <Route index path={'products'} element={<ProductPage/>}/>
                 <Route path={':id'} element={<ProductDetailsPage/>}/>
                 <Route path={'registration'} element={<RegistrationPage/>}/>
+                <Route path={'deliveryHardPage/:id'} element={<DeliveryHardPage/>}/>
             </Route>
         </Routes>
     );

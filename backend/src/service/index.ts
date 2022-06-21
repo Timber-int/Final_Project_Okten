@@ -7,3 +7,4 @@ export * from './categoryService';
 export * from './productService';
 export * from './productInformationService';
 export * from './fileService';
+export * from './sliderDataService';

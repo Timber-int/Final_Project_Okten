@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { NavLink } from 'react-router-dom';
-import { slides } from '../../constants';
 import css from './Image.module.css';
 
 const Image = ({
@@ -10,11 +9,16 @@ const Image = ({
     startSlide,
 }) => {
 
+    const {
+        pathUrl,
+        id,
+    } = slide;
+
     return (
         <div className={css.carousel_item} onMouseEnter={stopSlide} onMouseOut={startSlide}>
-            {/* <NavLink to={'/deliveryHardPage' + slide}> */}
-                <img className={css.carousel_item_image} src={slide} alt={'image'}/>
-            {/* </NavLink> */}
+            <NavLink to={'/deliveryHardPage/' + id} state={slide}>
+                <img className={css.carousel_item_image} src={pathUrl} alt={'image'}/>
+            </NavLink>
         </div>
     );
 };
