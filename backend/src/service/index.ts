@@ -8,3 +8,4 @@ export * from './productService';
 export * from './productInformationService';
 export * from './fileService';
 export * from './sliderDataService';
+export * from './productIngredientService';

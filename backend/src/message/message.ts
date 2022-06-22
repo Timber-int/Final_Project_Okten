@@ -3,6 +3,7 @@ export const MESSAGE = {
     USER_EXIST: 'User is already exists',
     CATEGORY_EXIST: 'Category is already exists',
     PRODUCT_EXIST: 'Product is already exists',
+    PRODUCT_INGREDIENT_EXIST: 'Product ingredient is already exists',
     PRODUCT_PHOTO_NOT_EXIST: 'Product photo is not provided',
     NOT_CATEGORY: 'Sorry but this category doesn\'t exist',
     NOT_PRODUCT: 'Sorry but this product doesn\'t exist',

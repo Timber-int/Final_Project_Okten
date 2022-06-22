@@ -9,7 +9,7 @@ class CategoryController {
         try {
             const categories = await categoryService.getAllCategories();
 
-            res.json(categories);
+            res.json({ data: categories });
         } catch (e) {
             next(e);
         }

@@ -4,3 +4,4 @@ export * from './authMiddleware';
 export * from './categoryMiddleware';
 export * from './productMiddleware';
 export * from './fileMiddleware';
+export * from './productIngredientMiddleware';

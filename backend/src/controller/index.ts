@@ -4,3 +4,4 @@ export * from './categoryController';
 export * from './productInformationController';
 export * from './productController';
 export * from './sliderDataController';
+export * from './productIngredientController';

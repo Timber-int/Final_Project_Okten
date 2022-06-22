@@ -5,3 +5,4 @@ export * from './categoryRouter';
 export * from './productRouter';
 export * from './productInformationRoute';
 export * from './sliderRouter';
+export * from './productIngredientRouter';

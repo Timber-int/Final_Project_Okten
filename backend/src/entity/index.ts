@@ -6,3 +6,4 @@ export * from './category';
 export * from './product';
 export * from './productInformation';
 export * from './sliderData';
+export * from './ProductIngredient';

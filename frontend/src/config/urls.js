@@ -6,5 +6,7 @@ export const urls = {
     login: '/login',
     products: '/products',
     productInformation: '/productInformation',
+    productIngredients: '/productIngredients',
     sliders: '/sliders',
+    categories: '/categories',
 };

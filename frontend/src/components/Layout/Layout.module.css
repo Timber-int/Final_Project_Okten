@@ -12,10 +12,18 @@
 
 .outlet {
     margin: 0 auto;
+    min-height: 100vh;
     /*background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);*/
 }
 
 .footer{
+    margin-top: 15vh;
+    height: 50vh;
+    background-color: #4a148c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5vh;
 }
 
 

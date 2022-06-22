@@ -14,6 +14,7 @@ const Layout = () => {
                 <Outlet/>
             </div>
             <div className={css.footer}>
+                Hello it's Jonny!!!
             </div>
         </div>
     );
