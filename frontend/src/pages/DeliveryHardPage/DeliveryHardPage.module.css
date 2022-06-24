@@ -1,0 +1,23 @@
+.hard_page_content {
+    margin-top: 10vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image_content{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.image{
+    width: 90%;
+    height: 90%;
+    border-radius: 1vh;
+}
+.text{
+    margin: 5vh;
+    font-size: 32px;
+}

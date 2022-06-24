@@ -11,7 +11,7 @@ const ProductIngredient = ({ productIngredient }) => {
         productPrice,
         productWeight
     } = productIngredient;
-    console.log(productIngredient);
+
     return (
         <div className={css.product_ingredient_box}>
             <div><img className={css.product_ingredient_image} src={baseURL + '/' + productPhoto} alt={productIngredientName}/></div>

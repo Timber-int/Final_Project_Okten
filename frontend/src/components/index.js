@@ -5,7 +5,6 @@ export * from './Product/Product';
 export * from './ProductDetails/ProductDetails';
 export * from './ImageCarousel/ImageCarousel';
 export * from './Image/Image';
-export * from './ImageCarouselControl/ImageCarouselControl';
 export * from './CarouselIndicators/CarouselIndicators';
 export * from './ProductIngredient/ProductIngredient';
 export * from './ProductIngredients/ProductIngredients';
