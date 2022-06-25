@@ -53,7 +53,7 @@ const productSlice = createSlice({
 
             state.products = state.products.map(product => product.id === id ? {
                 ...product,
-                totalCount: count <= 0 ? product.totalCount = count - count : product.totalCount = count,
+                totalCount: count <= 0 ? product.totalCount = count - count + 1 : product.totalCount = count,
                 productPrice: product.productPrice = product.totalCount <= 0 ? 0 : product.defaultPrice * product.totalCount,
             } : product);
 

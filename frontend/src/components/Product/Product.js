@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { baseURL } from '../../config';
-import { productAction } from '../../store';
 import css from './Product.module.css';
 
 const Product = ({ product }) => {
@@ -20,6 +20,8 @@ const Product = ({ product }) => {
         categoryId,
         totalCount,
     } = product;
+
+    console.log(`${id}) ${productName}, --> ${totalCount}`);
 
     return (
         <div className={css.product_box}>
@@ -42,17 +44,7 @@ const Product = ({ product }) => {
             <div className={css.product_footer}>
                 <div><span className={css.product_price}>{productPrice}</span> UAH</div>
                 <div>
-                    <span  className={css.nav_button} onClick={() => dispatch(productAction.minusProductCount({ id }))}>-</span>
-                    <span>
-                    <input  type="number" onChange={event => dispatch(productAction.setProductCount({
-                        id,
-                        count: event.target.value
-                    }))}
-                           className={css.product_order_input}
-                           value={`${totalCount}`}
-                    />
-                    </span>
-                    <span  className={css.nav_button} onClick={() => dispatch(productAction.plusProductCount({ id }))}>+</span>
+                    <OrderComponentButton id={id} totalCount={totalCount}/>
                 </div>
                 <div>
                     <button className={css.product_button}>Order</button>

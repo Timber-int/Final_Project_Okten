@@ -1,0 +1,38 @@
+input[type=number] {
+    -moz-appearance: textfield;
+    outline: none;
+}
+
+input[type=number].product_order_input::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.product_order_input {
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid #000000;
+    text-align: center;
+    justify-content: center;
+    font-size: 38px;
+}
+.product_weight {
+    color: #e53935;
+    font-size: 38px;
+}
+
+.product_price {
+    color: #e53935;
+    font-size: 38px;
+}
+
+.nav_button {
+    color: #e53935;
+    font-size: 38px;
+    margin: 0 10px 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+}

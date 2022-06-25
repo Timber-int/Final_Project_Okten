@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { getAllProductIngredients, getProductInformationById } from '../../store';
 import { baseURL } from '../../config';
+import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import css from './ProductDetails.module.css';
 
 const ProductDetails = () => {
@@ -30,12 +31,16 @@ const ProductDetails = () => {
         productName,
         description,
         productWeight,
+        totalCount,
+        productPrice,
     } = state;
+
+    console.log(state);
 
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
         dispatch(getAllProductIngredients());
-    }, [id]);
+    }, [id,productPrice]);
 
     return (
         <div>
@@ -64,8 +69,10 @@ const ProductDetails = () => {
                             <div>Additional (+)</div>
                         </div>
                         <div>
-                            <div>Amount: -(0)+</div>
-                            <div>Total: 213 UAH</div>
+                            <div>
+                                Amount: <OrderComponentButton id={id} totalCount={totalCount}/>
+                            </div>
+                            <div><span className={css.product_price}>Total: {productPrice}</span> UAH</div>
                         </div>
                     </div>
                 </div>

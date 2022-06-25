@@ -8,3 +8,4 @@ export * from './Image/Image';
 export * from './CarouselIndicators/CarouselIndicators';
 export * from './ProductIngredient/ProductIngredient';
 export * from './ProductIngredients/ProductIngredients';
+export * from './OrderComponentButton/OrderComponentButton';
