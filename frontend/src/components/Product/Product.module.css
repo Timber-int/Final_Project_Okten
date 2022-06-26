@@ -88,11 +88,11 @@ input[type=number] {
     border: none;
     font-size: 38px;
     background-color: #FFD600;
-    color: #ffffff;
+    color: #000000;
     cursor: pointer;
 }
 
 .product_button:hover{
-   background-color: #497BE8;
-    color: #FFD600;
+   background-color: #e53935;
+    color: #ffffff;
 }

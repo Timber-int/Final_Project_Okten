@@ -9,6 +9,7 @@ export class CreateTableProductIngredient1655874671896 implements MigrationInter
         productPhoto VARCHAR(255) NOT NULL,
         productPrice INT CHECK (productPrice >= 0),
         productWeight INT CHECK (productWeight >= 0),
+        status BOOLEAN DEFAULT(false),
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
         deletedAt TIMESTAMP
         )

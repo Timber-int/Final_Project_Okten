@@ -66,6 +66,7 @@ const productSlice = createSlice({
                 totalCount: product.totalCount + 1,
                 productPrice: product.productPrice + product.defaultPrice,
             } : product);
+
         },
         minusProductCount: (state, action) => {
             const id = action.payload.id;

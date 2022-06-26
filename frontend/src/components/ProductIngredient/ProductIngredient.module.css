@@ -1,17 +1,67 @@
-.product_ingredient_box {
+.single_product_ingredient, .single_product_ingredient_active {
     width: 15%;
-    height: 10%;
+    height: 35vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-radius: 5px;
-    padding: 30px;
-    font-size: 34px;
+    align-items: center;
+    border-radius: 20px;
+    transition: 0.5s;
     border: 5px solid #ffffff;
+    padding: 10px;
 }
 
-.product_ingredient_box:hover {
-    border: 5px solid #f9e506;
+.single_product_ingredient:hover {
+    border: 5px solid #FFD600;
+}
+
+.single_product_ingredient_active {
+    border: 5px solid #FFD600;
+}
+
+.product_ingredient_box {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.not_activated {
+    width: 100%;
+    height: 15%;
+    border-radius: 20px;
+}
+
+.product_ingredient_button_box {
+    border-radius: 20px;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.product_ingredient_button_box > div {
+    margin: 20px;
+}
+
+.product_ingredient_delete_button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 100%;
+    cursor: pointer;
+    border: none;
+    background-color: #FFD600;
+    font-weight: bold;
+}
+
+.product_ingredient_delete_button:hover {
+    box-shadow: 0 0 2px 2px #FFD600;
 }
 
 .product_ingredient_box > div {
@@ -22,10 +72,12 @@
 }
 
 .product_ingredient_image {
-    width: 250px;
-    height: 250px;
-    border: 5px;
-    border-radius: 5px;
+    width: 100%;
+    height: 90%;
+    margin: 5px;
+    background-color: #FFD600;
+    border-radius: 20px;
+
 }
 
 .product_ingredient_information {
@@ -39,3 +91,7 @@
     display: flex;
     justify-content: center;
 }
+
+
+
+

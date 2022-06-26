@@ -8,6 +8,7 @@ export interface IProductIngredient {
     productPhoto: string,
     productPrice: number,
     productWeight: number,
+    status: boolean,
 }
 
 @Entity('productingredient', { database: CONSTANTS.DATA_BASE })
@@ -36,4 +37,10 @@ export class ProductIngredient extends DefaultValue implements IProductIngredien
         type: 'int',
     })
         productWeight: number;
+
+    @Column({
+        type: 'boolean',
+        default: false,
+    })
+        status: boolean;
 }

@@ -36,3 +36,6 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: bold;
     cursor: pointer;
 }
+.nav_button:hover {
+    color: #000000;
+}

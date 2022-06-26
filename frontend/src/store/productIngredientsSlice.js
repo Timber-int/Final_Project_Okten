@@ -25,8 +25,30 @@ const productIngredientSlice = createSlice({
         productIngredients: [],
         serverErrors: null,
         status: null,
+        selectedProductIngredients: [],
     },
-    reducers: {},
+    reducers: {
+        setSelectedProductIngredients: (state, action) => {
+            let ingredient = action.payload.ingredient;
+
+            state.productIngredients = state.productIngredients.map(element => element.id === ingredient.id ? {
+                ...element,
+                status: true
+            } : element);
+            console.log(state.productIngredients);
+        },
+
+        deleteChosenSelectedIngredients: (state, action) => {
+            const id = action.payload.id;
+
+            state.productIngredients = state.productIngredients.map(element => element.id === id ? {
+                ...element,
+                status: false
+            } : element);
+            console.log(state.productIngredients);
+            // state.selectedProductIngredients = state.productIngredients.filter(ingredient => ingredient.id !== id);
+        }
+    },
     extraReducers: {
         [getAllProductIngredients.pending]: (state, action) => {
             state.status = CONSTANTS.LOADING;
@@ -46,8 +68,14 @@ const productIngredientSlice = createSlice({
 
 const productIngredientReducer = productIngredientSlice.reducer;
 
-const {} = productIngredientSlice.actions;
+const {
+    setSelectedProductIngredients,
+    deleteChosenSelectedIngredients
+} = productIngredientSlice.actions;
 
-export const productIngredientAction = {};
+export const productIngredientAction = {
+    setSelectedProductIngredients,
+    deleteChosenSelectedIngredients
+};
 
 export default productIngredientReducer;

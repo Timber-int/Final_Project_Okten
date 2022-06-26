@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
+import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { getAllProductIngredients, getProductInformationById } from '../../store';
 import { baseURL } from '../../config';
-import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import css from './ProductDetails.module.css';
 
 const ProductDetails = () => {
@@ -16,6 +16,8 @@ const ProductDetails = () => {
 
     const { productDetails } = useSelector(state => state['productReducer']);
 
+    const { selectedProductIngredients } = useSelector(state => state['productIngredientReducer']);
+
     const { productIngredients } = useSelector(state => state['productIngredientReducer']);
 
     // const {
@@ -24,6 +26,8 @@ const ProductDetails = () => {
     //     productCalories,
     //     productProteins
     // } = productDetails;
+
+    console.log(selectedProductIngredients)
 
     const {
         id,
@@ -35,12 +39,10 @@ const ProductDetails = () => {
         productPrice,
     } = state;
 
-    console.log(state);
-
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
         dispatch(getAllProductIngredients());
-    }, [id,productPrice]);
+    }, [id, productPrice]);
 
     return (
         <div>
@@ -69,10 +71,8 @@ const ProductDetails = () => {
                             <div>Additional (+)</div>
                         </div>
                         <div>
-                            <div>
-                                Amount: <OrderComponentButton id={id} totalCount={totalCount}/>
-                            </div>
-                            <div><span className={css.product_price}>Total: {productPrice}</span> UAH</div>
+                            <div>Amount: {totalCount}</div>
+                            <div>Total: {productPrice} UAH</div>
                         </div>
                     </div>
                 </div>

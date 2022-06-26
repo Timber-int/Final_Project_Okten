@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
@@ -7,8 +6,6 @@ import { baseURL } from '../../config';
 import css from './Product.module.css';
 
 const Product = ({ product }) => {
-
-    const dispatch = useDispatch();
 
     const {
         productName,
@@ -20,8 +17,6 @@ const Product = ({ product }) => {
         categoryId,
         totalCount,
     } = product;
-
-    console.log(`${id}) ${productName}, --> ${totalCount}`);
 
     return (
         <div className={css.product_box}>
