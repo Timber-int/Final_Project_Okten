@@ -26,27 +26,35 @@ const productIngredientSlice = createSlice({
         serverErrors: null,
         status: null,
         selectedProductIngredients: [],
+        selectedProductIngredientsTotalCount: 0,
     },
     reducers: {
         setSelectedProductIngredients: (state, action) => {
             let ingredient = action.payload.ingredient;
 
+            state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount + ingredient.productPrice;
+
             state.productIngredients = state.productIngredients.map(element => element.id === ingredient.id ? {
                 ...element,
                 status: true
             } : element);
-            console.log(state.productIngredients);
+
+            state.selectedProductIngredients.push(ingredient);
         },
 
         deleteChosenSelectedIngredients: (state, action) => {
             const id = action.payload.id;
 
+            const ingredient = state.productIngredients.find(element => element.id === id);
+
+            state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount - ingredient.productPrice;
+
             state.productIngredients = state.productIngredients.map(element => element.id === id ? {
                 ...element,
                 status: false
             } : element);
-            console.log(state.productIngredients);
-            // state.selectedProductIngredients = state.productIngredients.filter(ingredient => ingredient.id !== id);
+
+            state.selectedProductIngredients = state.selectedProductIngredients.filter(ingredient => ingredient.id !== id);
         }
     },
     extraReducers: {

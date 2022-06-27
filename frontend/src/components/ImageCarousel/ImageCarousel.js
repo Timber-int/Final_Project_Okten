@@ -3,14 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Image } from '../Image/Image';
 import { CarouselIndicators } from '../CarouselIndicators/CarouselIndicators';
 import css from './ImageCarousel.module.css';
-import { useSelector } from 'react-redux';
+import { slides } from '../../constants';
 
 const ImageCarousel = ({
         interval = 3000,
         indicators = false,
     }) => {
-
-        const { slides } = useSelector(state => state['sliderReducer']);
 
         const slideInterval = useRef();
 

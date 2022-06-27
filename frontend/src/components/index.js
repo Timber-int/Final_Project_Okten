@@ -9,3 +9,5 @@ export * from './CarouselIndicators/CarouselIndicators';
 export * from './ProductIngredient/ProductIngredient';
 export * from './ProductIngredients/ProductIngredients';
 export * from './OrderComponentButton/OrderComponentButton';
+export * from './SelectedProductIngredients/SelectedProductIngredients';
+export * from './SelectedIngredient/SelectedIngredient';

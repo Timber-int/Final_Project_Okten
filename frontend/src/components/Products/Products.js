@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Product } from '../Product/Product';
-import { getAllProducts, getAllSliders } from '../../store';
+import { getAllProducts } from '../../store';
 import css from './Product.module.css';
 import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
 
@@ -14,7 +14,6 @@ const Products = () => {
 
     useEffect(() => {
         dispatch(getAllProducts());
-        dispatch(getAllSliders());
     }, []);
 
     return (
@@ -22,6 +21,10 @@ const Products = () => {
             <div className={css.product_carousel}>
                 <ImageCarousel controls indicators/>
             </div>
+
+            <h1 className={css.products_text}>
+                Піца
+            </h1>
 
             <div className={css.product_container}>
                 {products.map(product => <Product key={product.id} product={product}/>)}

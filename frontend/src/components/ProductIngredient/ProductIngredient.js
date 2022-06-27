@@ -33,10 +33,10 @@ const ProductIngredient = ({ productIngredient }) => {
                         Added:
                     </div>
                     <div>
-                        <button className={css.product_ingredient_delete_button} onClick={() => deleteChosenIngredient(id)}>X</button>
+                        <button className={css.product_ingredient_delete_button} onClick={() => deleteChosenIngredient(id)}>✖</button>
                     </div>
                 </div> : <div className={css.not_activated}/>}
-            <div className={css.product_ingredient_box}
+            <div className={status === true ? css.product_ingredient_box_active : css.product_ingredient_box}
                  onClick={() => choseIngredient(productIngredient)}>
                 <div>
                     <img className={css.product_ingredient_image} src={baseURL + '/' + productPhoto} alt={productIngredientName}/>

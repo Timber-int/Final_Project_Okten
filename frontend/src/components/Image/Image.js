@@ -10,14 +10,14 @@ const Image = ({
 }) => {
 
     const {
-        pathUrl,
         id,
+        image,
     } = slide;
 
     return (
         <div className={css.carousel_item} onMouseEnter={stopSlide} onMouseOut={startSlide}>
             <NavLink to={'/deliveryHardPage/' + id} state={slide}>
-                <img className={css.carousel_item_image} src={pathUrl} alt={'image'}/>
+                <img className={css.carousel_item_image} src={image} alt={'image'}/>
             </NavLink>
         </div>
     );
