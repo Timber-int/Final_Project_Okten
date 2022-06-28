@@ -18,6 +18,7 @@ router.post('/',
     dataValidatorMiddleware.dataValidator,
     productMiddleware.checkIsProductExist,
     fileMiddleware.checkIsProductPhotoFileExist,
+    fileMiddleware.checkIsProductBigPhotoFileExist,
     productController.createProduct);
 
 router.put('/:id',

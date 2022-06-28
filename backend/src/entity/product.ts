@@ -11,6 +11,7 @@ export interface IProduct {
     productName: string,
     productPhoto: string,
     description: string,
+    productBigPhoto: string,
     productPrice: number,
     productWeight: number,
     categoryId: number,
@@ -33,6 +34,13 @@ export class Product extends DefaultValue implements IProduct {
         nullable: false,
     })
         productPhoto: string;
+
+    @Column({
+        type: 'varchar',
+        width: 255,
+        nullable: false,
+    })
+        productBigPhoto: string;
 
     @Column({
         type: 'varchar',

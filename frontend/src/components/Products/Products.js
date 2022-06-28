@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Product } from '../Product/Product';
+import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
 import { getAllProducts } from '../../store';
 import css from './Product.module.css';
-import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
 
 const Products = () => {
 

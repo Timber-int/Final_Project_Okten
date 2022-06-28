@@ -1,0 +1,27 @@
+.carousel_control_left_not_active, .carousel_control_left_active, .carousel_control_right_not_active, .carousel_control_right_active {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    display: inline-block;
+    position: absolute;
+    height: 50px;
+    width: 70px;
+    top: calc(50% - 25px);
+    color: #f3f3f3;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.carousel_control_right_not_active, .carousel_control_left_not_active {
+    pointer-events: none;
+    background-color: rgba(236, 240, 241, 0.7);
+
+    color: #0E0E0E;
+}
+
+.carousel_control_right_not_active, .carousel_control_right_active {
+    right: 0;
+}
+
+.carousel_control_left_not_active, .carousel_control_left_active {
+    left: 0;
+}

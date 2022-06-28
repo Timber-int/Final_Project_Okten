@@ -76,7 +76,7 @@ const productSlice = createSlice({
                 totalCount: product.totalCount === 1 || product.totalCount <= 0 ? 1 : product.totalCount - 1,
                 productPrice: product.totalCount === 1 || product.totalCount <= 0 ? product.defaultPrice : product.productPrice - product.defaultPrice,
             } : product);
-        }
+        },
     },
     extraReducers: {
         [getAllProducts.pending]: (state, action) => {
@@ -121,13 +121,14 @@ const productReducer = productSlice.reducer;
 const {
     plusProductCount,
     minusProductCount,
-    setProductCount
+    setProductCount,
+
 } = productSlice.actions;
 
 export const productAction = {
     plusProductCount,
     minusProductCount,
-    setProductCount
+    setProductCount,
 };
 
 export default productReducer;

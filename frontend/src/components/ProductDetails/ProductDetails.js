@@ -1,20 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
-import { getAllProductIngredients, getProductInformationById } from '../../store';
-import { baseURL } from '../../config';
-import css from './ProductDetails.module.css';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
+import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
+import { getAllProductIngredients, getProductInformationById } from '../../store';
+import css from './ProductDetails.module.css';
 
 const ProductDetails = () => {
+
+    const [carouselArray, setCarouselArray] = useState([]);
 
     const { state } = useLocation();
 
     const dispatch = useDispatch();
 
-    const { productDetails } = useSelector(state => state['productReducer']);
+    const {
+        productDetails,
+    } = useSelector(state => state['productReducer']);
 
     const { selectedProductIngredientsTotalCount } = useSelector(state => state['productIngredientReducer']);
 
@@ -23,6 +27,7 @@ const ProductDetails = () => {
     const {
         id,
         productPhoto,
+        productBigPhoto,
         productName,
         description,
         productWeight,
@@ -33,6 +38,7 @@ const ProductDetails = () => {
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
         dispatch(getAllProductIngredients());
+        setCarouselArray([productPhoto, productBigPhoto]);
     }, [id, productPrice]);
 
     const moveToIngredients = () => {
@@ -43,8 +49,9 @@ const ProductDetails = () => {
         <div className={css.product_details_container}>
             <div className={css.details_container}>
                 <div className={css.product_details_photo_container}>
-                    <img className={css.product_photo} src={baseURL + '/' + productPhoto} alt={productName}/>
+                    <ProductImageCarousel carouselArray={carouselArray}/>
                 </div>
+
                 <div className={css.product_details_all_information}>
                     <div className={css.content}>
                         <div className={css.product_details_name}>{productName}</div>
@@ -92,7 +99,7 @@ const ProductDetails = () => {
                         <div className={css.product_details_order_container}>
                             <div>
                                 <div className={css.add_ingredients} onClick={() => moveToIngredients()}>
-                                    <span className={css.add_ingredient_button} >+</span>
+                                    <span className={css.add_ingredient_button}>+</span>
                                     <span>Додати складники</span>
                                 </div>
                                 <div>

@@ -35,8 +35,10 @@ class ProductController {
     public async createProduct(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const productPhoto = req.files?.productPhoto as UploadedFile;
+            const productBigPhoto = req.files?.productBigPhoto as UploadedFile;
 
             const productFilePath = await fileService.saveFile(productPhoto);
+            const productBigFilePath = await fileService.saveFile(productBigPhoto);
             // const readStream = await fs.createReadStream(path.join(__dirname, '../', 'fileDirectory', productFilePath));
             //
             // const x = await readStream.on('data', (chunk: Buffer) => Buffer.from(chunk)
@@ -46,6 +48,7 @@ class ProductController {
             const product = await productService.createProduct({
                 ...req.body,
                 productPhoto: productFilePath,
+                productBigPhoto: productBigFilePath,
             });
 
             res.json(product);

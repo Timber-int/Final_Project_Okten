@@ -6,7 +6,7 @@ export const createProductValidator = Joi.object({
         .min(3)
         .max(30)
         .required()
-        .regex(CONSTANTS.NAME_REGEX)
+        // .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"productName" Can not be empty',
             'string.pattern.base': 'Enter only letter min 3 max 30',

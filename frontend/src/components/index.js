@@ -11,3 +11,5 @@ export * from './ProductIngredients/ProductIngredients';
 export * from './OrderComponentButton/OrderComponentButton';
 export * from './SelectedProductIngredients/SelectedProductIngredients';
 export * from './SelectedIngredient/SelectedIngredient';
+export * from './ProductImageCarousel/ProductImageCarousel';
+export * from './ProductImageCarouselControl/ProductImageCarouselControl';

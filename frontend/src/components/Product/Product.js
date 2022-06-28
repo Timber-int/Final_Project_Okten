@@ -1,11 +1,15 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { baseURL } from '../../config';
 import css from './Product.module.css';
+import { orderAction } from '../../store';
 
 const Product = ({ product }) => {
+
+    const dispatch = useDispatch();
 
     const {
         productName,
@@ -17,6 +21,16 @@ const Product = ({ product }) => {
         categoryId,
         totalCount,
     } = product;
+
+    const createOrder = (productPrice, product, id) => {
+        dispatch(orderAction.setTotalOrderCount({
+            productData: {
+                productPrice,
+                product,
+                id,
+            }
+        }));
+    };
 
     return (
         <div className={css.product_box}>
@@ -57,7 +71,7 @@ const Product = ({ product }) => {
                 </div>
                 <div><OrderComponentButton id={id} totalCount={totalCount}/></div>
                 <div>
-                    <button className={css.product_order_button}>Order</button>
+                    <button className={css.product_order_button} onClick={() => createOrder(productPrice, product, id)}>Замовити</button>
                 </div>
             </div>
         </div>
