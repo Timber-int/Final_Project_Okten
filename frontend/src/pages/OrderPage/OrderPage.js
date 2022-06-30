@@ -77,12 +77,18 @@ const OrderPage = () => {
                                         </label>
                                     </div>
                                     <div className={css.chosen_order_client_name_box}>
-                                        <input type="text" placeholder={'Ваше ім`я*'} {...register('firstName')}
-                                               className={css.chosen_order_client_name_input}/>
+                                        <input type="text" {...register('firstName')}
+                                               className={css.chosen_order_client_name_input}
+                                               required={true}
+                                        />
+                                        <label>Ваше ім`я*</label>
                                     </div>
                                     <div className={css.chosen_order_client_telephone_box}>
-                                        <input type="text" placeholder={'Телефон*'}{...register('telephone')}
-                                               className={css.chosen_order_client_telephone_input}/>
+                                        <input type="text" {...register('telephone')}
+                                               className={css.chosen_order_client_telephone_input}
+                                               required={true}
+                                        />
+                                        <label>Телефон*</label>
                                     </div>
                                     <div className={css.checked_registration_block}>
                                         Ви не зареєстровані, увійдіть щоб використати бонуси.
@@ -94,53 +100,71 @@ const OrderPage = () => {
                                                 ?
                                                 <div className={css.first_data_type}>
                                                     <div className={css.chosen_order_client_city_box}>
-                                                        <input type="text" placeholder={'Місто*'}{...register('city')}
+                                                        <input type="text" {...register('city')}
                                                                className={css.chosen_order_client_city_input}
+                                                               required={true}
                                                         />
+                                                        <label>Місто*</label>
                                                     </div>
                                                     <div className={css.address_details_box}>
                                                         <div className={css.address_details_box_first_block}>
-                                                            <input type="text" placeholder={'Вулиця*'}{...register('street')}
+                                                            <input type="text" {...register('street')}
                                                                    className={css.chosen_order_client_street_input}
+                                                                   required={true}
                                                             />
+                                                            <label>Вулиця*</label>
                                                         </div>
                                                         <div className={css.address_details_box_second_block}>
-                                                            <input type="text" placeholder={'№ будинку*'}{...register('houseNumber')}
+                                                            <input type="text" {...register('houseNumber')}
                                                                    className={css.chosen_order_client_house_input}
+                                                                   required={true}
                                                             />
+                                                            <label>№ будинку*</label>
                                                         </div>
                                                     </div>
                                                     <div className={css.order_comment}>
-                                                        <input type="text" placeholder={'Коментар до замовлення'}{...register('orderComment')}
+                                                        <input type="text"{...register('orderComment')}
                                                                className={css.chosen_order_client_order_comment_input}
+                                                               required={true}
                                                         />
+                                                        <label>Коментар до замовлення</label>
                                                     </div>
                                                     <div className={css.address_information_box}>
                                                         <div className={css.address_details_block_first}>
-                                                            <input type="text" placeholder={'Під\'їзд'}{...register('entrance')}
+                                                            <input type="text" {...register('entrance')}
                                                                    className={css.chosen_order_client_entrance_input}
+                                                                   required={true}
                                                             />
+                                                            <label>Під'їзд</label>
                                                         </div>
                                                         <div className={css.address_details_block_second}>
-                                                            <input type="text" placeholder={'Поверх'}{...register('flour')}
+                                                            <input type="text"{...register('flour')}
                                                                    className={css.chosen_order_client_flour_input}
+                                                                   required={true}
                                                             />
+                                                            <label>Поверх</label>
                                                         </div>
                                                         <div className={css.address_details_block_third}>
-                                                            <input type="text" placeholder={'Кв.\\ офіс'}{...register('office')}
+                                                            <input type="text" {...register('office')}
                                                                    className={css.chosen_order_client_office_input}
+                                                                   required={true}
                                                             />
+                                                            <label>Кв.\ офіс</label>
                                                         </div>
                                                         <div className={css.address_details_block_four}>
-                                                            <input type="text" placeholder={'Домофон'}{...register('intercom')}
+                                                            <input type="text" {...register('intercom')}
                                                                    className={css.chosen_order_client_intercom_input}
+                                                                   required={true}
                                                             />
+                                                            <label>Домофон</label>
                                                         </div>
                                                     </div>
                                                     <div className={css.order_comment}>
-                                                        <input type="text" placeholder={'Коментар до адреси'}{...register('addressComment')}
+                                                        <input type="text"{...register('addressComment')}
                                                                className={css.chosen_order_client_order_comment_input}
+                                                               required={true}
                                                         />
+                                                        <label>Коментар до адреси</label>
                                                     </div>
                                                     <div className={css.map_container}>
 
@@ -152,9 +176,11 @@ const OrderPage = () => {
                                                         value
                                                     </div>
                                                     <div className={css.order_comment}>
-                                                        <input type="text" placeholder={'Коментар до замовлення'}{...register('orderComment')}
+                                                        <input type="text"{...register('orderComment')}
                                                                className={css.chosen_order_client_order_comment_input}
+                                                               required={true}
                                                         />
+                                                        <label>Коментар до замовлення</label>
                                                     </div>
                                                 </div>
                                         }
