@@ -14,6 +14,7 @@ const Product = ({ product }) => {
     const {
         productName,
         productPhoto,
+        productBigPhoto,
         productPrice,
         productWeight,
         description,
@@ -36,7 +37,10 @@ const Product = ({ product }) => {
         <div className={css.product_box}>
             <div className={css.product_box_header}>
                 <NavLink to={'/' + id} state={product} className={css.product_box_header_first_content}>
-                    <div><img className={css.product_photo} src={baseURL + '/' + productPhoto} alt={productName}/></div>
+                    <div className={css.images_container}>
+                        <img className={css.product_photo_one} src={baseURL + '/' + productPhoto} alt={productName}/>
+                        <img className={css.product_photo_two} src={baseURL + '/' + productBigPhoto} alt={productName}/>
+                    </div>
                     <div className={css.product_name}>{productName}</div>
                 </NavLink>
                 <div className={css.product_small_information}>

@@ -1,0 +1,313 @@
+.order_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.order_header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20vh;
+    font-size: 4.5vh;
+    font-weight: bold;
+    height: 7vh;
+    background-color: #e8e8e8;
+}
+
+.order_details_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10vh;
+}
+
+.first_block {
+    width: 45%;
+    padding: 0.5vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    margin: 1%;
+}
+
+.second_block {
+    width: 45%;
+    padding: 0.5vh;
+    margin: 1%;
+}
+
+.delivery_method {
+    width: 80%;
+    height: 4vh;
+    background-color: #e8e8e8;
+    display: flex;
+    align-items: center;
+}
+
+.delivery_method_text {
+    margin-left: 5%;
+    font-size: 2vh;
+}
+
+.chosen_order_type {
+    width: 80%;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2vh;
+}
+
+.chosen_order_type > label {
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.chosen_order_type_check_box {
+    transform: scale(2.5);
+    cursor: pointer;
+}
+
+.chosen_order_type_name {
+    font-size: 2.5vh;
+    margin-left: 10%;
+}
+
+.chosen_order_client_name_box, .chosen_order_client_telephone_box {
+    width: 80%;
+    height: 5.5vh;
+    margin-top: 3vh;
+}
+
+.chosen_order_client_name_input, .chosen_order_client_telephone_input {
+    width: 97%;
+    height: 100%;
+    font-size: 24px;
+    padding-left: 3%;
+    border: 1px solid #e8e8e8;
+    transition: 1s;
+}
+
+.chosen_order_client_name_input:hover, .chosen_order_client_telephone_input:hover {
+    border: 1px solid #0E0E0E;
+}
+
+.checked_registration_block {
+    width: 80%;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    margin-top: 0.5vh;
+}
+
+.chosen_order_type_data {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2vh;
+}
+
+.first_data_type {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.chosen_order_client_city_box {
+    width: 100%;
+    height: 5.5vh;
+    margin-top: 1vh;
+}
+
+.chosen_order_client_city_input {
+    width: 97%;
+    height: 100%;
+    font-size: 24px;
+    padding-left: 3%;
+    border: 1px solid #e8e8e8;
+    transition: 1s;
+}
+
+.chosen_order_client_city_input:hover {
+    border: 1px solid #0E0E0E;
+}
+
+.address_details_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 5.5vh;
+    margin-top: 3vh;
+}
+
+.address_details_box_first_block {
+    width: 65%;
+    height: 100%;
+}
+
+.address_details_box_second_block {
+    width: 30%;
+    height: 100%;
+}
+
+.chosen_order_client_street_input {
+    width: 95%;
+    height: 100%;
+    padding-left: 5%;
+    font-size: 24px;
+    border: 1px solid #e8e8e8;
+    transition: 1s;
+}
+
+.chosen_order_client_house_input {
+    width: 90%;
+    height: 100%;
+    padding-left: 10%;
+    font-size: 24px;
+    border: 1px solid #e8e8e8;
+    transition: 1s;
+}
+
+.chosen_order_client_street_input:hover, .chosen_order_client_house_input:hover {
+    border: 1px solid #0E0E0E;
+}
+
+.order_comment {
+    width: 100%;
+    height: 15vh;
+    margin-top: 3vh;
+}
+
+.chosen_order_client_order_comment_input {
+    width: 97%;
+    height: 100%;
+    padding-left: 3%;
+    font-size: 24px;
+    border: 1px solid #e8e8e8;
+    transition: 1s;
+}
+
+.chosen_order_client_order_comment_input:hover {
+    border: 1px solid #0E0E0E;
+}
+
+.address_information_box {
+    width: 100%;
+    height: 5.5vh;
+    margin-top: 3vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.address_information_box > div {
+    width: 20%;
+    height: 100%;
+}
+
+.chosen_order_client_entrance_input,
+.chosen_order_client_flour_input,
+.chosen_order_client_office_input,
+.chosen_order_client_intercom_input {
+    width: 90%;
+    height: 100%;
+    padding-left: 10%;
+    font-size: 24px;
+    border: 1px solid #e8e8e8;
+    transition: 1s;
+}
+
+.address_details_block_first {
+    margin-right: 3.5%;
+}
+
+.address_details_block_second {
+    margin: 0 3.5% 0 3%;
+}
+
+.address_details_block_third {
+    margin: 0 3% 0 3.5%;
+}
+
+.address_details_block_four {
+    margin-left: 3.5%;
+}
+
+.map_container {
+    width: 100%;
+    height: 50vh;
+    margin-top: 3vh;
+    border: 1px solid #0E0E0E;
+}
+
+.second_data_type {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.address_self_pickup {
+    width: 100%;
+    height: 5.5vh;
+    margin-top: 3vh;
+    border: 1px solid #e8e8e8;
+}
+
+.third_data_type {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.shop_is_closed {
+    margin-top: 15vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    min-height: 80vh;
+}
+
+.not_order_container {
+    margin-top: 15vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 36px;
+    font-weight: bold;
+    min-height: 80vh;
+}
+
+.bucket_empty{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 90px;
+}
+.back_to_menu{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
+.content{
+    width: 100%;
+}

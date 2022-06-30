@@ -6,6 +6,7 @@ const orderSlice = createSlice({
         totalOrderCount: 0,
         chosenProduct: {},
         chosenProductIdArray: [],
+        usedOrderType: ''
     },
     reducers: {
         setTotalOrderCount: (state, action) => {
@@ -23,14 +24,24 @@ const orderSlice = createSlice({
 
             state.totalOrderCount = state.totalOrderCount + productPrice;
 
+        },
+        setOrderType: (state, action) => {
+            state.usedOrderType = action.payload.orderType;
+
         }
     },
 });
 
 const orderReducer = orderSlice.reducer;
 
-const { setTotalOrderCount } = orderSlice.actions;
+const {
+    setTotalOrderCount,
+    setOrderType
+} = orderSlice.actions;
 
-export const orderAction = { setTotalOrderCount };
+export const orderAction = {
+    setTotalOrderCount,
+    setOrderType
+};
 
 export default orderReducer;
