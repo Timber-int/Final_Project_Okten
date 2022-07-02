@@ -25,7 +25,8 @@ const productIngredientSlice = createSlice({
         productIngredients: [],
         serverErrors: null,
         status: null,
-        selectedProductIngredients: [],
+        selectedProductIngredients: {},
+        selectedProductIngredientsId: [],
         selectedProductIngredientsTotalCount: 0,
     },
     reducers: {
@@ -39,7 +40,11 @@ const productIngredientSlice = createSlice({
                 status: true
             } : element);
 
-            state.selectedProductIngredients.push(ingredient);
+            if (!state.selectedProductIngredientsId.includes(ingredient.id)) {
+                state.selectedProductIngredientsId.push(ingredient.id);
+            }
+
+            state.selectedProductIngredients = Object.assign(state.selectedProductIngredients, { [ingredient.id]: ingredient });
         },
 
         deleteChosenSelectedIngredients: (state, action) => {
@@ -54,8 +59,13 @@ const productIngredientSlice = createSlice({
                 status: false
             } : element);
 
-            state.selectedProductIngredients = state.selectedProductIngredients.filter(ingredient => ingredient.id !== id);
-        }
+            state.selectedProductIngredientsId = state.selectedProductIngredientsId.filter(selectedId => selectedId !== id);
+        },
+
+        clearSelectedIngredientsArray: (state, action) => {
+            state.selectedProductIngredients = {};
+            state.selectedProductIngredientsTotalCount = 0;
+        },
     },
     extraReducers: {
         [getAllProductIngredients.pending]: (state, action) => {
@@ -78,12 +88,14 @@ const productIngredientReducer = productIngredientSlice.reducer;
 
 const {
     setSelectedProductIngredients,
-    deleteChosenSelectedIngredients
+    deleteChosenSelectedIngredients,
+    clearSelectedIngredientsArray
 } = productIngredientSlice.actions;
 
 export const productIngredientAction = {
     setSelectedProductIngredients,
-    deleteChosenSelectedIngredients
+    deleteChosenSelectedIngredients,
+    clearSelectedIngredientsArray
 };
 
 export default productIngredientReducer;

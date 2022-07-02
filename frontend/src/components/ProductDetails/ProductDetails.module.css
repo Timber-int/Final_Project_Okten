@@ -10,7 +10,13 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-
+.product_ingredients_text{
+    width: 100%;
+    font-size: 80px;
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+}
 .details_container {
     width: 100%;
     display: flex;
@@ -201,4 +207,36 @@
 .order_button:hover {
     color: #ffffff;
     background-color: #e53935;
+}
+
+.counter_box {
+    width: 100%;
+}
+
+.counter_box > span {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.price_box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.price_box > span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+.price{
+    display: flex;
+    justify-content: right;
+    padding-right: 5%;
+    font-size: 32px;
+    color: #e53935;
 }

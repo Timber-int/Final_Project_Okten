@@ -5,19 +5,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
-import { getAllProductIngredients, getProductInformationById } from '../../store';
+import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
+import { getAllProductIngredients, getProductInformationById, orderAction } from '../../store';
 import css from './ProductDetails.module.css';
 
 const ProductDetails = () => {
 
     const [carouselArray, setCarouselArray] = useState([]);
 
-    const { state } = useLocation();
+    const [product, setProduct] = useState([]);
+
+    const { state: singleProduct } = useLocation();
 
     const dispatch = useDispatch();
 
     const {
         productDetails,
+        products,
     } = useSelector(state => state['productReducer']);
 
     const { selectedProductIngredientsTotalCount } = useSelector(state => state['productIngredientReducer']);
@@ -33,16 +37,27 @@ const ProductDetails = () => {
         productWeight,
         totalCount,
         productPrice,
-    } = state;
+    } = singleProduct;
 
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
         dispatch(getAllProductIngredients());
         setCarouselArray([productPhoto, productBigPhoto]);
-    }, [id, productPrice]);
+        setProduct(products.find(product => product.id === id));
+    }, [id, products]);
 
     const moveToIngredients = () => {
-        window.scroll(0, 1000);
+        window.scroll(0, 800);
+    };
+
+    const createOrder = (productPrice, product, id) => {
+        dispatch(orderAction.setTotalOrderCount({
+            productData: {
+                productPrice,
+                product,
+                id,
+            }
+        }));
     };
 
     return (
@@ -107,18 +122,32 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                             <div>
-                                <div>3</div>
-                                <div>4</div>
+                                <div className={css.counter_box}>
+                                    <span>Кількість:</span>
+                                    <span className={css.counter}>
+                                        <OrderComponentButton totalCount={product ? product.totalCount : totalCount} id={id}/>
+                                    </span>
+                                </div>
+                                <div className={css.price_box}>
+                                    <span>Всього:</span>
+                                    <span className={css.price}>{product ? product.productPrice : productPrice}</span>
+                                    <span>грн</span>
+                                </div>
                             </div>
                         </div>
-                        <SelectedProductIngredients/>
+                        <div>
+                            <SelectedProductIngredients/>
+                        </div>
                         <div className={css.order_button_container}>
-                            <button className={css.order_button}>Додати у кошик</button>
+                            <button className={css.order_button}
+                                    onClick={() => createOrder(product ? product.productPrice : productPrice, singleProduct, id)}>Додати у кошик
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className={css.product_ingredients_container}>
+                <div className={css.product_ingredients_text}>Додатки до піци</div>
                 <ProductIngredients productIngredients={productIngredients}/>
             </div>
         </div>

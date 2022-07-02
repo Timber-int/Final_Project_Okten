@@ -6,13 +6,17 @@ import css from './SelectedProductIngredients.module.css';
 
 const SelectedProductIngredients = () => {
 
-    const { selectedProductIngredients } = useSelector(state => state['productIngredientReducer']);
+    const {
+        selectedProductIngredients,
+        selectedProductIngredientsId
+    } = useSelector(state => state['productIngredientReducer']);
 
     return (
         <div className={css.selected_product_ingredients_container}>
             {
-                selectedProductIngredients && selectedProductIngredients.map(selectedIngredient => <SelectedIngredient
-                    key={selectedIngredient.id} selectedIngredient={selectedIngredient}/>)
+                selectedProductIngredients && selectedProductIngredientsId && selectedProductIngredientsId.map(selectedId => <SelectedIngredient
+                    key={selectedId} selectedIngredient={selectedProductIngredients[selectedId]}
+                />)
             }
         </div>
     );

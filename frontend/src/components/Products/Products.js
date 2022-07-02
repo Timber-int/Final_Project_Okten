@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Product } from '../Product/Product';
 import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
-import { getAllProducts } from '../../store';
+import { getAllProducts, productIngredientAction } from '../../store';
 import css from './Product.module.css';
 
 const Products = () => {
@@ -14,6 +14,7 @@ const Products = () => {
 
     useEffect(() => {
         dispatch(getAllProducts());
+        dispatch(productIngredientAction.clearSelectedIngredientsArray())
     }, []);
 
     return (
