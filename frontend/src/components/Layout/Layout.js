@@ -6,10 +6,13 @@ import { useSelector } from 'react-redux';
 
 const Layout = () => {
 
-    const { totalOrderCount } = useSelector(state => state['orderReducer']);
+    const {
+        totalOrderCount,
+        usedOrderType
+    } = useSelector(state => state['orderReducer']);
 
     useEffect(() => {
-    }, [totalOrderCount]);
+    }, [totalOrderCount, usedOrderType]);
 
     return (
         <div>
@@ -20,10 +23,16 @@ const Layout = () => {
                     <div className={css.order_content}>
                         <div>
                             <img className={css.basket_image}
-                                  src={'https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/shopping-cart.svg'} alt="basket"/>
+                                 src={'https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/shopping-cart.svg'} alt="basket"/>
                         </div>
                         <div>
-                            <span className={css.total_count}>{totalOrderCount}</span>
+                            <span className={css.total_count}>
+                                {
+                                    usedOrderType === 'selfPickup'
+                                        ? Math.trunc(totalOrderCount - totalOrderCount * 15 / 100)
+                                        : totalOrderCount
+                                }
+                            </span>
                             <span>грн</span>
                         </div>
                     </div>

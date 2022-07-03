@@ -13,3 +13,5 @@ export * from './SelectedProductIngredients/SelectedProductIngredients';
 export * from './SelectedIngredient/SelectedIngredient';
 export * from './ProductImageCarousel/ProductImageCarousel';
 export * from './ProductImageCarouselControl/ProductImageCarouselControl';
+export * from './OrderTypeSelfPickup/OrderTypeSelfPickup';
+export * from './OrderTypeShopDelivery/OrderTypeShopDelivery';

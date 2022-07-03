@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { CONSTANTS } from '../constants';
 
-export const orderCardValidator = Joi.object({
+export const orderCardValidatorShopDeliver = Joi.object({
     firstName: Joi.string()
         .alphanum()
         .min(3)
@@ -19,6 +19,13 @@ export const orderCardValidator = Joi.object({
         .trim()
         .messages({
             'string.pattern.base': 'Email not valid',
+        }),
+    telephone: Joi.string()
+        .regex(CONSTANTS.PHONE_REGEXP)
+        .required()
+        .trim()
+        .messages({
+            'string.pattern.base': 'telephone not valid',
         }),
     street: Joi.string()
         .alphanum()
@@ -91,5 +98,48 @@ export const orderCardValidator = Joi.object({
         .messages({
             'string.empty': '"addressComment" Can not be empty',
             'string.pattern.base': 'addressComment not valid',
+        }),
+});
+export const orderCardValidatorCustomerDeliver = Joi.object({
+    firstName: Joi.string()
+        .alphanum()
+        .min(3)
+        .max(30)
+        .trim()
+        .required()
+        .regex(CONSTANTS.NAME_REGEX)
+        .messages({
+            'string.empty': '"firstName" Can not be empty',
+            'string.pattern.base': 'Enter only letter min 3 max 30',
+        }),
+    email: Joi.string()
+        .regex(CONSTANTS.EMAIL_REGEXP)
+        .required()
+        .trim()
+        .messages({
+            'string.pattern.base': 'Email not valid',
+        }),
+    telephone: Joi.string()
+        .regex(CONSTANTS.PHONE_REGEXP)
+        .required()
+        .trim()
+        .messages({
+            'string.pattern.base': 'telephone not valid',
+        }),
+    address: Joi.string()
+        .alphanum()
+        .min(3)
+        .max(100)
+        .required()
+        .messages({
+            'string.empty': '"City" Can not be empty',
+            'string.pattern.base': 'City not valid',
+        }),
+    orderComment: Joi.string()
+        .min(0)
+        .max(1000000)
+        .messages({
+            'string.empty': '"orderComment" Can not be empty',
+            'string.pattern.base': 'orderComment not valid',
         }),
 });
