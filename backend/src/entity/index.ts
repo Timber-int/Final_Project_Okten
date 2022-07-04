@@ -6,3 +6,5 @@ export * from './category';
 export * from './product';
 export * from './productInformation';
 export * from './productIngredient';
+export * from './city';
+export * from './cityAddress';

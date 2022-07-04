@@ -5,3 +5,5 @@ export * from './categoryMiddleware';
 export * from './productMiddleware';
 export * from './fileMiddleware';
 export * from './productIngredientMiddleware';
+export * from './cityMiddleware';
+export * from './cityAddressMiddleware';

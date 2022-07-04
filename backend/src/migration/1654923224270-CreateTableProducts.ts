@@ -15,6 +15,8 @@ export class CreateTableProducts1654923224270 implements MigrationInterface {
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
         deletedAt TIMESTAMP,
         FOREIGN KEY (categoryId) REFERENCES Categories (id)
+           ON DELETE CASCADE
+          ON UPDATE CASCADE
         )
      `);
     }

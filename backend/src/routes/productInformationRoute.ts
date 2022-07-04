@@ -1,5 +1,5 @@
 import { NextFunction, Response, Router } from 'express';
-import { productInformationController } from '../controller/productInformationController';
+import { productInformationController } from '../controller';
 import { IRequestExtended } from '../interface';
 import { createProductInformationValidator, updateProductInformationValidator } from '../validator';
 import { dataValidatorMiddleware } from '../middlewares';

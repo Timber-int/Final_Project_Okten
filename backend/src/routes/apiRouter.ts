@@ -7,6 +7,8 @@ import { categoryRouter } from './categoryRouter';
 import { productRouter } from './productRouter';
 import { productInformationRoute } from './productInformationRoute';
 import { productIngredientRouter } from './productIngredientRouter';
+import { cityRouter } from './cityRouter';
+import { cityAddressRouter } from './cityAddressRouter';
 
 const router = Router();
 
@@ -16,6 +18,8 @@ router.use('/products', productRouter);
 router.use('/productIngredients', productIngredientRouter);
 router.use('/auth', authRouter);
 router.use('/productInformation', productInformationRoute);
+router.use('/cities', cityRouter);
+router.use('/cityAddress', cityAddressRouter);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {
