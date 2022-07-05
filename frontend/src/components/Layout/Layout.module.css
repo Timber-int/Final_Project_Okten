@@ -3,16 +3,17 @@
     position: fixed;
     min-height: 100px;
     top: 0;
-    background-color: #f9e506;
+    background-color: #e8e8e8;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     z-index: 1;
 
 }
-.header> a{
+.header> a div{
     text-decoration: none;
     font-size: 24px;
+    text-underline: none;
 }
 
 .outlet {
@@ -52,6 +53,7 @@
     font-size: 22px;
     margin-right: 10px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .basket_image {
@@ -59,3 +61,23 @@
     height: 3.5vh;
 }
 
+.city_box{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    cursor: pointer;
+}
+
+.city_box>div{
+    width: 50%;
+}
+.city_box>div:hover{
+    color: #FFD600;
+}
+.image_city_location{
+    width: 35%;
+    height: 35%;
+}
+.city_name{
+    font-size: 34px;
+}

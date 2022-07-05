@@ -9,4 +9,5 @@ export const urls = {
     productIngredients: '/productIngredients',
     sliders: '/sliders',
     categories: '/categories',
+    cities: '/cities',
 };

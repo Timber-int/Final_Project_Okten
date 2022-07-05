@@ -5,6 +5,7 @@ import productReducer from './productSlice';
 import productIngredientReducer from './productIngredientsSlice';
 import categoryReducer from './categorySlice';
 import orderReducer from './orderSlice';
+import cityReducer from './citySlice';
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         productIngredientReducer,
         categoryReducer,
         orderReducer,
+        cityReducer,
     }
 });
 

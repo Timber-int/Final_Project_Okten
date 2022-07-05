@@ -1,0 +1,117 @@
+.modalWindow {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.modalWindowContent {
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    width: 40%;
+    height: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: 1;
+}
+
+.modalWindow.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create_user_order_data_container {
+    width: 100%;
+    margin-top: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create_user_order_button {
+    width: 50%;
+    height: 6.5vh;
+    background-color: #FFD600;
+    border: 1px solid #FFD600;
+    cursor: pointer;
+    border-radius: 5vh;
+    font-size: 24px;
+    transition: 0.5s;
+}
+
+.create_user_order_button:hover {
+    background-color: #ffffff;
+}
+
+.selected_city_container {
+    width: 100%;
+    font-size: 24px;
+}
+
+.errors_span {
+    width: 100%;
+    justify-content: center;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    color: #e53935;
+}
+
+.city_image_container {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.exit_box {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 5%;
+    cursor: pointer;
+}
+
+.exit_box > span {
+    font-size: 26px;
+}
+
+.exit_box > span:hover {
+    color: #FFD600;
+}
+
+.chose_city_image_box {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.chose_city_text_box {
+    width: 100%;
+    height: 10%;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.city_image {
+    width: 100%;
+    height: 100%;
+}
+
+.chose_city_select {
+    width: 100%;
+    height: 20%;
+}
