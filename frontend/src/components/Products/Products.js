@@ -1,30 +1,50 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { Product } from '../Product/Product';
 import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
-import { getAllProducts, productIngredientAction } from '../../store';
+import { getCategoryById, productIngredientAction } from '../../store';
 import css from './Product.module.css';
+import { DEFAULT_CATEGORY_NAME } from '../../constants';
 
 const Products = () => {
 
-    const { products } = useSelector(state => state['productReducer']);
+    const { state: category } = useLocation();
+
+    const {
+        products,
+    } = useSelector(state => state['categoryReducer']);
 
     const dispatch = useDispatch();
 
+    const { id } = category;
+
     useEffect(() => {
-        dispatch(getAllProducts());
-        dispatch(productIngredientAction.clearSelectedIngredientsArray())
-    }, []);
+        dispatch(getCategoryById({ id }));
+        dispatch(productIngredientAction.clearSelectedIngredientsArray());
+    }, [id]);
 
     return (
         <div className={css.content}>
-            <div className={css.product_carousel}>
-                <ImageCarousel controls indicators/>
-            </div>
+            {
+                category && category.name.toLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLowerCase()
+                    ?
+                    <div className={css.product_carousel}>
+                        <ImageCarousel controls indicators/>
+                    </div>
+                    :
+                    <></>
+            }
 
-            <h1 className={css.products_text}>
-                Піца
+            <h1 className={
+                category && category.name.toLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLowerCase()
+                    ?
+                    css.products_text
+                    :
+                    css.products_text_min_margin
+            }>
+                {category.name}
             </h1>
 
             <div className={css.product_container}>

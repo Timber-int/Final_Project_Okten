@@ -28,6 +28,13 @@ export const createProductIngredientValidator = Joi.object({
             'string.empty': '"productWeight" Can not be empty',
             'string.pattern.base': 'Enter only letter min 0 max 1000000',
         }),
+    categoryId: Joi.number()
+        .min(0)
+        .required()
+        .messages({
+            'string.empty': '"categoryId" Can not be empty',
+            'string.pattern.base': 'Enter only letter min 0 max 1000000',
+        }),
 });
 
 export const updateProductIngredientValidator = Joi.object({

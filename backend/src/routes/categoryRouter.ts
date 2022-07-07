@@ -2,7 +2,7 @@ import { NextFunction, Response, Router } from 'express';
 import { categoryController } from '../controller';
 import { IRequestExtended } from '../interface';
 import { createCategoryValidator, updateCategoryValidator } from '../validator';
-import { categoryMiddleware, dataValidatorMiddleware } from '../middlewares';
+import { categoryMiddleware, dataValidatorMiddleware, fileMiddleware } from '../middlewares';
 
 const router = Router();
 
@@ -15,7 +15,7 @@ router.post('/',
     },
     dataValidatorMiddleware.dataValidator,
     categoryMiddleware.checkIsCategoryNameExist,
-    categoryMiddleware.checkIsCategoryLogoExist,
+    fileMiddleware.checkIsCategoryPhotoFileExist,
     categoryController.createCategory,
 );
 

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { categoryService } from '../service';
+import { UploadedFile } from 'express-fileupload';
+import { categoryService, fileService } from '../service';
 import { IRequestExtended } from '../interface';
 import { ICategory } from '../entity';
 
@@ -21,7 +22,7 @@ class CategoryController {
 
             const category = await categoryService.getCategoryById(Number(id));
 
-            res.json(category);
+            res.json({ data: category });
         } catch (e) {
             next(e);
         }
@@ -29,9 +30,16 @@ class CategoryController {
 
     public async createCategory(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const category = await categoryService.createCategory(req.body);
+            const categoryPhoto = req.files?.logo as UploadedFile;
 
-            res.json(category);
+            const categoryFilePath = await fileService.saveFile(categoryPhoto);
+
+            const category = await categoryService.createCategory({
+                ...req.body,
+                logo: categoryFilePath,
+            });
+
+            res.json({ data: category });
         } catch (e) {
             next(e);
         }
@@ -43,7 +51,7 @@ class CategoryController {
 
             const category = await categoryService.updateCategoryById(id, req.body.name);
 
-            res.json(category);
+            res.json({ data: category });
         } catch (e) {
             next(e);
         }
@@ -55,7 +63,7 @@ class CategoryController {
 
             const category = await categoryService.deleteCategoryById(Number(id));
 
-            res.json(category);
+            res.json({ data: category });
         } catch (e) {
             next(e);
         }

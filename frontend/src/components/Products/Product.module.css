@@ -9,7 +9,7 @@
 .content {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20vh;
+    margin-top: 15vh;
 }
 
 .product_carousel {
@@ -18,6 +18,13 @@
 
 .products_text {
     margin-top: 10vh;
+    width: 100%;
+    font-size: 5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.products_text_min_margin {
     width: 100%;
     font-size: 5vh;
     display: flex;

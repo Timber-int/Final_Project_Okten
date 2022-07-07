@@ -11,10 +11,6 @@ class CategoryService {
         return categoryRepository.getCategoryByName(name);
     }
 
-    public async getCategoryByLogo(logo: string): Promise<ICategory | undefined> {
-        return categoryRepository.getCategoryByLogo(logo);
-    }
-
     public async getCategoryById(id: number): Promise<ICategory | undefined> {
         return categoryRepository.getCategoryById(id);
     }

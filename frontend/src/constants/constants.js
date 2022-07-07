@@ -35,3 +35,9 @@ export const TokenType = {
     REFRESH: 'REFRESH',
     ACTION: 'ACTION',
 };
+
+export const DEFAULT_CATEGORY_NAME ={
+    PIZZA: 'піца',
+    DESERTS: 'десерти',
+    DRINKS: 'напої',
+}

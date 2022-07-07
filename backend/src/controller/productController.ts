@@ -38,17 +38,20 @@ class ProductController {
             const productBigPhoto = req.files?.productBigPhoto as UploadedFile;
 
             const productFilePath = await fileService.saveFile(productPhoto);
-            const productBigFilePath = await fileService.saveFile(productBigPhoto);
-            // const readStream = await fs.createReadStream(path.join(__dirname, '../', 'fileDirectory', productFilePath));
-            //
-            // const x = await readStream.on('data', (chunk: Buffer) => Buffer.from(chunk)
-            //     .toString('base64'));
-            //
-            // console.log(x);
-            const product = await productService.createProduct({
+
+            let productBigFilePath = null;
+
+            if (productBigPhoto) {
+                productBigFilePath = await fileService.saveFile(productBigPhoto);
+            }
+
+            const product = await productService.createProduct(productBigFilePath ? {
                 ...req.body,
                 productPhoto: productFilePath,
                 productBigPhoto: productBigFilePath,
+            } : {
+                ...req.body,
+                productPhoto: productFilePath,
             });
 
             res.json(product);

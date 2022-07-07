@@ -1,6 +1,9 @@
-import { Column, Entity } from 'typeorm';
+import {
+    Column, Entity, JoinColumn, ManyToOne,
+} from 'typeorm';
 import { CONSTANTS } from '../constants';
 import { DefaultValue } from './defaultValue';
+import { Category } from './category';
 
 export interface IProductIngredient {
     id: number,
@@ -9,6 +12,7 @@ export interface IProductIngredient {
     productPrice: number,
     productWeight: number,
     status: boolean,
+    categoryId: number,
 }
 
 @Entity('productingredient', { database: CONSTANTS.DATA_BASE })
@@ -43,4 +47,13 @@ export class ProductIngredient extends DefaultValue implements IProductIngredien
         default: false,
     })
         status: boolean;
+
+    @Column({
+        type: 'int',
+    })
+        categoryId: number;
+
+    @ManyToOne(() => Category, (Category) => Category.productIngredients)
+    @JoinColumn({ name: 'categoryId' })
+        category: Category;
 }

@@ -38,7 +38,8 @@ export class Product extends DefaultValue implements IProduct {
     @Column({
         type: 'varchar',
         width: 255,
-        nullable: false,
+        nullable: true,
+        default: null,
     })
         productBigPhoto: string;
 

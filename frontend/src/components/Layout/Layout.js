@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ModalWindow } from '../ModalWindow/ModalWindow';
 import css from './Layout.module.css';
-import { cityActions } from '../../store';
+import { cityActions, getAllCategories } from '../../store';
+import { baseURL } from '../../config';
 
 const Layout = () => {
 
@@ -22,15 +23,30 @@ const Layout = () => {
         cityStatus
     } = useSelector(state => state['cityReducer']);
 
+    const {
+        categories,
+    } = useSelector(state => state['categoryReducer']);
+
     useEffect(() => {
-    }, [totalOrderCount, usedOrderType, chosenCity]);
+        dispatch(getAllCategories());
+    }, [totalOrderCount, usedOrderType, chosenCity,city]);
 
     return (
         <div>
             {!city || cityStatus === true ? <ModalWindow/> : <></>}
             <div className={css.header}>
-                <NavLink to={'/registration'}>Registration</NavLink>
-                <NavLink to={'/products'}>Products</NavLink>
+            {/* <NavLink to={'/'}></NavLink> */}
+            <NavLink to={'/action'} className={css.category_path}>
+                <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'} alt={'action'}/></span>
+                <span>Акції</span>
+            </NavLink>
+                {
+                    categories.map(category =>
+                        <NavLink key={category.id} to={'/categoryId/' + category.id} state={category} className={css.category_path}>
+                            <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
+                            <span>{category.name}</span>
+                        </NavLink>)
+                }
                 <div className={css.city_box} onClick={() => dispatch(cityActions.setCityStatusTrue())}>
                     <div>
                         <img className={css.image_city_location}
@@ -38,6 +54,7 @@ const Layout = () => {
                     </div>
                     <div className={css.city_name}>{city ? city : chosenCity}</div>
                 </div>
+                <NavLink to={'/registration'}>Registration</NavLink>
                 <NavLink to={'/OrderPage'}>
                     <div className={css.order_content}>
                         <div>

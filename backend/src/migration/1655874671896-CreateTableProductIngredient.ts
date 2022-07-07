@@ -10,8 +10,12 @@ export class CreateTableProductIngredient1655874671896 implements MigrationInter
         productPrice INT CHECK (productPrice >= 0),
         productWeight INT CHECK (productWeight >= 0),
         status BOOLEAN DEFAULT(false),
+        categoryId INT NOT NULL,
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
-        deletedAt TIMESTAMP
+        deletedAt TIMESTAMP,
+        FOREIGN KEY (categoryId) REFERENCES Categories (id)
+           ON DELETE CASCADE
+          ON UPDATE CASCADE
         )
      `);
     }

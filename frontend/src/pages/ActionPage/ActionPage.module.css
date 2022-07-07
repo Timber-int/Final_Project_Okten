@@ -1,0 +1,75 @@
+.action_container {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.action_header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20vh;
+    font-size: 4.5vh;
+    font-weight: bold;
+    height: 7vh;
+    background-color: #e8e8e8;
+}
+
+.action_box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10vh;
+}
+
+.slide_box {
+    width: 40%;
+    margin: 2vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-shadow: 0 0 5px 5px #e8e8e8;
+    border-radius: 2vh;
+}
+
+.action_image_box {
+    width: 100%;
+    height: 40vh;
+}
+
+.action_image_box > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2vh;
+}
+
+.action_text {
+    width: 100%;
+    margin: 3vh 0 3vh 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.action_text > span {
+    width: 40%;
+    height: 5vh;
+    background-color: #FFD600;
+    font-size: 24px;
+    border-radius: 5vh;
+    border: 1px solid #FFD600;
+    cursor: pointer;
+    transition: 0.5s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: #0E0E0E;
+}
+
+.action_text > span:hover {
+    background-color: #ffffff;
+}

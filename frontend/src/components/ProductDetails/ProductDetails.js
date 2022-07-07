@@ -8,6 +8,9 @@ import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarous
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { getAllProductIngredients, getProductInformationById, orderAction } from '../../store';
 import css from './ProductDetails.module.css';
+import { baseURL } from '../../config';
+import { DEFAULT_CATEGORY_NAME } from '../../constants';
+import { ProductInformation } from '../ProductInformation/ProductInformation';
 
 const ProductDetails = () => {
 
@@ -20,8 +23,11 @@ const ProductDetails = () => {
     const dispatch = useDispatch();
 
     const {
-        productDetails,
         products,
+        category,
+    } = useSelector(state => state['categoryReducer']);
+    const {
+        productDetails,
     } = useSelector(state => state['productReducer']);
 
     const { selectedProductIngredientsTotalCount } = useSelector(state => state['productIngredientReducer']);
@@ -64,44 +70,45 @@ const ProductDetails = () => {
         <div className={css.product_details_container}>
             <div className={css.details_container}>
                 <div className={css.product_details_photo_container}>
-                    <ProductImageCarousel carouselArray={carouselArray}/>
+                    {
+                        productBigPhoto
+                            ?
+                            <ProductImageCarousel carouselArray={carouselArray}/>
+                            :
+                            <div className={css.product_photo_container_static}><img src={baseURL + '/' + productPhoto} alt={productName}/></div>
+                    }
                 </div>
 
                 <div className={css.product_details_all_information}>
                     <div className={css.content}>
                         <div className={css.product_details_name}>{productName}</div>
                         <div className={css.product_details_description}>{description}</div>
-                        {productDetails ?
-                            <div className={css.product_details_more_information_container}>
-                                <div className={css.small_information_box}>
-                                    <span className={css.default_name}>Білки</span>
-                                    <span className={css.info_content}>{productDetails.productProteins} г</span>
+                        {
+                            productDetails
+                                ?
+                                <div className={css.product_information_container}>
+                                    <ProductInformation productDetails={productDetails}/>
                                 </div>
-                                <div className={css.small_information_box}>
-                                    <span className={css.default_name}>Вуглеводи</span>
-                                    <span className={css.info_content}>{productDetails.productCarbohydrates} г</span>
-                                </div>
-                                <div className={css.small_information_box}>
-                                    <span className={css.default_name}>Жири</span>
-                                    <span className={css.info_content}>{productDetails.productFats} г</span>
-                                </div>
-                                <div className={css.small_information_box}>
-                                    <span className={css.default_name}>Калорійність</span>
-                                    <span className={css.info_content}>{productDetails.productCalories} ккал</span>
-                                </div>
-                            </div>
-                            :
-                            <></>
+                                :
+                                <></>
                         }
                         <div className={css.product_details_size_weight_container}>
-                            <div>
+                            {
+                                category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
+                                    ?
+                                    <div>
                                 <span className={css.first_default_element}>
                                     <img className={css.default_images}
                                          src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/size.svg"
                                          alt="size"/>
                                 </span>
-                                <span>Розмір: 30см</span>
-                            </div>
+                                        <span>
+                                            Розмір: 30см
+                                        </span>
+                                    </div>
+                                    :
+                                    <></>
+                            }
                             <div>
                                 <span className={css.first_default_element}>
                                     <img className={css.default_images}
@@ -111,16 +118,28 @@ const ProductDetails = () => {
                                 <span>Вага: {productWeight}г</span>
                             </div>
                         </div>
-                        <div className={css.product_details_order_container}>
-                            <div>
-                                <div className={css.add_ingredients} onClick={() => moveToIngredients()}>
-                                    <span className={css.add_ingredient_button}>+</span>
-                                    <span>Додати складники</span>
-                                </div>
-                                <div>
-                                    Додатки: <span className={css.total_adds_count}>{selectedProductIngredientsTotalCount}</span> грн
-                                </div>
-                            </div>
+                        <div className={
+                            category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
+                                ?
+                                css.product_details_order_container
+                                :
+                                css.product_details_order_container_specific_category
+                        }>
+                            {
+                                category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
+                                    ?
+                                    <div>
+                                        <div className={css.add_ingredients} onClick={() => moveToIngredients()}>
+                                            <span className={css.add_ingredient_button}>+</span>
+                                            <span>Додати складники</span>
+                                        </div>
+                                        <div>
+                                            Додатки: <span className={css.total_adds_count}>{selectedProductIngredientsTotalCount}</span> грн
+                                        </div>
+                                    </div>
+                                    :
+                                    <></>
+                            }
                             <div>
                                 <div className={css.counter_box}>
                                     <span>Кількість:</span>
@@ -146,10 +165,16 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className={css.product_ingredients_container}>
-                <div className={css.product_ingredients_text}>Додатки до піци</div>
-                <ProductIngredients productIngredients={productIngredients}/>
-            </div>
+            {
+                category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
+                    ?
+                    <div className={css.product_ingredients_container}>
+                        <div className={css.product_ingredients_text}>Додатки до {category.name}</div>
+                        <ProductIngredients productIngredients={productIngredients}/>
+                    </div>
+                    :
+                    <></>
+            }
         </div>
     );
 };

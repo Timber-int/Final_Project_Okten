@@ -9,7 +9,7 @@ class CategoryRepository extends Repository<Category> implements ICategoryReposi
     public async getAllCategories(): Promise<Category[]> {
         return getManager()
             .getRepository(Category)
-            .find({ relations: ['products'] });
+            .find();
     }
 
     public async getCategoryByName(name: string): Promise<Category | undefined> {
@@ -18,16 +18,10 @@ class CategoryRepository extends Repository<Category> implements ICategoryReposi
             .findOne({ name });
     }
 
-    public async getCategoryByLogo(logo: string): Promise<Category | undefined> {
-        return getManager()
-            .getRepository(Category)
-            .findOne({ logo });
-    }
-
     public async getCategoryById(id: number): Promise<Category | undefined> {
         return getManager()
             .getRepository(Category)
-            .findOne({ id }, { relations: ['products'] });
+            .findOne({ id }, { relations: ['products', 'productIngredients'] });
     }
 
     public async createCategory(category: ICategory): Promise<Category> {

@@ -21,21 +21,6 @@ class CategoryMiddleware {
         }
     }
 
-    public async checkIsCategoryLogoExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
-        try {
-            const categoryFromDB = await categoryService.getCategoryByLogo(req.body.logo);
-
-            if (categoryFromDB) {
-                next(new ErrorHandler(MESSAGE.CATEGORY_EXIST, STATUS.CODE_404));
-                return;
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    }
-
     public async checkIsCategoryIdExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const { id } = req.params;

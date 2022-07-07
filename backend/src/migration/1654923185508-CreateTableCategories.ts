@@ -6,7 +6,7 @@ export class CreateTableCategories1654923185508 implements MigrationInterface {
         CREATE TABLE IF NOT EXISTS Categories (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(255) NOT NULL UNIQUE,
-        logo VARCHAR(255) NOT NULL UNIQUE,
+        logo VARCHAR(255) NOT NULL,
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
         deletedAt TIMESTAMP
         )

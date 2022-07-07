@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { IRequestExtended } from '../interface';
-import { productIngredientService } from '../service';
+import { categoryService, productIngredientService } from '../service';
 import { ErrorHandler } from '../errorHandler';
 import { MESSAGE } from '../message';
 import { STATUS } from '../errorCode';
@@ -8,6 +8,13 @@ import { STATUS } from '../errorCode';
 class ProductIngredientMiddleware {
     public async checkIsProductIngredientExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
+            const productCategory = await categoryService.getCategoryById(req.body.categoryId);
+
+            if (!productCategory) {
+                next(new ErrorHandler(MESSAGE.NOT_CATEGORY, STATUS.CODE_404));
+                return;
+            }
+
             const productIngredientFromDB = await productIngredientService.getProductIngredientByName(req.body.productIngredientName);
 
             if (productIngredientFromDB) {
