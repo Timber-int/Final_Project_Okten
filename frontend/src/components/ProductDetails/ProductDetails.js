@@ -6,11 +6,11 @@ import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
-import { getAllProductIngredients, getProductInformationById, orderAction } from '../../store';
-import css from './ProductDetails.module.css';
+import { getCategoryById, getProductInformationById, orderAction } from '../../store';
 import { baseURL } from '../../config';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
+import css from './ProductDetails.module.css';
 
 const ProductDetails = () => {
 
@@ -25,14 +25,13 @@ const ProductDetails = () => {
     const {
         products,
         category,
+        selectedProductIngredientsTotalCount,
+        productIngredients,
     } = useSelector(state => state['categoryReducer']);
+
     const {
         productDetails,
     } = useSelector(state => state['productReducer']);
-
-    const { selectedProductIngredientsTotalCount } = useSelector(state => state['productIngredientReducer']);
-
-    const { productIngredients } = useSelector(state => state['productIngredientReducer']);
 
     const {
         id,
@@ -43,14 +42,17 @@ const ProductDetails = () => {
         productWeight,
         totalCount,
         productPrice,
+        categoryId
     } = singleProduct;
 
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
-        dispatch(getAllProductIngredients());
         setCarouselArray([productPhoto, productBigPhoto]);
         setProduct(products.find(product => product.id === id));
-    }, [id, products]);
+        if (!category) {
+            dispatch(getCategoryById({ id: categoryId }));
+        }
+    }, [id, products, category]);
 
     const moveToIngredients = () => {
         window.scroll(0, 800);
@@ -115,7 +117,7 @@ const ProductDetails = () => {
                                          src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/weight.svg"
                                          alt="weight"/>
                                 </span>
-                                <span>Вага: {productWeight}г</span>
+                                <span>Вага: {product ? product.productWeight : productWeight}г</span>
                             </div>
                         </div>
                         <div className={
@@ -154,8 +156,8 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <SelectedProductIngredients/>
+                        <div className={css.selected_ingredient_container}>
+                            <SelectedProductIngredients id={id}/>
                         </div>
                         <div className={css.order_button_container}>
                             <button className={css.order_button}
@@ -170,7 +172,7 @@ const ProductDetails = () => {
                     ?
                     <div className={css.product_ingredients_container}>
                         <div className={css.product_ingredients_text}>Додатки до {category.name}</div>
-                        <ProductIngredients productIngredients={productIngredients}/>
+                        <ProductIngredients productIngredients={productIngredients} id={id}/>
                     </div>
                     :
                     <></>

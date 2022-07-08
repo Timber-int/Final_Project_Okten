@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom';
 
 import { Product } from '../Product/Product';
 import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
-import { getCategoryById, productIngredientAction } from '../../store';
-import css from './Product.module.css';
+import { categoryAction, getCategoryById } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
+import css from './Product.module.css';
 
 const Products = () => {
 
@@ -22,7 +22,7 @@ const Products = () => {
 
     useEffect(() => {
         dispatch(getCategoryById({ id }));
-        dispatch(productIngredientAction.clearSelectedIngredientsArray());
+        dispatch(categoryAction.clearSelectedIngredientsArray());
     }, [id]);
 
     return (

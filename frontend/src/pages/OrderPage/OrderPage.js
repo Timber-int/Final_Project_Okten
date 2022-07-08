@@ -7,13 +7,17 @@ import { orderAction } from '../../store';
 import css from './OrderPage.module.css';
 
 const OrderPage = () => {
-    // chosenProductIdArray.map((element, index) =>
-    //     <div key={index}>{chosenProduct[element].description}</div>)
 
     const {
         usedOrderType,
-        totalOrderCount
+        totalOrderCount,
+        chosenProduct,
+        chosenProductIdArray
     } = useSelector(state => state['orderReducer']);
+
+    chosenProductIdArray.map((element, index) => {
+        console.log(chosenProduct[element] );
+    });
 
     const dispatch = useDispatch();
 

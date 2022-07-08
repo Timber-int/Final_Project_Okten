@@ -39,21 +39,31 @@ const categorySlice = createSlice({
     name: 'categorySlice',
     initialState: {
         categories: [],
+        products: [],
+        productIngredients: [],
+        selectedProductIngredientsId: [],
+        selectedProductIngredients: {},
+        selectedProductIngredientsTotalCount: 0,
         serverErrors: null,
         status: null,
         category: null,
-        products: [],
         productDetails: null,
     },
     reducers: {
         setProductCount: (state, action) => {
-            const id = action.payload.id;
-            const count = Number(action.payload.count);
+            const {
+                id,
+                totalCount,
+            } = action.payload.setProduct;
+
+            const count = Number(action.payload.setProduct.count);
 
             state.products = state.products.map(product => product.id === id ? {
                 ...product,
                 totalCount: count <= 0 ? product.totalCount = count - count + 1 : product.totalCount = count,
-                productPrice: product.productPrice = product.totalCount <= 0 ? 0 : product.defaultPrice * product.totalCount,
+                productPrice: product.productPrice = state.selectedProductIngredientsId.length > 0
+                    ? product.defaultPrice * product.totalCount + state.selectedProductIngredientsTotalCount
+                    : product.defaultPrice * product.totalCount,
             } : product);
 
         },
@@ -68,13 +78,72 @@ const categorySlice = createSlice({
 
         },
         minusProductCount: (state, action) => {
-            const id = action.payload.id;
+            const {
+                id,
+                totalCount
+            } = action.payload.minusProduct;
+
+            if (totalCount === 1) return;
 
             state.products = state.products.map(product => product.id === id ? {
                 ...product,
                 totalCount: product.totalCount === 1 || product.totalCount <= 0 ? 1 : product.totalCount - 1,
                 productPrice: product.totalCount === 1 || product.totalCount <= 0 ? product.defaultPrice : product.productPrice - product.defaultPrice,
             } : product);
+        },
+        setSelectedProductIngredients: (state, action) => {
+            const {
+                productId,
+                ingredient
+            } = action.payload.chosenData;
+
+            state.products = state.products.map(product => product.id === productId ? {
+                ...product,
+                productPrice: product.productPrice + ingredient.productPrice,
+                productWeight: product.productWeight + ingredient.productWeight,
+            } : product);
+
+            state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount + ingredient.productPrice;
+
+            state.productIngredients = state.productIngredients.map(element => element.id === ingredient.id ? {
+                ...element,
+                status: true
+            } : element);
+
+            if (!state.selectedProductIngredientsId.includes(ingredient.id)) {
+                state.selectedProductIngredientsId.push(ingredient.id);
+            }
+
+            state.selectedProductIngredients = Object.assign(state.selectedProductIngredients, { [ingredient.id]: ingredient });
+        },
+
+        deleteChosenSelectedIngredients: (state, action) => {
+            const {
+                id,
+                productId
+            } = action.payload.deletedData;
+
+            const ingredient = state.productIngredients.find(element => element.id === id);
+
+            state.products = state.products.map(product => product.id === productId ? {
+                ...product,
+                productPrice: product.productPrice - ingredient.productPrice,
+                productWeight: product.productWeight - ingredient.productWeight,
+            } : product);
+
+            state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount - ingredient.productPrice;
+
+            state.productIngredients = state.productIngredients.map(element => element.id === id ? {
+                ...element,
+                status: false
+            } : element);
+
+            state.selectedProductIngredientsId = state.selectedProductIngredientsId.filter(selectedId => selectedId !== id);
+        },
+
+        clearSelectedIngredientsArray: (state, action) => {
+            state.selectedProductIngredients = {};
+            state.selectedProductIngredientsTotalCount = 0;
         },
     },
     extraReducers: {
@@ -104,6 +173,9 @@ const categorySlice = createSlice({
                 totalCount: 1,
                 defaultPrice: product.productPrice,
             }));
+
+            state.productIngredients = action.payload.categoryData.data.productIngredients;
+
             state.serverErrors = null;
         },
         [getCategoryById.rejected]: (state, action) => {
@@ -118,13 +190,19 @@ const categoryReducer = categorySlice.reducer;
 const {
     minusProductCount,
     setProductCount,
-    plusProductCount
+    plusProductCount,
+    deleteChosenSelectedIngredients,
+    setSelectedProductIngredients,
+    clearSelectedIngredientsArray,
 } = categorySlice.actions;
 
 export const categoryAction = {
     minusProductCount,
     setProductCount,
-    plusProductCount
+    plusProductCount,
+    deleteChosenSelectedIngredients,
+    setSelectedProductIngredients,
+    clearSelectedIngredientsArray,
 };
 
 export default categoryReducer;

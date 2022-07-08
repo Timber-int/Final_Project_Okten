@@ -1,11 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { baseURL } from '../../config';
+import { categoryAction } from '../../store';
 import css from './ProductIngredient.module.css';
-import { useDispatch } from 'react-redux';
-import { productIngredientAction } from '../../store';
 
-const ProductIngredient = ({ productIngredient }) => {
+const ProductIngredient = ({
+    productIngredient,
+    productId
+}) => {
 
     const dispatch = useDispatch();
 
@@ -19,10 +22,15 @@ const ProductIngredient = ({ productIngredient }) => {
     } = productIngredient;
 
     const choseIngredient = (ingredient) => {
-        dispatch(productIngredientAction.setSelectedProductIngredients({ ingredient }));
+        dispatch(categoryAction.setSelectedProductIngredients({chosenData:{ ingredient,productId }}));
     };
     const deleteChosenIngredient = (id) => {
-        dispatch(productIngredientAction.deleteChosenSelectedIngredients({ id }));
+        dispatch(categoryAction.deleteChosenSelectedIngredients({
+            deletedData: {
+                id,
+                productId
+            }
+        }));
     };
 
     return (

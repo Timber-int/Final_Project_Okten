@@ -258,3 +258,10 @@
     font-size: 32px;
     color: #e53935;
 }
+.selected_ingredient_container{
+    width: 80%;
+    min-height: 3vh;
+    padding: 1vh;
+    display: flex;
+    justify-content: left;
+}
