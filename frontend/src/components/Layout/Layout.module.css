@@ -9,21 +9,6 @@
     justify-content: space-evenly;
     align-items: center;
     z-index: 1;
-
-}
-
-.header > a {
-    text-decoration: none;
-    border: 0.5vh solid #FFF;
-    transition: 1s;
-    padding: 1vh;
-    border-radius: 2vh;
-    color: #0E0E0E;
-    font-size: 24px;
-}
-
-.header > a:hover {
-    border: 0.5vh solid #FFD600;
 }
 
 .header > a > span {
@@ -111,9 +96,20 @@
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    text-decoration: none;
+    border: 0.5vh solid #FFF;
+    transition: 1s;
+    padding: 1vh;
+    border-radius: 2vh;
+    color: #0E0E0E;
+    font-size: 24px;
 }
 
 .category_path > span {
     width: 100%;
+}
+
+.category_path:hover {
+    border: 0.5vh solid #FFD600;
 }
 

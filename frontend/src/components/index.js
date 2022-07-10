@@ -17,3 +17,4 @@ export * from './OrderTypeSelfPickup/OrderTypeSelfPickup';
 export * from './OrderTypeShopDelivery/OrderTypeShopDelivery';
 export * from './ModalWindow/ModalWindow';
 export * from './ProductInformation/ProductInformation';
+export * from './Category/Category';

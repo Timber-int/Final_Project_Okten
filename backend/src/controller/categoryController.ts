@@ -49,7 +49,19 @@ class CategoryController {
         try {
             const { id } = req.category as ICategory;
 
-            const category = await categoryService.updateCategoryById(id, req.body.name);
+            const categoryPhoto = req.files?.logo as UploadedFile;
+            let categoryFilePath;
+
+            if (categoryPhoto) {
+                categoryFilePath = await fileService.saveFile(categoryPhoto);
+            }
+
+            await categoryService.updateCategoryById(id, categoryPhoto ? {
+                ...req.body,
+                logo: categoryFilePath,
+            } : { ...req.body });
+
+            const category = await categoryService.getCategoryById(id);
 
             res.json({ data: category });
         } catch (e) {

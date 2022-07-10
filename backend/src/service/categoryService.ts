@@ -23,8 +23,8 @@ class CategoryService {
         return categoryRepository.deleteCategoryById(id);
     }
 
-    public async updateCategoryById(id: number, nameCategory: string): Promise<UpdateResult> {
-        return categoryRepository.updateCategoryById(id, nameCategory);
+    public async updateCategoryById(id: number, categoryDataToUpdate: Partial<ICategory>): Promise<UpdateResult> {
+        return categoryRepository.updateCategoryById(id, categoryDataToUpdate);
     }
 }
 

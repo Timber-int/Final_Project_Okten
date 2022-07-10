@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import ReactSelect from 'react-select';
 import { Controller, useForm, } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { cityActions, getAllCities } from '../../store';
+import { cityActions } from '../../store';
 import css from './ModalWindow.module.css';
 
 const ModalWindow = () => {
@@ -16,10 +15,6 @@ const ModalWindow = () => {
     const dispatch = useDispatch();
 
     const { cities } = useSelector(state => state['cityReducer']);
-
-    useEffect(() => {
-        dispatch(getAllCities());
-    }, []);
 
     const {
         handleSubmit,

@@ -1,0 +1,22 @@
+.category_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 45%;
+    margin: 1vh;
+}
+
+.category_box > div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.category_image{
+    width: 20vh;
+    height: 20vh;
+}
+.category_name{
+    font-size: 20px;
+    color: #e53935;
+}

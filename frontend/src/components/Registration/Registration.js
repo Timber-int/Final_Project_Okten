@@ -4,7 +4,6 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userBodyForRegistrationValidator } from '../../validator';
-import { CONSTANTS } from '../../constants';
 import { registration } from '../../store';
 import css from './Registration.module.css';
 

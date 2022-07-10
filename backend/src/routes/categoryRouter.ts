@@ -26,6 +26,7 @@ router.put('/:id',
     },
     dataValidatorMiddleware.dataValidator,
     categoryMiddleware.checkIsCategoryIdExist,
+    fileMiddleware.checkIsCategoryPhotoToUpdateFileExist,
     categoryMiddleware.checkIsCategoryNameExist,
     categoryController.updateCategoryById,
 );

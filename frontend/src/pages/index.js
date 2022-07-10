@@ -4,3 +4,6 @@ export * from './ProductDetailsPage/ProductDetailsPage';
 export * from './DeliveryHardPage/DeliveryHardPage';
 export * from './OrderPage/OrderPage';
 export * from './ActionPage/ActionPage';
+export * from './AdminPage/AdminPage';
+export * from './NotFoundPage/NotFoundPage';
+export * from './CategoryPage/CategoryPage';

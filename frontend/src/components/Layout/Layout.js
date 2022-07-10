@@ -35,7 +35,6 @@ const Layout = () => {
         <div>
             {!city || cityStatus === true ? <ModalWindow/> : <></>}
             <div className={css.header}>
-            {/* <NavLink to={'/'}></NavLink> */}
             <NavLink to={'/action'} className={css.category_path}>
                 <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'} alt={'action'}/></span>
                 <span>Акції</span>

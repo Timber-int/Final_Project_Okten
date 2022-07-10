@@ -67,11 +67,41 @@ class FileMiddleware {
 
     async checkIsCategoryPhotoFileExist(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
+            console.log(req.body);
+            console.log(req.files?.logo, 'sdfsdfsdgddf');
             if (!req.files?.logo) {
                 next(new ErrorHandler(MESSAGE.CATEGORY_PHOTO_NOT_EXIST, STATUS.CODE_404));
                 return;
             }
 
+            const {
+                name,
+                size,
+                mimetype,
+            } = req.files.logo as UploadedFile;
+
+            if (size > CONSTANTS.PHOTO_MAX_SIZE) {
+                next(new ErrorHandler(`${MESSAGE.TO_BIG_PHOTO_FILE}: ${name}`));
+                return;
+            }
+
+            if (!CONSTANTS.PHOTOS_MIMETYPES.includes(mimetype)) {
+                next(new ErrorHandler(MESSAGE.WRONG_FILE_FORMAT));
+                return;
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async checkIsCategoryPhotoToUpdateFileExist(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            if (!req.files?.logo) {
+                next();
+                return;
+            }
             const {
                 name,
                 size,

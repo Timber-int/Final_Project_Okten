@@ -3,21 +3,21 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CONSTANTS } from '../constants';
 import { productService } from '../service';
 
-// export const getAllProducts = createAsyncThunk(
-//     'productSlice/getAllProducts',
-//     async (_, {
-//         dispatch,
-//         rejectWithValue
-//     }) => {
-//         try {
-//             const data = await productService.getAllProducts();
-//
-//             return { productData: data };
-//         } catch (e) {
-//             return rejectWithValue(e.message);
-//         }
-//     }
-// );
+export const getAllProducts = createAsyncThunk(
+    'productSlice/getAllProducts',
+    async (_, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const data = await productService.getAllProducts();
+
+            return { productData: data };
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
 
 export const getProductInformationById = createAsyncThunk(
     'productSlice/getProductInformationById',
@@ -48,27 +48,22 @@ const productSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
-        // [getAllProducts.pending]: (state, action) => {
-        //     state.status = CONSTANTS.LOADING;
-        //     state.serverErrors = null;
-        // },
-        // [getAllProducts.fulfilled]: (state, action) => {
-        //     state.status = CONSTANTS.RESOLVED;
-        //     const productArray = action.payload.productData.data;
-        //
-        //     state.products = productArray.map(product => Object.assign(product, {
-        //         totalCount: 1,
-        //         defaultPrice: product.productPrice,
-        //     }));
-        //     state.page = action.payload.productData.page;
-        //     state.perPage = action.payload.productData.perPage;
-        //     state.itemCount = action.payload.productData.itemCount;
-        //     state.serverErrors = null;
-        // },
-        // [getAllProducts.rejected]: (state, action) => {
-        //     state.status = CONSTANTS.REJECTED;
-        //     state.serverErrors = action.payload;
-        // },
+        [getAllProducts.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [getAllProducts.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.products = action.payload.productData.data;
+            state.page = action.payload.productData.page;
+            state.perPage = action.payload.productData.perPage;
+            state.itemCount = action.payload.productData.itemCount;
+            state.serverErrors = null;
+        },
+        [getAllProducts.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
         [getProductInformationById.pending]: (state, action) => {
             state.status = CONSTANTS.LOADING;
             state.serverErrors = null;

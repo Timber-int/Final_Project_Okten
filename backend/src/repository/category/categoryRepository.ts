@@ -36,10 +36,10 @@ class CategoryRepository extends Repository<Category> implements ICategoryReposi
             .delete({ id });
     }
 
-    public async updateCategoryById(id: number, nameCategory: string): Promise<UpdateResult> {
+    public async updateCategoryById(id: number, categoryDataToUpdate: Partial<ICategory>): Promise<UpdateResult> {
         return getManager()
             .getRepository(Category)
-            .update({ id }, { name: nameCategory });
+            .update({ id }, { ...categoryDataToUpdate });
     }
 }
 
