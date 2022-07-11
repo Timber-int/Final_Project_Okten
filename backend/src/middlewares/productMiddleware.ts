@@ -27,23 +27,6 @@ class ProductMiddleware {
             next(e);
         }
     }
-
-    public async checkIsProductPhotoExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
-        try {
-            const { photo } = req.params;
-
-            const productFromDB = await productService.getProductByPhoto(photo);
-
-            if (!productFromDB) {
-                next(new ErrorHandler(MESSAGE.PRODUCT_PHOTO_NOT_EXIST, STATUS.CODE_404));
-                return;
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    }
 }
 
 export const productMiddleware = new ProductMiddleware();

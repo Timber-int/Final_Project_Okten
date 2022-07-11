@@ -1,12 +1,10 @@
 import Joi from 'joi';
-import { CONSTANTS } from '../constants';
 
 export const createProductValidator = Joi.object({
     productName: Joi.string()
         .min(3)
         .max(100)
         .required()
-        // .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"productName" Can not be empty',
             'string.pattern.base': 'Enter only letter min 3 max 100',
@@ -50,7 +48,6 @@ export const updateProductValidator = Joi.object({
     productName: Joi.string()
         .min(3)
         .max(100)
-        .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"productName" Can not be empty',
             'string.pattern.base': 'Enter only letter min 3 max 100',

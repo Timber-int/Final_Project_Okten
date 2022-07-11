@@ -62,11 +62,12 @@ class ProductController {
 
     public async updateProductById(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const { id } = req.params;
+            // const { id } = req.params;
+            //
+            // const product = await productService.updateProductById(Number(id), req.body);
 
-            const product = await productService.updateProductById(Number(id), req.body);
-
-            res.json(product);
+            console.log(req.body);
+            res.json('ok');
         } catch (e) {
             next(e);
         }

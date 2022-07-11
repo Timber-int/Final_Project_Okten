@@ -7,3 +7,5 @@ export * from './ActionPage/ActionPage';
 export * from './AdminPage/AdminPage';
 export * from './NotFoundPage/NotFoundPage';
 export * from './CategoryPage/CategoryPage';
+export * from './ProductPage/ProductPage';
+export * from './ProductDetailsPage/ProductDetailsPage';

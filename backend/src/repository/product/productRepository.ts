@@ -38,12 +38,6 @@ class ProductRepository extends Repository<Product> implements IProductRepositor
             .findOne({ productName: name });
     }
 
-    public async getProductByPhoto(photo: string): Promise<IProduct | undefined> {
-        return getManager()
-            .getRepository(Product)
-            .findOne({ productPhoto: photo });
-    }
-
     public async createProduct(product: IProduct): Promise<IProduct> {
         return getManager()
             .getRepository(Product)

@@ -63,12 +63,14 @@ const CategoryPage = () => {
                     <div className={css.errors_span}>{errors.logo && <span>{errors.logo.message}</span>}</div>
                     <div><input type="text" {...register('name')} placeholder={'name...'}/></div>
                     <div className={css.errors_span}>{errors.name && <span>{errors.name.message}</span>}</div>
-                    <div><input type="submit" value={categoryDataToUpdate ? 'Update' : 'create'}/></div>
+                    <div><input className={css.category_create_update_button} type="submit" value={categoryDataToUpdate ? 'Update' : 'create'}/></div>
                 </form>
             </div>
-            {
-                categories.map(category => <Category key={category.id} category={category}/>)
-            }
+            <div className={css.category_container_block}>
+                {
+                    categories.map(category => <Category key={category.id} category={category}/>)
+                }
+            </div>
         </div>
     );
 };

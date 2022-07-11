@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CONSTANTS } from '../constants';
-import { categoryService } from '../service';
+import { categoryService, productService } from '../service';
 
 export const getAllCategories = createAsyncThunk(
     'categorySlice/getAllCategories',
@@ -113,6 +113,7 @@ export const updateCategoryById = createAsyncThunk(
     }
 );
 
+
 const categorySlice = createSlice({
     name: 'categorySlice',
     initialState: {
@@ -132,7 +133,6 @@ const categorySlice = createSlice({
         setProductCount: (state, action) => {
             const {
                 id,
-                totalCount,
             } = action.payload.setProduct;
 
             const count = Number(action.payload.setProduct.count);
@@ -235,7 +235,8 @@ const categorySlice = createSlice({
         },
         updateCategoryGetData: (state, action) => {
             state.categoryDataToUpdate = action.payload.category;
-        }
+        },
+
     },
     extraReducers: {
         [getAllCategories.pending]: (state, action) => {
@@ -301,7 +302,7 @@ const {
     clearSelectedIngredientsArray,
     deleteSingleCategoryById,
     updateCategoryGetData,
-    updateSingleCategoryById
+    updateSingleCategoryById,
 } = categorySlice.actions;
 
 export const categoryAction = {
@@ -313,7 +314,7 @@ export const categoryAction = {
     clearSelectedIngredientsArray,
     deleteSingleCategoryById,
     updateCategoryGetData,
-    updateSingleCategoryById
+    updateSingleCategoryById,
 };
 
 export default categoryReducer;

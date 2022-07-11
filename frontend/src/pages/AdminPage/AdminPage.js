@@ -32,12 +32,15 @@ const AdminPage = () => {
         <div className={css.admin_content}>
             <div className={css.navigation_block}>
                 <NavLink to={'/adminPage/category'}>Category</NavLink>
+                <NavLink to={'/adminPage/products'}>Products</NavLink>
             </div>
-            <div className={css.content_block}>
-                <Outlet/>
-            </div>
-            <div className={css.admin_information_block}>
+            <div className={css.content_container}>
+                <div className={css.content_block}>
+                    <Outlet/>
+                </div>
+                <div className={css.admin_information_block}>
 
+                </div>
             </div>
         </div>
     );

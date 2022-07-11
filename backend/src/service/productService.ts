@@ -16,10 +16,6 @@ class ProductService {
         return productRepository.getProductByName(name);
     }
 
-    public async getProductByPhoto(photo: string): Promise<IProduct | undefined> {
-        return productRepository.getProductByPhoto(photo);
-    }
-
     public async createProduct(product: IProduct): Promise<IProduct> {
         return productRepository.createProduct(product);
     }

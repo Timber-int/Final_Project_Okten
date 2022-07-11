@@ -4,6 +4,8 @@
     justify-content: center;
     width: 45%;
     margin: 1vh;
+    border: 1px solid #0E0E0E;
+    padding: 1vh;
 }
 
 .category_box > div {
@@ -11,12 +13,30 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    min-height: 3vh;
+    margin:  1vh 0 1vh 0;
 }
-.category_image{
+
+.category_box > div > button {
+    width: 100%;
+    border-radius: 5vh;
+    cursor: pointer;
+    background-color: #FFD600;
+    border: 1px solid #FFD600;
+    transition: 0.5s;
+    color: #0E0E0E;
+}
+
+.category_box > div > button:hover {
+    background-color: #FFFFFF;
+}
+
+.category_image {
     width: 20vh;
     height: 20vh;
 }
-.category_name{
+
+.category_name {
     font-size: 20px;
     color: #e53935;
 }

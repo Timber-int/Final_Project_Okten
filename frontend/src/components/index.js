@@ -18,3 +18,4 @@ export * from './OrderTypeShopDelivery/OrderTypeShopDelivery';
 export * from './ModalWindow/ModalWindow';
 export * from './ProductInformation/ProductInformation';
 export * from './Category/Category';
+export * from './ProductAdminContent/ProductAdminContent';

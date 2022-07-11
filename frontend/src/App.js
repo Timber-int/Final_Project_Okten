@@ -15,6 +15,8 @@ import {
 } from './pages';
 import { getAllCities } from './store';
 import { useDispatch } from 'react-redux';
+import { ProductsPage } from './pages/ProductsPage/ProductsPage';
+import { ProductsComponentDetailsPage } from './pages/ProductsComponentDetailsPage/ProductsComponentDetailsPage';
 
 const App = () => {
 
@@ -38,6 +40,9 @@ const App = () => {
             </Route>
             <Route path={'/adminPage'} element={<AdminPage/>}>
                 <Route path={'category'} element={<CategoryPage/>}/>
+                <Route path={'products'} element={<ProductsPage/>}>
+                    <Route path={'productDetails/:id'} element={<ProductsComponentDetailsPage/>}/>
+                </Route>
             </Route>
             <Route path={'*'} element={<NotFoundPage/>}/>
         </Routes>

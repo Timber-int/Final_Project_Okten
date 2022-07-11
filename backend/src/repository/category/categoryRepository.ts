@@ -9,7 +9,7 @@ class CategoryRepository extends Repository<Category> implements ICategoryReposi
     public async getAllCategories(): Promise<Category[]> {
         return getManager()
             .getRepository(Category)
-            .find();
+            .find({ relations: ['products', 'productIngredients'] });
     }
 
     public async getCategoryByName(name: string): Promise<Category | undefined> {
