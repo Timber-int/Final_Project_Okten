@@ -41,6 +41,9 @@ const ProductAdminContent = ({ product }) => {
                     }
                 </div>
             </div>
+            <div className={css.product_name}>
+                {productName}
+            </div>
             <div className={css.product_information}>
                 <div>ProductPrice: <span>{productPrice} UAH</span></div>
                 <div>ProductWeight: <span>{productWeight} g</span></div>

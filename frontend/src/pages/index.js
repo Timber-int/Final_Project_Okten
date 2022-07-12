@@ -9,3 +9,5 @@ export * from './NotFoundPage/NotFoundPage';
 export * from './CategoryPage/CategoryPage';
 export * from './ProductPage/ProductPage';
 export * from './ProductDetailsPage/ProductDetailsPage';
+export * from './ProductIngredientsPage/ProductIngredientsPage';
+export * from './ProductIngredientsComponentDetailsPage/ProductIngredientsComponentDetailsPage';

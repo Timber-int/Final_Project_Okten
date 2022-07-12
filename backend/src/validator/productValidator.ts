@@ -80,4 +80,6 @@ export const updateProductValidator = Joi.object({
             'string.empty': '"categoryId" Can not be empty',
             'string.pattern.base': 'Enter only letter min 0 max 1000000',
         }),
+    productPhoto: Joi.any(),
+    productBigPhoto: Joi.any(),
 });

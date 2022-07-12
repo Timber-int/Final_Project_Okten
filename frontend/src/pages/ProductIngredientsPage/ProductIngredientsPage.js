@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { getAllCategories } from '../../store';
-import css from './ProductsPage.module.css';
+import { NavLink, Outlet } from 'react-router-dom';
+import css from '../ProductsPage/ProductsPage.module.css';
 
-const ProductsPage = () => {
+const ProductIngredientsPage = () => {
 
     const dispatch = useDispatch();
 
@@ -24,7 +23,7 @@ const ProductsPage = () => {
             {
                 categories.map(category => (
                     <div key={category.id} className={css.product_data_box}>
-                        <NavLink to={'/adminPage/products/productDetails/' + category.id} state={category}
+                        <NavLink to={'/adminPage/productIngredients/productIngredientsDetails/' + category.id} state={category}
                                  className={css.category_name}>{category.name}
                         </NavLink>
                     </div>
@@ -37,4 +36,4 @@ const ProductsPage = () => {
     );
 };
 
-export { ProductsPage };
+export { ProductIngredientsPage };

@@ -19,3 +19,4 @@ export * from './ModalWindow/ModalWindow';
 export * from './ProductInformation/ProductInformation';
 export * from './Category/Category';
 export * from './ProductAdminContent/ProductAdminContent';
+export * from './ProductIngredientAdminContent/ProductIngredientAdminContent';

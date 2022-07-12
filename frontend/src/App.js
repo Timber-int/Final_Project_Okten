@@ -9,7 +9,7 @@ import {
     DeliveryHardPage,
     NotFoundPage,
     OrderPage,
-    ProductDetailsPage,
+    ProductDetailsPage, ProductIngredientsComponentDetailsPage, ProductIngredientsPage,
     ProductPage,
     RegistrationPage
 } from './pages';
@@ -40,6 +40,9 @@ const App = () => {
             </Route>
             <Route path={'/adminPage'} element={<AdminPage/>}>
                 <Route path={'category'} element={<CategoryPage/>}/>
+                <Route path={'productIngredients'} element={<ProductIngredientsPage/>}>
+                    <Route path={'productIngredientsDetails/:id'} element={<ProductIngredientsComponentDetailsPage/>}/>
+                </Route>
                 <Route path={'products'} element={<ProductsPage/>}>
                     <Route path={'productDetails/:id'} element={<ProductsComponentDetailsPage/>}/>
                 </Route>

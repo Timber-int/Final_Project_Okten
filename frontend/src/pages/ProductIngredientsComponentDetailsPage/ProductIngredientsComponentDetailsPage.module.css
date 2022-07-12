@@ -1,10 +1,16 @@
-.products_container {
+.product_ingredients_content {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
+.products_ingredients_box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .form_box {
     width: 100%;
     display: flex;
@@ -65,32 +71,4 @@
     color: #e53935;
     align-items: center;
     font-size: 20px;
-}
-
-.product_box {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.product_data_box {
-    width: 100%;
-    border: 1px solid black;
-    margin: 1vh;
-    padding: 1vh;
-}
-
-.category_name {
-    font-size: 24px;
-    color: #e53935;
-    font-weight: bold;
-    margin: 0.5vh 0 2vh 0;
-}
-
-.product_data_box > div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }

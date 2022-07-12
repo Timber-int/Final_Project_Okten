@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
-import { createProductValidator } from '../../validator';
-import { createProduct, getAllProducts, updateProductById } from '../../store';
 
-import css from './ProductsComponentDetailsPage.module.css';
 import { ProductAdminContent } from '../../components';
+import { createProduct, getAllProducts, updateProductById } from '../../store';
+import { createProductValidator } from '../../validator';
+import css from './ProductsComponentDetailsPage.module.css';
 
 const ProductsComponentDetailsPage = () => {
 
@@ -63,6 +63,7 @@ const ProductsComponentDetailsPage = () => {
                     uniqueProductName: productDataToUpdate.productName,
                 }
             }));
+            reset();
         } else {
             dispatch(createProduct({
                 productData: {
@@ -70,6 +71,7 @@ const ProductsComponentDetailsPage = () => {
                     categoryId: category.id,
                 }
             }));
+            reset();
         }
     };
 

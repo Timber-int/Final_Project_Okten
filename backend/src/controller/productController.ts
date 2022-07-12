@@ -62,12 +62,43 @@ class ProductController {
 
     public async updateProductById(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            // const { id } = req.params;
-            //
-            // const product = await productService.updateProductById(Number(id), req.body);
+            const { id } = req.params;
 
-            console.log(req.body);
-            res.json('ok');
+            const productPhoto = req.files?.productPhoto as UploadedFile;
+            const productBigPhoto = req.files?.productBigPhoto as UploadedFile;
+
+            let productPhotoFilePath;
+            let productBigPhotoFilePath;
+
+            if (productPhoto) {
+                productPhotoFilePath = await fileService.saveFile(productPhoto);
+            }
+
+            if (productBigPhoto) {
+                productBigPhotoFilePath = await fileService.saveFile(productBigPhoto);
+            }
+
+            await productService.updateProductById(Number(id),
+                productPhoto && productBigPhoto
+                    ? {
+                        ...req.body,
+                        productPhoto: productPhotoFilePath,
+                        productBigPhoto: productBigPhotoFilePath,
+                    } : { ...req.body }
+                        ? productPhoto
+                            ? {
+                                ...req.body,
+                                productPhoto: productPhotoFilePath,
+                            } : { ...req.body }
+                                ? productBigPhoto
+                                    ? {
+                                        ...req.body,
+                                        productBigPhoto: productBigPhotoFilePath,
+                                    } : { ...req.body } : { ...req.body } : { ...req.body },
+            );
+            const product = await productService.getProductById(Number(id));
+
+            res.json({ data: product });
         } catch (e) {
             next(e);
         }

@@ -76,8 +76,6 @@ export const updateProductById = createAsyncThunk(
                 uniqueProductName
             } = productDataToUpdate;
 
-            const { length } = productBigPhoto;
-
             if (productName !== uniqueProductName) {
                 formData.append('productName', productName);
             }
@@ -88,20 +86,27 @@ export const updateProductById = createAsyncThunk(
                 formData.append('productPhoto', productPhoto[0]);
             }
 
-            if (length > 0) {
-                formData.append('productBigPhoto', productBigPhoto[0]);
+            if (productBigPhoto !== null) {
+                if (typeof productBigPhoto === 'string') {
+                    formData.append('productBigPhoto', productBigPhoto);
+                } else {
+                    const { length } = productBigPhoto;
+                    if (length > 0) {
+                        formData.append('productBigPhoto', productBigPhoto[0]);
+                    }
+                }
             }
+
             formData.append('description', description);
             formData.append('categoryId', categoryId);
             formData.append('productPrice', productPrice);
             formData.append('productWeight', productWeight);
 
-            console.log(productDataToUpdate);
             const data = await productService.updateProductById(id, formData);
 
-            // dispatch(productAction.updateSingleProductById({ updatedProduct: data }));
-            //
-            // return { productData: data };
+            dispatch(productAction.updateSingleProductById({ updatedProduct: data }));
+
+            return { productData: data };
         } catch (e) {
             return rejectWithValue(e.message);
         }
@@ -226,6 +231,19 @@ const productSlice = createSlice({
             state.serverErrors = null;
         },
         [createProduct.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [updateProductById.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [updateProductById.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.products.push(action.payload.productData);
+            state.serverErrors = null;
+        },
+        [updateProductById.rejected]: (state, action) => {
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
