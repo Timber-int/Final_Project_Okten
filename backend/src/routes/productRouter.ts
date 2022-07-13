@@ -29,7 +29,7 @@ router.put('/:id',
     dataValidatorMiddleware.dataValidator,
     productMiddleware.checkIsProductExist,
     fileMiddleware.checkIsProductBigPhotoFileExist,
-    fileMiddleware.checkIsProductBigPhotoToUpdateFileExist,
+    fileMiddleware.checkIsProductPhotoToUpdateFileExist,
     productController.updateProductById);
 
 router.delete('/:id', productController.deleteProductById);

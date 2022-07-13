@@ -17,6 +17,45 @@ export const getAllCities = createAsyncThunk(
     }
 );
 
+export const deleteCityById = createAsyncThunk(
+    'citySlice/deleteCityById',
+    async ({ id }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const city = await cityService.deleteCityById(id);
+
+            dispatch(cityActions.deleteSingleCityById({ id }));
+
+            return city;
+        } catch (e) {
+            rejectWithValue(e.message);
+        }
+    }
+);
+export const createCity = createAsyncThunk(
+    'citySlice/createCity',
+    async ({ cityData }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            let formData = new FormData();
+
+            const { cityName } = cityData;
+
+            formData.append('cityName', cityName);
+
+            const city = await cityService.createCity(formData);
+
+            return { city };
+        } catch (e) {
+            rejectWithValue(e.message);
+        }
+    }
+);
+
 const citySlice = createSlice({
     name: 'citySlice',
     initialState: {
@@ -36,6 +75,9 @@ const citySlice = createSlice({
         },
         setCityStatusFalse: (state, action) => {
             state.cityStatus = false;
+        },
+        deleteSingleCityById: (state, action) => {
+            state.cities = state.cities.filter(city => city.id !== action.payload.id);
         }
     },
     extraReducers: {
@@ -56,6 +98,35 @@ const citySlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
+        [deleteCityById.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [deleteCityById.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.serverErrors = null;
+        },
+        [deleteCityById.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [createCity.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [createCity.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            const city = action.payload.city.data;
+            state.cities.push(Object.assign(city, {
+                label: city.cityName,
+                value: city.cityName,
+            }));
+            state.serverErrors = null;
+        },
+        [createCity.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
     }
 });
 
@@ -63,12 +134,15 @@ const cityReducer = citySlice.reducer;
 const {
     setChosenCity,
     setCityStatusFalse,
-    setCityStatusTrue
+    setCityStatusTrue,
+    deleteSingleCityById
 } = citySlice.actions;
+
 export const cityActions = {
     setChosenCity,
     setCityStatusFalse,
-    setCityStatusTrue
+    setCityStatusTrue,
+    deleteSingleCityById
 
 };
 

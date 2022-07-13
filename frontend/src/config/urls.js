@@ -10,4 +10,5 @@ export const urls = {
     sliders: '/sliders',
     categories: '/categories',
     cities: '/cities',
+    cityAddress: '/cityAddress',
 };

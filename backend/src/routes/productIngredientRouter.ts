@@ -16,7 +16,7 @@ router.post('/', (req: IRequestExtended, res: Response, next: NextFunction) => {
 router.put('/:id', (req: IRequestExtended, res: Response, next: NextFunction) => {
     req.chosenValidationType = updateProductIngredientValidator;
     next();
-}, dataValidatorMiddleware.dataValidator, productIngredientMiddleware.checkIsProductIngredientExist, productIngredientController.updateProductIngredientById);
+}, dataValidatorMiddleware.dataValidator, productIngredientMiddleware.checkIsProductIngredientExist, fileMiddleware.checkIsProductPhotoToUpdateFileExist, productIngredientController.updateProductIngredientById);
 router.delete('/:id', productIngredientController.deleteProductIngredientById);
 
 export const productIngredientRouter = router;

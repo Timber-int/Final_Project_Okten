@@ -47,9 +47,23 @@ class ProductIngredientController {
         try {
             const { id } = req.params;
 
-            const productIngredient = await productIngredientService.updateProductIngredientById(Number(id), req.body);
+            const productPhoto = req.files?.productPhoto as UploadedFile;
+            let productPhotoFilePath;
 
-            res.json(productIngredient);
+            if (productPhoto) {
+                productPhotoFilePath = await fileService.saveFile(productPhoto);
+            }
+
+            await productIngredientService.updateProductIngredientById(Number(id),
+                productPhoto
+                    ? {
+                        ...req.body,
+                        productPhoto: productPhotoFilePath,
+                    } : { ...req.body });
+
+            const productIngredient = await productIngredientService.getProductIngredientById(Number(id));
+
+            res.json({ data: productIngredient });
         } catch (e) {
             next(e);
         }

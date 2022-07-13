@@ -58,7 +58,7 @@ const ProductIngredientsComponentDetailsPage = () => {
                     productIngredientUniqueName: productIngredientDataToUpdate.productIngredientName,
                 }
             }));
-            // reset();
+            reset();
         } else {
             dispatch(createProductIngredient({
                 productIngredient: {

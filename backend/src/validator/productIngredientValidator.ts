@@ -41,7 +41,6 @@ export const updateProductIngredientValidator = Joi.object({
     productIngredientName: Joi.string()
         .min(3)
         .max(30)
-        .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"productIngredientName" Can not be empty',
             'string.pattern.base': 'Enter only letter min 3 max 30',
@@ -61,4 +60,12 @@ export const updateProductIngredientValidator = Joi.object({
             'string.empty': '"productWeight" Can not be empty',
             'string.pattern.base': 'Enter only letter min 0 max 1000000',
         }),
+    categoryId: Joi.number()
+        .min(0)
+        .required()
+        .messages({
+            'string.empty': '"categoryId" Can not be empty',
+            'string.pattern.base': 'Enter only letter min 0 max 1000000',
+        }),
+    productPhoto: Joi.any(),
 });

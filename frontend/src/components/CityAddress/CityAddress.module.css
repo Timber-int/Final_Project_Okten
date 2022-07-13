@@ -1,0 +1,38 @@
+.city_address_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 45%;
+    margin: 1vh;
+    border: 1px solid #0E0E0E;
+    padding: 1vh;
+}
+
+.city_address_box > div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 3vh;
+    margin:  1vh 0 1vh 0;
+    font-size: 18px;
+}
+
+.city_address_name > span {
+    color: #e53935;
+    font-weight: bold;
+    margin-left: 5%;
+}
+.city_address_box > div > button {
+    width: 100%;
+    border-radius: 5vh;
+    cursor: pointer;
+    background-color: #FFD600;
+    border: 1px solid #FFD600;
+    transition: 0.5s;
+    color: #0E0E0E;
+}
+
+.city_address_box > div > button:hover {
+    background-color: #FFFFFF;
+}

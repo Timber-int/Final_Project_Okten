@@ -66,7 +66,6 @@ export const updateProductIngredientById = createAsyncThunk(
                 productWeight
             } = productIngredientDataToUpdate;
 
-            console.log(productIngredientDataToUpdate,'sdf');
             let formData = new FormData();
 
             formData.append('categoryId', categoryId);
@@ -79,13 +78,13 @@ export const updateProductIngredientById = createAsyncThunk(
             formData.append('productWeight', productWeight);
 
             if (typeof productPhoto === 'string') {
-                formData.append('logo', productPhoto);
+                formData.append('productPhoto', productPhoto);
             } else {
-                formData.append('logo', productPhoto[0]);
+                formData.append('productPhoto', productPhoto[0]);
             }
 
             const data = await productIngredientService.updateProductIngredientById(id, formData);
-            console.log(data);
+
             dispatch(productIngredientAction.updateSingleProductIngredientById({ productIngredientsData: data }));
 
             return { productIngredientsData: data };

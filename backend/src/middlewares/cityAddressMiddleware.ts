@@ -13,7 +13,7 @@ class CityAddressMiddleware {
             const cityAddress = await cityAddressService.getCityAddressByName(req.body.addressName);
 
             if (cityAddress) {
-                next(new ErrorHandler(MESSAGE.CITY_ADDRESS_EXIST, STATUS.CODE_404));
+                next(new ErrorHandler(MESSAGE.CITY_ADDRESS_NAME_EXIST, STATUS.CODE_404));
                 return;
             }
 
@@ -23,12 +23,12 @@ class CityAddressMiddleware {
         }
     }
 
-    public async checkIsCityExistById(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+    public async checkIsCityExistByCityId(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const city = await cityService.getCityById(req.body.cityId);
 
             if (!city) {
-                next(new ErrorHandler(MESSAGE.CITY_EXIST, STATUS.CODE_404));
+                next(new ErrorHandler(MESSAGE.CITY_NOT_EXIST, STATUS.CODE_404));
                 return;
             }
 

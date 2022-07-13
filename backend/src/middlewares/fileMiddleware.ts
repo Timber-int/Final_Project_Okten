@@ -65,7 +65,7 @@ class FileMiddleware {
         }
     }
 
-    async checkIsProductBigPhotoToUpdateFileExist(req: IRequestExtended, res: Response, next: NextFunction) {
+    async checkIsProductPhotoToUpdateFileExist(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             if (!req.files?.productPhoto) {
                 next();

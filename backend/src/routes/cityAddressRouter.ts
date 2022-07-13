@@ -11,7 +11,7 @@ router.get('/:id', cityAddressController.getCityAddressById);
 router.post('/', (req: IRequestExtended, res: Response, next: NextFunction) => {
     req.chosenValidationType = createCityAddressValidator;
     next();
-}, dataValidatorMiddleware.dataValidator, cityAddressMiddleware.checkIsCityAddressExist, cityAddressMiddleware.checkIsCityExistById, cityAddressController.createCityAddress);
+}, dataValidatorMiddleware.dataValidator, cityAddressMiddleware.checkIsCityAddressExist, cityAddressMiddleware.checkIsCityExistByCityId, cityAddressController.createCityAddress);
 router.delete('/:id', cityAddressController.deleteCityAddressById);
 
 export const cityAddressRouter = router;

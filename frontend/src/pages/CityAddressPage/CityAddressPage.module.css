@@ -1,0 +1,40 @@
+.cities_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.city_data_box {
+    width: 100%;
+    border: 1px solid black;
+    margin: 1vh;
+    padding: 1vh;
+}
+
+.city_data_box a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.city_data_box a:hover {
+    color: #FFD600;
+}
+
+.city_name {
+    font-size: 24px;
+    color: #e53935;
+    font-weight: bold;
+}
+
+.content_container {
+    width: 100%;
+    border: 1px solid black;
+    margin: 1vh;
+    padding: 1vh;
+    height: 80vh;
+    overflow: hidden;
+    overflow-y: auto;
+}

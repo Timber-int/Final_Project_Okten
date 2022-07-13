@@ -11,3 +11,6 @@ export * from './ProductPage/ProductPage';
 export * from './ProductDetailsPage/ProductDetailsPage';
 export * from './ProductIngredientsPage/ProductIngredientsPage';
 export * from './ProductIngredientsComponentDetailsPage/ProductIngredientsComponentDetailsPage';
+export * from './CityPage/CityPage';
+export * from './CityAddressPage/CityAddressPage';
+export * from './CityAddressDetailsComponentPage/CityAddressDetailsComponentPage';
