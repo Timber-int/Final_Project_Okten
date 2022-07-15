@@ -31,7 +31,7 @@ const App = () => {
     return (
         <Routes>
             <Route path={'/'} element={<Layout/>}>
-                <Route  path={'categoryId/:id'} element={<ProductPage/>}/>
+                <Route path={'shopProducts'} element={<ProductPage/>}/>
                 <Route path={'productId/:id'} element={<ProductDetailsPage/>}/>
                 <Route path={'registration'} element={<RegistrationPage/>}/>
                 <Route path={'deliveryHardPage/:id'} element={<DeliveryHardPage/>}/>

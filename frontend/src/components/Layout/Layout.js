@@ -41,7 +41,7 @@ const Layout = () => {
             </NavLink>
                 {
                     categories.map(category =>
-                        <NavLink key={category.id} to={'/categoryId/' + category.id} state={category} className={css.category_path}>
+                        <NavLink key={category.id} to={'shopProducts'} state={category} className={css.category_path}>
                             <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
                             <span>{category.name}</span>
                         </NavLink>)
@@ -72,6 +72,7 @@ const Layout = () => {
                         </div>
                     </div>
                 </NavLink>
+                <NavLink to={'/adminPage'}>AdminPage</NavLink>
             </div>
             <div className={css.outlet}>
                 <Outlet/>

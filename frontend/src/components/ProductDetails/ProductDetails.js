@@ -6,7 +6,7 @@ import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
-import { getCategoryById, getProductInformationById, orderAction } from '../../store';
+import { getAllProducts, getCategoryById, getProductInformationById, orderAction } from '../../store';
 import { baseURL } from '../../config';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
@@ -16,21 +16,21 @@ const ProductDetails = () => {
 
     const [carouselArray, setCarouselArray] = useState([]);
 
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState(null);
 
     const { state: singleProduct } = useLocation();
 
     const dispatch = useDispatch();
 
     const {
-        products,
         category,
-        selectedProductIngredientsTotalCount,
         productIngredients,
     } = useSelector(state => state['categoryReducer']);
 
     const {
         productDetails,
+        products,
+        selectedProductIngredientsTotalCount,
     } = useSelector(state => state['productReducer']);
 
     const {
@@ -51,6 +51,9 @@ const ProductDetails = () => {
         setProduct(products.find(product => product.id === id));
         if (!category) {
             dispatch(getCategoryById({ id: categoryId }));
+        }
+        if (products.length ===0) {
+            dispatch(getAllProducts());
         }
     }, [id, products, category]);
 

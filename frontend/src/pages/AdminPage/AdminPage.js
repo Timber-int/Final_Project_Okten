@@ -12,6 +12,7 @@ const AdminPage = () => {
                 <NavLink to={'/adminPage/productIngredients'}>ProductIngredients</NavLink>
                 <NavLink to={'/adminPage/cities'}>Cities</NavLink>
                 <NavLink to={'/adminPage/cityAddress'}>CityAddress</NavLink>
+                <NavLink to={'/'}>Home</NavLink>
             </div>
             <div className={css.content_container}>
                 <div className={css.content_block}>

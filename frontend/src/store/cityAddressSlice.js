@@ -111,7 +111,6 @@ const cityAddressSlice = createSlice({
         [createCityAddress.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
             const cityAddress = action.payload.cityAddressData.data;
-            console.log(cityAddress,'sdf');
             state.cityAddress.push(Object.assign(cityAddress, {
                 label: cityAddress.addressName,
                 value: cityAddress.addressName,

@@ -9,11 +9,12 @@ import { getProductInformationById, orderAction } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
 
-const Product = ({ product }) => {
+const Product = ({
+    product,
+    category,
+}) => {
 
     const dispatch = useDispatch();
-
-    const { category } = useSelector(state => state['categoryReducer']);
 
     const { productDetails } = useSelector(state => state['productReducer']);
 
@@ -41,7 +42,7 @@ const Product = ({ product }) => {
 
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
-    }, [id]);
+    }, [id, category]);
 
     return (
         <div className={css.product_box}>

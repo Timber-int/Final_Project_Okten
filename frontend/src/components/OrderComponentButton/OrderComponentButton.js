@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { categoryAction } from '../../store';
+import { categoryAction, productAction } from '../../store';
 import css from '../OrderComponentButton/OrderComponentButton.module.css';
 
 const OrderComponentButton = ({
@@ -16,14 +16,14 @@ const OrderComponentButton = ({
     return (
         <div>
             <span className={css.nav_button}
-                  onClick={() => dispatch(categoryAction.minusProductCount({
+                  onClick={() => dispatch(productAction.minusProductCount({
                       minusProduct: {
                           id,
                           totalCount,
                       }
                   }))}>-</span>
             <span>
-                    <input type="number" onChange={event => dispatch(categoryAction.setProductCount({
+                    <input type="number" onChange={event => dispatch(productAction.setProductCount({
                         setProduct: {
                             id,
                             count: event.target.value,
@@ -34,7 +34,7 @@ const OrderComponentButton = ({
                            value={`${totalCount}`}
                     />
                     </span>
-            <span className={css.nav_button} onClick={() => dispatch(categoryAction.plusProductCount({ id }))}>+</span>
+            <span className={css.nav_button} onClick={() => dispatch(productAction.plusProductCount({ id }))}>+</span>
         </div>
     );
 };

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { Product } from '../Product/Product';
 import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
-import { categoryAction, getCategoryById } from '../../store';
+import { getAllProducts, getCategoryById, productAction } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
+import { Product } from '../Product/Product';
 
 const Products = () => {
 
@@ -14,16 +14,17 @@ const Products = () => {
 
     const {
         products,
-    } = useSelector(state => state['categoryReducer']);
+    } = useSelector(state => state['productReducer']);
 
     const dispatch = useDispatch();
 
     const { id } = category;
 
     useEffect(() => {
-        dispatch(getCategoryById({ id }));
-        dispatch(categoryAction.clearSelectedIngredientsArray());
-    }, [id]);
+        dispatch(productAction.clearSelectedIngredientsArray());
+        dispatch(getAllProducts());
+        dispatch(getCategoryById({ id: category.id }));
+    }, [id, category]);
 
     return (
         <div className={css.content}>
@@ -48,7 +49,12 @@ const Products = () => {
             </h1>
 
             <div className={css.product_container}>
-                {products.map(product => <Product key={product.id} product={product}/>)}
+                {
+                    [...products].filter(product => product.categoryId === category.id)
+                        .map(product =>
+                            <Product key={product.id} product={product} category={category}/>
+                        )
+                }
             </div>
         </div>
     );
