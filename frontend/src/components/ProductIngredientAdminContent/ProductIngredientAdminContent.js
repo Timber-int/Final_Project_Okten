@@ -3,7 +3,7 @@ import React from 'react';
 import { baseURL } from '../../config';
 import css from './ProductIngredientAdminContent.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteProductIngredientById, productIngredientAction } from '../../store';
+import { deleteProductIngredientById, productAction } from '../../store';
 
 const ProductIngredientAdminContent = ({ productIngredient }) => {
 
@@ -24,7 +24,7 @@ const ProductIngredientAdminContent = ({ productIngredient }) => {
         dispatch(deleteProductIngredientById({ id }));
     };
     const updateProductIngredientGetData = (productIngredient) => {
-        dispatch(productIngredientAction.updateProductIngredientGetData({ productDataToUpdate: productIngredient }));
+        dispatch(productAction.updateProductIngredientGetData({ productDataToUpdate: productIngredient }));
     };
 
     return (

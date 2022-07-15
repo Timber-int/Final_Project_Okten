@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CONSTANTS } from '../constants';
 import { productIngredientService, productService } from '../service';
-import { getAllProductIngredients } from './productIngredientsSlice';
 
 export const getAllProducts = createAsyncThunk(
     'productSlice/getAllProducts',
@@ -153,14 +152,107 @@ export const createProduct = createAsyncThunk(
     }
 );
 
-export const getAllProductIngredientsData = createAsyncThunk(
-    'productIngredientSlice/getAllProductIngredientsData',
+export const getAllProductIngredients = createAsyncThunk(
+    'productIngredientSlice/getAllProductIngredients',
     async (_, {
         dispatch,
         rejectWithValue
     }) => {
         try {
             const data = await productIngredientService.getAllProductIngredients();
+
+            return { productIngredientsData: data };
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+export const createProductIngredient = createAsyncThunk(
+    'productIngredientSlice/createProductIngredient',
+    async ({ productIngredient }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const {
+                categoryId,
+                productIngredientName,
+                productPhoto,
+                productPrice,
+                productWeight
+            } = productIngredient;
+
+            let formData = new FormData();
+
+            formData.append('categoryId', categoryId);
+            formData.append('productIngredientName', productIngredientName);
+            formData.append('productPrice', productPrice);
+            formData.append('productWeight', productWeight);
+            formData.append('productPhoto', productPhoto[0]);
+
+            const data = await productIngredientService.createProductIngredient(formData);
+
+            return { productIngredientsData: data };
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+export const updateProductIngredientById = createAsyncThunk(
+    'productIngredientSlice/updateProductIngredientById',
+    async ({ productIngredientDataToUpdate }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const {
+                id,
+                categoryId,
+                productIngredientName,
+                productIngredientUniqueName,
+                productPhoto,
+                productPrice,
+                productWeight
+            } = productIngredientDataToUpdate;
+
+            let formData = new FormData();
+
+            formData.append('categoryId', categoryId);
+
+            if (productIngredientName !== productIngredientUniqueName) {
+                formData.append('productIngredientName', productIngredientName);
+            }
+
+            formData.append('productPrice', productPrice);
+            formData.append('productWeight', productWeight);
+
+            if (typeof productPhoto === 'string') {
+                formData.append('productPhoto', productPhoto);
+            } else {
+                formData.append('productPhoto', productPhoto[0]);
+            }
+
+            const data = await productIngredientService.updateProductIngredientById(id, formData);
+
+            dispatch(productAction.updateSingleProductIngredientById({ productIngredientsData: data }));
+
+            return { productIngredientsData: data };
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
+export const deleteProductIngredientById = createAsyncThunk(
+    'productIngredientSlice/deleteProductIngredientById',
+    async ({ id }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const data = await productIngredientService.deleteProductIngredientById(id);
+
+            dispatch(productAction.deleteSingleProductIngredientById({ id }));
 
             return { productIngredientsData: data };
         } catch (e) {
@@ -185,6 +277,7 @@ const productSlice = createSlice({
         selectedProductIngredientsId: [],
         selectedProductIngredients: {},
         selectedProductIngredientsTotalCount: 0,
+        productIngredientDataToUpdate: null,
     },
     reducers: {
         setProductCount: (state, action) => {
@@ -299,6 +392,20 @@ const productSlice = createSlice({
             state.products = state.products.map(product => product.id === id ? { ...updatedProduct } : product);
             state.productDataToUpdate = null;
         },
+
+        deleteSingleProductIngredientById: (state, action) => {
+            state.productIngredients = state.productIngredients.filter(productIngredient => productIngredient.id !== action.payload.id);
+        },
+        updateProductIngredientGetData: (state, action) => {
+            state.productIngredientDataToUpdate = action.payload.productDataToUpdate;
+        },
+        updateSingleProductIngredientById: (state, action) => {
+            const updatedProductIngredient = action.payload.productIngredientsData.data;
+            const { id } = updatedProductIngredient;
+            state.productIngredients = state.productIngredients.map(productIngredient => productIngredient.id === id ? { ...updatedProductIngredient } : productIngredient);
+            state.productIngredientDataToUpdate = null;
+        },
+
     },
     extraReducers: {
         [getAllProducts.pending]: (state, action) => {
@@ -375,16 +482,41 @@ const productSlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
-        [getAllProductIngredientsData.pending]: (state, action) => {
+        [getAllProductIngredients.pending]: (state, action) => {
             state.status = CONSTANTS.LOADING;
             state.serverErrors = null;
         },
-        [getAllProductIngredientsData.fulfilled]: (state, action) => {
+        [getAllProductIngredients.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
             state.productIngredients = action.payload.productIngredientsData.data;
             state.serverErrors = null;
         },
-        [getAllProductIngredientsData.rejected]: (state, action) => {
+        [getAllProductIngredients.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [deleteProductIngredientById.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [deleteProductIngredientById.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.serverErrors = null;
+        },
+        [deleteProductIngredientById.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [createProductIngredient.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [createProductIngredient.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.productIngredients.push(action.payload.productIngredientsData);
+            state.serverErrors = null;
+        },
+        [createProductIngredient.rejected]: (state, action) => {
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
@@ -403,6 +535,9 @@ const {
     minusProductCount,
     plusProductCount,
     setProductCount,
+    deleteSingleProductIngredientById,
+    updateSingleProductIngredientById,
+    updateProductIngredientGetData
 
 } = productSlice.actions;
 
@@ -416,6 +551,9 @@ export const productAction = {
     minusProductCount,
     plusProductCount,
     setProductCount,
+    deleteSingleProductIngredientById,
+    updateSingleProductIngredientById,
+    updateProductIngredientGetData
 };
 
 export default productReducer;

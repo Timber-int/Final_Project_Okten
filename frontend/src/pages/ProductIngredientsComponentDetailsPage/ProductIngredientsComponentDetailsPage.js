@@ -18,7 +18,7 @@ const ProductIngredientsComponentDetailsPage = () => {
         productIngredients,
         serverErrors,
         productIngredientDataToUpdate
-    } = useSelector(state => state['productIngredientReducer']);
+    } = useSelector(state => state['productReducer']);
 
     const {
         register,

@@ -6,7 +6,14 @@ import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
-import { getAllProductIngredientsData, getAllProducts, getCategoryById, getProductInformationById, orderAction } from '../../store';
+import {
+    getAllProductIngredients,
+    getAllProductIngredientsData,
+    getAllProducts,
+    getCategoryById,
+    getProductInformationById,
+    orderAction
+} from '../../store';
 import { baseURL } from '../../config';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
@@ -34,12 +41,7 @@ const ProductDetails = () => {
         selectedProductIngredientsId,
         selectedProductIngredients,
     } = useSelector(state => state['productReducer']);
-    const {
-        productIngredients:x,
-    } = useSelector(state => state['productIngredientReducer']);
 
-    console.log(productIngredients,'a');
-    console.log(x,'b');
     const {
         id,
         productPhoto,
@@ -55,7 +57,7 @@ const ProductDetails = () => {
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
         if (productIngredients.length === 0) {
-            dispatch(getAllProductIngredientsData());
+            dispatch(getAllProductIngredients());
         }
         setCarouselArray([productPhoto, productBigPhoto]);
         setProduct(products.find(product => product.id === id));
