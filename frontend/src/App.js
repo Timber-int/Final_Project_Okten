@@ -11,7 +11,7 @@ import {
     OrderPage,
     ProductDetailsPage, ProductIngredientsComponentDetailsPage, ProductIngredientsPage,
     ProductPage,
-    RegistrationPage, CityAddressDetailsComponentPage, CityAddressPage
+    RegistrationPage, CityAddressDetailsComponentPage, CityAddressPage, ProductInformationPage, ProductInformationDetailsComponentPage
 } from './pages';
 import { getAllCities } from './store';
 import { useDispatch } from 'react-redux';
@@ -43,6 +43,9 @@ const App = () => {
                 <Route path={'cities'} element={<CityPage/>}/>
                 <Route path={'cityAddress'} element={<CityAddressPage/>}>
                     <Route path={'cityAddressDetails/:id'} element={<CityAddressDetailsComponentPage/>}/>
+                </Route>
+                <Route path={'productInformation'} element={<ProductInformationPage/>}>
+                    <Route path={'productDetailInformation/:id'} element={<ProductInformationDetailsComponentPage/>}/>
                 </Route>
                 <Route path={'productIngredients'} element={<ProductIngredientsPage/>}>
                     <Route path={'productIngredientsDetails/:id'} element={<ProductIngredientsComponentDetailsPage/>}/>

@@ -5,3 +5,4 @@ export * from './productIngredientService';
 export * from './categoryService';
 export * from './cityService';
 export * from './cityAddressService';
+export * from './productInformationService'

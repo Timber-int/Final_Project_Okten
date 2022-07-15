@@ -38,8 +38,8 @@ class ProductInformationController {
     public async updateProductInformationById(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const { id } = req.params;
-            const productInformation = await productInformationService.updateProductInformationById(Number(id), req.body);
-
+            await productInformationService.updateProductInformationById(Number(id), req.body);
+            const productInformation = await productInformationService.getProductInformationById(Number(id));
             res.json(productInformation);
         } catch (e) {
             next(e);

@@ -63,6 +63,7 @@ const citySlice = createSlice({
         chosenCity: '',
         localKey: 'city',
         cityStatus: false,
+        serverErrors: null,
     },
     reducers: {
         setChosenCity: (state, action) => {
