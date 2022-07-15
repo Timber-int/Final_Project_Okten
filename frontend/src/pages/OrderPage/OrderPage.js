@@ -15,8 +15,10 @@ const OrderPage = () => {
         chosenProductIdArray
     } = useSelector(state => state['orderReducer']);
 
+    console.log(chosenProduct);
+
     chosenProductIdArray.map((element, index) => {
-        console.log(chosenProduct[element] );
+        // console.log(chosenProduct[element] );
     });
 
     const dispatch = useDispatch();

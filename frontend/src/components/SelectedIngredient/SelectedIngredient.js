@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { categoryAction } from '../../store';
+import { productAction } from '../../store';
 import css from './SelectedIngredient.module.css';
 
 const SelectedIngredient = ({
@@ -19,7 +19,7 @@ const SelectedIngredient = ({
     return (
         <div className={css.selected_ingredient_box}>
             <button className={css.selected_ingredient_button}
-                    onClick={() => dispatch(categoryAction.deleteChosenSelectedIngredients({
+                    onClick={() => dispatch(productAction.deleteChosenSelectedIngredients({
                         deletedData: {
                             id,
                             productId

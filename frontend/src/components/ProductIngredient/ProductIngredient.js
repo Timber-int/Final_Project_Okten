@@ -22,7 +22,12 @@ const ProductIngredient = ({
     } = productIngredient;
 
     const choseIngredient = (ingredient) => {
-        dispatch(productAction.setSelectedProductIngredients({chosenData:{ ingredient,productId }}));
+        dispatch(productAction.setSelectedProductIngredients({
+            chosenData: {
+                ingredient,
+                productId
+            }
+        }));
     };
     const deleteChosenIngredient = (id) => {
         dispatch(productAction.deleteChosenSelectedIngredients({

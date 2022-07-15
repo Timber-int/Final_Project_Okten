@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CONSTANTS } from '../constants';
-import { productService } from '../service';
+import { productIngredientService, productService } from '../service';
+import { getAllProductIngredients } from './productIngredientsSlice';
 
 export const getAllProducts = createAsyncThunk(
     'productSlice/getAllProducts',
@@ -152,6 +153,22 @@ export const createProduct = createAsyncThunk(
     }
 );
 
+export const getAllProductIngredientsData = createAsyncThunk(
+    'productIngredientSlice/getAllProductIngredientsData',
+    async (_, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const data = await productIngredientService.getAllProductIngredients();
+
+            return { productIngredientsData: data };
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
 const productSlice = createSlice({
     name: 'productSlice',
     initialState: {
@@ -168,7 +185,6 @@ const productSlice = createSlice({
         selectedProductIngredientsId: [],
         selectedProductIngredients: {},
         selectedProductIngredientsTotalCount: 0,
-        categoryDataToUpdate: null,
     },
     reducers: {
         setProductCount: (state, action) => {
@@ -264,8 +280,12 @@ const productSlice = createSlice({
         clearSelectedIngredientsArray: (state, action) => {
             state.selectedProductIngredients = {};
             state.selectedProductIngredientsTotalCount = 0;
+            state.productIngredients = state.productIngredients.map(element => element ? {
+                ...element,
+                status: false
+            } : element);
+            state.selectedProductIngredientsId = [];
         },
-
 
         deleteSingleProductById: (state, action) => {
             state.products = state.products.filter(product => product.id !== action.payload.id);
@@ -293,6 +313,7 @@ const productSlice = createSlice({
             state.products = productArray.map(product => Object.assign(product, {
                 totalCount: 1,
                 defaultPrice: product.productPrice,
+                chosenProductIngredients: [],
             }));
             state.page = action.payload.productData.page;
             state.perPage = action.payload.productData.perPage;
@@ -351,6 +372,19 @@ const productSlice = createSlice({
             state.serverErrors = null;
         },
         [updateProductById.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [getAllProductIngredientsData.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [getAllProductIngredientsData.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.productIngredients = action.payload.productIngredientsData.data;
+            state.serverErrors = null;
+        },
+        [getAllProductIngredientsData.rejected]: (state, action) => {
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },

@@ -6,7 +6,7 @@ import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
-import { getAllProducts, getCategoryById, getProductInformationById, orderAction } from '../../store';
+import { getAllProductIngredientsData, getAllProducts, getCategoryById, getProductInformationById, orderAction } from '../../store';
 import { baseURL } from '../../config';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
@@ -24,15 +24,22 @@ const ProductDetails = () => {
 
     const {
         category,
-        productIngredients,
     } = useSelector(state => state['categoryReducer']);
 
     const {
         productDetails,
         products,
         selectedProductIngredientsTotalCount,
+        productIngredients,
+        selectedProductIngredientsId,
+        selectedProductIngredients,
     } = useSelector(state => state['productReducer']);
+    const {
+        productIngredients:x,
+    } = useSelector(state => state['productIngredientReducer']);
 
+    console.log(productIngredients,'a');
+    console.log(x,'b');
     const {
         id,
         productPhoto,
@@ -47,15 +54,18 @@ const ProductDetails = () => {
 
     useEffect(() => {
         dispatch(getProductInformationById({ id }));
+        if (productIngredients.length === 0) {
+            dispatch(getAllProductIngredientsData());
+        }
         setCarouselArray([productPhoto, productBigPhoto]);
         setProduct(products.find(product => product.id === id));
         if (!category) {
             dispatch(getCategoryById({ id: categoryId }));
         }
-        if (products.length ===0) {
+        if (products.length === 0) {
             dispatch(getAllProducts());
         }
-    }, [id, products, category]);
+    }, [id, products, category, productIngredients]);
 
     const moveToIngredients = () => {
         window.scroll(0, 800);
@@ -160,7 +170,11 @@ const ProductDetails = () => {
                             </div>
                         </div>
                         <div className={css.selected_ingredient_container}>
-                            <SelectedProductIngredients id={id}/>
+                            <SelectedProductIngredients
+                                id={id}
+                                selectedProductIngredients={selectedProductIngredients}
+                                selectedProductIngredientsId={selectedProductIngredientsId}
+                            />
                         </div>
                         <div className={css.order_button_container}>
                             <button className={css.order_button}
@@ -175,7 +189,7 @@ const ProductDetails = () => {
                     ?
                     <div className={css.product_ingredients_container}>
                         <div className={css.product_ingredients_text}>Додатки до {category.name}</div>
-                        <ProductIngredients productIngredients={productIngredients} id={id}/>
+                        <ProductIngredients productIngredients={productIngredients} id={id} categoryId={categoryId}/>
                     </div>
                     :
                     <></>
