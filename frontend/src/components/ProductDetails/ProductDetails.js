@@ -11,7 +11,7 @@ import {
     getAllProductIngredientsData,
     getAllProducts,
     getCategoryById,
-    getProductInformationById,
+    getProductInformationById, getProductInformationByProductId,
     orderAction
 } from '../../store';
 import { baseURL } from '../../config';
@@ -34,7 +34,10 @@ const ProductDetails = () => {
     } = useSelector(state => state['categoryReducer']);
 
     const {
-        productDetails,
+        singleProductInformation,
+    } = useSelector(state => state['productInformationReducer']);
+
+    const {
         products,
         selectedProductIngredientsTotalCount,
         productIngredients,
@@ -55,7 +58,7 @@ const ProductDetails = () => {
     } = singleProduct;
 
     useEffect(() => {
-        dispatch(getProductInformationById({ id }));
+        dispatch(getProductInformationByProductId({ productId: id }));
         if (productIngredients.length === 0) {
             dispatch(getAllProductIngredients());
         }
@@ -101,10 +104,10 @@ const ProductDetails = () => {
                         <div className={css.product_details_name}>{productName}</div>
                         <div className={css.product_details_description}>{description}</div>
                         {
-                            productDetails
+                            singleProductInformation
                                 ?
                                 <div className={css.product_information_container}>
-                                    <ProductInformation productDetails={productDetails}/>
+                                    <ProductInformation singleProductInformation={singleProductInformation}/>
                                 </div>
                                 :
                                 <></>

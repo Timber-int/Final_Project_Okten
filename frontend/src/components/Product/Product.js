@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
 import { baseURL } from '../../config';
-import { getProductInformationById, orderAction } from '../../store';
+import { getProductInformationByProductId, orderAction } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
 
@@ -16,8 +16,9 @@ const Product = ({
 
     const dispatch = useDispatch();
 
-    const { productDetails } = useSelector(state => state['productReducer']);
+    const { singleProductInformation } = useSelector(state => state['productInformationReducer']);
 
+    console.log(singleProductInformation);
     const {
         productName,
         productPhoto,
@@ -41,7 +42,7 @@ const Product = ({
     };
 
     useEffect(() => {
-        dispatch(getProductInformationById({ id }));
+        dispatch(getProductInformationByProductId({ productId: id }));
     }, [id, category]);
 
     return (
@@ -119,10 +120,10 @@ const Product = ({
                     </div>
             }
             {
-                category && productDetails && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.DESERTS.toLowerCase()
+                category && singleProductInformation && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.DESERTS.toLowerCase()
                     ?
                     <div className={css.product_information_container}>
-                        <ProductInformation productDetails={productDetails}/>
+                        <ProductInformation singleProductInformation={singleProductInformation}/>
                     </div>
                     :
                     <></>

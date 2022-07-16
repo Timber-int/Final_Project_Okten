@@ -25,6 +25,18 @@ class ProductInformationController {
         }
     }
 
+    public async getProductInformationByProductId(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            const { productId } = req.params;
+
+            const productInformation = await productInformationService.getProductInformationByProductId(Number(productId));
+
+            res.json(productInformation);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     public async createProductInformation(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const productInformation = await productInformationService.createProductInformation(req.body);

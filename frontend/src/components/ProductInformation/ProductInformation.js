@@ -2,14 +2,14 @@ import React from 'react';
 
 import css from './ProductInformation.module.css';
 
-const ProductInformation = ({ productDetails }) => {
+const ProductInformation = ({ singleProductInformation }) => {
 
     const {
         productProteins,
         productCarbohydrates,
         productFats,
         productCalories
-    } = productDetails;
+    } = singleProductInformation;
 
     return (
         <div className={css.product_details_more_information_container}>

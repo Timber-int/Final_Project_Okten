@@ -18,6 +18,12 @@ class ProductInformationRepository extends Repository<ProductInformation> implem
             .findOne({ id });
     }
 
+    public async getProductInformationByProductId(productId: number): Promise<IProductInformation | undefined> {
+        return getManager()
+            .getRepository(ProductInformation)
+            .findOne({ productId });
+    }
+
     public async createProductInformation(productInfo: IProductInformation): Promise<IProductInformation> {
         return getManager()
             .getRepository(ProductInformation)

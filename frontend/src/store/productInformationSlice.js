@@ -18,6 +18,22 @@ export const getAllProductsInformation = createAsyncThunk(
     }
 );
 
+export const getProductInformationByProductId = createAsyncThunk(
+    'productSlice/getProductInformationByProductId',
+    async ({ productId }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const data = await productInformationService.getProductInformationByProductId(productId);
+
+            return { productInformationData: data };
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
 export const createProductInformation = createAsyncThunk(
     'productSlice/createProductInformation',
     async ({ productInformation }, {
@@ -105,6 +121,7 @@ export const productInformationSlice = createSlice({
     name: 'productInformationSlice',
     initialState: {
         productInformation: [],
+        singleProductInformation: null,
         productInformationDataToUpdate: null,
         serverErrors: null,
         status: null,
@@ -171,6 +188,19 @@ export const productInformationSlice = createSlice({
             state.serverErrors = null;
         },
         [updateProductsInformationById.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [getProductInformationByProductId.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [getProductInformationByProductId.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.singleProductInformation = action.payload.productInformationData;
+            state.serverErrors = null;
+        },
+        [getProductInformationByProductId.rejected]: (state, action) => {
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },

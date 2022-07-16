@@ -10,6 +10,7 @@ const router = Router();
 router.get('/',
     productInformationController.getAllProductInformation);
 router.get('/:id', productInformationController.getProductInformationById);
+router.get('/information/:productId', productInformationController.getProductInformationByProductId);
 router.post('/',
     (req: IRequestExtended, res: Response, next: NextFunction) => {
         req.chosenValidationType = createProductInformationValidator;
