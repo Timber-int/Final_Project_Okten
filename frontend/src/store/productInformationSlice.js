@@ -13,7 +13,7 @@ export const getAllProductsInformation = createAsyncThunk(
 
             return { productInformationData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -29,7 +29,7 @@ export const getProductInformationByProductId = createAsyncThunk(
 
             return { productInformationData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -61,7 +61,7 @@ export const createProductInformation = createAsyncThunk(
 
             return { productInformationData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -79,7 +79,7 @@ export const deleteProductsInformationById = createAsyncThunk(
 
             return { productInformationData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -112,7 +112,7 @@ export const updateProductsInformationById = createAsyncThunk(
 
             return { productInformationData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );

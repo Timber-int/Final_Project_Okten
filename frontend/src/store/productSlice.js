@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CONSTANTS } from '../constants';
 import { productIngredientService, productService } from '../service';
+import { logDOM } from '@testing-library/react';
 
 export const getAllProducts = createAsyncThunk(
     'productSlice/getAllProducts',
@@ -14,7 +15,7 @@ export const getAllProducts = createAsyncThunk(
 
             return { productData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -30,7 +31,7 @@ export const getProductInformationById = createAsyncThunk(
 
             return { productDetailsData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -49,7 +50,7 @@ export const deleteProductById = createAsyncThunk(
 
             return { productData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -107,7 +108,7 @@ export const updateProductById = createAsyncThunk(
 
             return { productData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -147,7 +148,7 @@ export const createProduct = createAsyncThunk(
 
             return { productData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -163,7 +164,7 @@ export const getAllProductIngredients = createAsyncThunk(
 
             return { productIngredientsData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -194,7 +195,7 @@ export const createProductIngredient = createAsyncThunk(
 
             return { productIngredientsData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -238,7 +239,7 @@ export const updateProductIngredientById = createAsyncThunk(
 
             return { productIngredientsData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -256,7 +257,7 @@ export const deleteProductIngredientById = createAsyncThunk(
 
             return { productIngredientsData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -278,6 +279,9 @@ const productSlice = createSlice({
         selectedProductIngredients: {},
         selectedProductIngredientsTotalCount: 0,
         productIngredientDataToUpdate: null,
+
+        ingredientsArray: [],
+        uniqueIngredientsArray: [],
     },
     reducers: {
         setProductCount: (state, action) => {
@@ -326,10 +330,15 @@ const productSlice = createSlice({
                 ingredient
             } = action.payload.chosenData;
 
+            state.ingredientsArray.push(ingredient.productIngredientName);
+
+            // state.uniqueIngredientsArray = [...new Set(state.ingredientsArray)];
+
             state.products = state.products.map(product => product.id === productId ? {
                 ...product,
                 productPrice: product.productPrice + ingredient.productPrice,
                 productWeight: product.productWeight + ingredient.productWeight,
+                chosenProductIngredients: product.chosenProductIngredients = state.ingredientsArray,
             } : product);
 
             state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount + ingredient.productPrice;
@@ -358,7 +367,11 @@ const productSlice = createSlice({
                 ...product,
                 productPrice: product.productPrice - ingredient.productPrice,
                 productWeight: product.productWeight - ingredient.productWeight,
+                chosenProductIngredients: product.chosenProductIngredients.filter(element => element !== ingredient.productIngredientName),
             } : product);
+
+            state.ingredientsArray = state.ingredientsArray.filter(element => element !== ingredient.productIngredientName);
+            // state.uniqueIngredientsArray = state.uniqueIngredientsArray.filter(element => element !== ingredient.productIngredientName);
 
             state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount - ingredient.productPrice;
 

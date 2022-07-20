@@ -2,12 +2,11 @@ import jwt from 'jsonwebtoken';
 import { DeleteResult } from 'typeorm';
 import {
     IActionTokenDataToSave, ITokenDataToSave, ITokenPair, IUserPayload,
-} from '../interface/tokenInterfaces';
+} from '../interface';
 import { config } from '../config';
-import { IToken } from '../entity/token';
+import { IToken, IActionToken } from '../entity';
 import { actionTokenRepository, tokenRepository } from '../repository';
 import { TokenType } from '../constants';
-import { IActionToken } from '../entity';
 
 class TokenService {
     public async generateTokenPair(payload: IUserPayload): Promise<ITokenPair> {

@@ -37,7 +37,7 @@ export const TokenType = {
 };
 
 export const DEFAULT_CATEGORY_NAME ={
-    PIZZA: 'піца',
-    DESERTS: 'десерти',
-    DRINKS: 'напої',
+    PIZZA: 'pizza',
+    DESERTS: 'deserts',
+    DRINKS: 'drinks',
 }

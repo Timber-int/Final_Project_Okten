@@ -12,7 +12,7 @@ export const getAllCities = createAsyncThunk(
             const cities = await cityService.getAllCities();
             return cities;
         } catch (e) {
-            rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -30,7 +30,7 @@ export const deleteCityById = createAsyncThunk(
 
             return city;
         } catch (e) {
-            rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -51,7 +51,7 @@ export const createCity = createAsyncThunk(
 
             return { city };
         } catch (e) {
-            rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );

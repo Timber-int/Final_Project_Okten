@@ -6,3 +6,4 @@ export * from './productController';
 export * from './productIngredientController';
 export * from './cityController';
 export * from './cityAddressController';
+export * from './userOrderController';

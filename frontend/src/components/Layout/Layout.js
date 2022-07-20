@@ -6,6 +6,7 @@ import { ModalWindow } from '../ModalWindow/ModalWindow';
 import css from './Layout.module.css';
 import { cityActions, getAllCategories } from '../../store';
 import { baseURL } from '../../config';
+import { Footer } from '../Footer/Footer';
 
 const Layout = () => {
 
@@ -15,7 +16,6 @@ const Layout = () => {
 
     const {
         totalOrderCount,
-        usedOrderType,
     } = useSelector(state => state['orderReducer']);
 
     const {
@@ -29,19 +29,19 @@ const Layout = () => {
 
     useEffect(() => {
         dispatch(getAllCategories());
-    }, [totalOrderCount, usedOrderType, chosenCity,city]);
+    }, [totalOrderCount, chosenCity, city]);
 
     return (
         <div>
             {!city || cityStatus === true ? <ModalWindow/> : <></>}
             <div className={css.header}>
-            <NavLink to={'/action'} className={css.category_path}>
-                <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'} alt={'action'}/></span>
-                <span>Акції</span>
-            </NavLink>
+                <NavLink to={'/action'} className={css.category_path}>
+                    <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'} alt={'action'}/></span>
+                    <span>Акції</span>
+                </NavLink>
                 {
                     categories.map(category =>
-                        <NavLink key={category.id} to={'shopProducts'} state={category} className={css.category_path}>
+                        <NavLink key={category.id} to={'/'} state={category} className={css.category_path}>
                             <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
                             <span>{category.name}</span>
                         </NavLink>)
@@ -62,11 +62,7 @@ const Layout = () => {
                         </div>
                         <div>
                             <span className={css.total_count}>
-                                {
-                                    usedOrderType === 'selfPickup'
-                                        ? Math.trunc(totalOrderCount - totalOrderCount * 15 / 100)
-                                        : totalOrderCount
-                                }
+                                {totalOrderCount}
                             </span>
                             <span>грн</span>
                         </div>
@@ -78,7 +74,7 @@ const Layout = () => {
                 <Outlet/>
             </div>
             <div className={css.footer}>
-                Hello it's Jonny!!!
+                <Footer/>
             </div>
         </div>
     );

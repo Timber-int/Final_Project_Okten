@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
 import { baseURL } from '../../config';
-import { getProductInformationByProductId, orderAction } from '../../store';
+import { getProductInformationByProductId, orderAction, setProductToOrder } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
 
@@ -18,7 +18,6 @@ const Product = ({
 
     const { singleProductInformation } = useSelector(state => state['productInformationReducer']);
 
-    console.log(singleProductInformation);
     const {
         productName,
         productPhoto,
@@ -27,18 +26,16 @@ const Product = ({
         productWeight,
         description,
         id,
-        categoryId,
         totalCount,
     } = product;
 
     const createOrder = (productPrice, product, id) => {
-        dispatch(orderAction.setTotalOrderCount({
-            productData: {
+        dispatch(setProductToOrder({
                 productPrice,
                 product,
                 id,
             }
-        }));
+        ));
     };
 
     useEffect(() => {

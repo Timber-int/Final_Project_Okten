@@ -10,26 +10,28 @@ import { Product } from '../Product/Product';
 
 const Products = () => {
 
-    const { state: category } = useLocation();
+    const { state: productCategory } = useLocation();
 
     const {
         products,
     } = useSelector(state => state['productReducer']);
 
-    const dispatch = useDispatch();
+    const {
+        category,
+    } = useSelector(state => state['categoryReducer']);
 
-    const { id } = category;
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(productAction.clearSelectedIngredientsArray());
         dispatch(getAllProducts());
-        dispatch(getCategoryById({ id: category.id }));
-    }, [id, category]);
+        dispatch(getCategoryById({ id: productCategory ? productCategory.id : 1 }));
+    }, [productCategory]);
 
     return (
         <div className={css.content}>
             {
-                category && category.name.toLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLowerCase()
+                category && category?.name.toLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLowerCase()
                     ?
                     <div className={css.product_carousel}>
                         <ImageCarousel controls indicators/>
@@ -39,18 +41,18 @@ const Products = () => {
             }
 
             <h1 className={
-                category && category.name.toLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLowerCase()
+                category && category?.name.toLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLowerCase()
                     ?
                     css.products_text
                     :
                     css.products_text_min_margin
             }>
-                {category.name}
+                {category?.name}
             </h1>
 
             <div className={css.product_container}>
                 {
-                    [...products].filter(product => product.categoryId === category.id)
+                    [...products].filter(product => product.categoryId === category?.id)
                         .map(product =>
                             <Product key={product.id} product={product} category={category}/>
                         )

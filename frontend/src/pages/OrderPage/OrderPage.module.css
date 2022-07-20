@@ -5,7 +5,7 @@
     justify-content: center;
 }
 
-.delivery_type{
+.delivery_type {
     width: 100%;
 }
 
@@ -43,6 +43,7 @@
     width: 45%;
     padding: 0.5vh;
     margin: 1%;
+    background-color: #497BE8;
 }
 
 .delivery_method {
@@ -462,4 +463,138 @@
 
 .selected_city_container > div > div {
     padding: 0 0 0 3%;
+}
+
+.order_table {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.order_table_head {
+    width: 100%;
+    padding: 3%;
+
+}
+
+.table_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+}
+
+.table_name_first {
+    width: 60%;
+}
+
+.table_name_second {
+    width: 20%;
+}
+
+.table_name_third {
+    width: 20%;
+}
+
+.order_table_body {
+    width: 100%;
+    display: flex;
+    padding: 3%;
+    border-radius: 1vh;
+    border: 1px solid #e8e8e8;
+}
+
+.chosen_product_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 50vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.chosen_product_container_table {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+}
+
+.chosen_product_container_table > hr {
+    width: 100%;
+}
+
+.first_element {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.first_element > div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.chosen_product_image {
+    width: 15vh;
+    height: 15vh;
+    border-radius: 1vh;
+}
+
+.second_element {
+    width: 20%;
+}
+
+.third_element {
+    width: 20%;
+}
+.productPrice{
+    font-size: 26px;
+    color: #e53935;
+}
+
+.delete_order_product {
+    width: 5%;
+    cursor: pointer;
+}
+
+.delete_order_product:hover {
+    color: #FFD600;
+}
+
+.order_price_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3%;
+    font-size: 2vh;
+}
+
+.question_servet_block {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.discount {
+    width: 30%;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.price {
+    width: 30%;
+    display: flex;
+    height: 100%;
+    align-items: center;
 }

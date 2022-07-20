@@ -5,18 +5,16 @@ export class CreateTableUserOrders1654923264313 implements MigrationInterface {
         await queryRunner.query(`
         CREATE TABLE IF NOT EXISTS UserOrders (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        productName  VARCHAR(255) NOT NULL UNIQUE,
+        productName  VARCHAR(255) NOT NULL,
         productPhoto VARCHAR(255) NOT NULL,
+        productBigPhoto VARCHAR(255) NOT NULL,
+        productIngredients VARCHAR(255) NOT NULL,
         description VARCHAR(255) NOT NULL,
         productPrice INT CHECK (productPrice >= 0),
         productWeight INT CHECK (productWeight >= 0),
-        totalPrice INT CHECK (totalPrice >= 0) DEFAULT(0),
-        userId INT NOT NULL,
+        totalCount INT CHECK (totalCount >= 1) DEFAULT(1),
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
-        deletedAt TIMESTAMP,
-        FOREIGN KEY (userId) REFERENCES Users (id)
-         ON DELETE RESTRICT
-          ON UPDATE CASCADE
+        deletedAt TIMESTAMP
         )
      `);
     }

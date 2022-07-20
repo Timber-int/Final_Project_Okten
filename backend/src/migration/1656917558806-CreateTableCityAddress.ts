@@ -18,7 +18,7 @@ export class CreateTableCityAddress1656917558806 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            DROP TABLE IF EXIST CityAddress
+            DROP TABLE IF EXISTS CityAddress
         `);
     }
 }

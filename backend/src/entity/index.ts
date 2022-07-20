@@ -8,3 +8,4 @@ export * from './productInformation';
 export * from './productIngredient';
 export * from './city';
 export * from './cityAddress';
+export * from './userOrder';

@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { OrderTypeSelfPickup, OrderTypeShopDelivery } from '../../components';
-import { orderAction } from '../../store';
+import { deleteOrderProductById, getAllOrder, orderAction } from '../../store';
 import css from './OrderPage.module.css';
+import { baseURL } from '../../config';
 
 const OrderPage = () => {
 
     const {
         usedOrderType,
         totalOrderCount,
-        chosenProduct,
-        chosenProductIdArray
+        chosenOrderProducts,
     } = useSelector(state => state['orderReducer']);
-
-    console.log(chosenProduct);
-
-    chosenProductIdArray.map((element, index) => {
-        // console.log(chosenProduct[element] );
-    });
-
+    console.log(chosenOrderProducts);
     const dispatch = useDispatch();
+
+    const deleteOrderProduct = (id) => {
+        dispatch(deleteOrderProductById({ id }));
+    };
+
+    useEffect(() => {
+        dispatch(getAllOrder());
+    }, []);
 
     return (
         <div className={css.order_container}>
@@ -37,7 +39,7 @@ const OrderPage = () => {
                         <div className={css.not_order_container}>
                             <div className={css.bucket_empty}>Ваш кошик порожній</div>
                             <div className={css.back_to_menu}>
-                                <NavLink to={'/products'}>На головну</NavLink>
+                                <NavLink to={'/'}>На головну</NavLink>
                             </div>
                         </div>
                         :
@@ -85,7 +87,49 @@ const OrderPage = () => {
                                 </div>
 
                                 <div className={css.second_block}>
-
+                                    <div className={css.order_table}>
+                                        <div className={css.order_table_head}>
+                                            <div className={css.table_container}>
+                                                <div className={css.table_name_first}>Товар</div>
+                                                <div className={css.table_name_second}>К-ть</div>
+                                                <div className={css.table_name_third}>Ціна</div>
+                                            </div>
+                                        </div>
+                                        <div className={css.order_table_body}>
+                                            <div className={css.chosen_product_container}>
+                                                {
+                                                    chosenOrderProducts.map(orderElement => (
+                                                        <div className={css.chosen_product_container_table}>
+                                                            <div className={css.first_element}>
+                                                                <div>
+                                                                    <img className={css.chosen_product_image}
+                                                                         src={baseURL + '/' + orderElement.productPhoto}
+                                                                         alt={`${orderElement.productName}`}/>
+                                                                </div>
+                                                                <div>
+                                                                    {orderElement.productName}
+                                                                </div>
+                                                            </div>
+                                                            <div className={css.second_element}>sfdsdf</div>
+                                                            <div className={css.third_element}>
+                                                                <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
+                                                            </div>
+                                                            <div className={css.delete_order_product}
+                                                                 onClick={() => deleteOrderProduct(orderElement.id)}>
+                                                                ✖
+                                                            </div>
+                                                            <hr/>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={css.order_price_container}>
+                                            <div className={css.question_servet_block}>[] Без серветок</div>
+                                            <div className={css.discount}>Знижка: 324 грн</div>
+                                            <div className={css.price}>Разом: 213 грн</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

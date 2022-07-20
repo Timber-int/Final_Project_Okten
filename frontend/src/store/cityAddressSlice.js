@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { cityAddressService, cityService } from '../service';
+import { cityAddressService } from '../service';
 import { CONSTANTS } from '../constants';
 
 export const getAllCityAddress = createAsyncThunk(
@@ -13,7 +13,7 @@ export const getAllCityAddress = createAsyncThunk(
             const data = await cityAddressService.getAllCityAddress();
             return { cityAddressData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -31,7 +31,7 @@ export const deleteCityAddressById = createAsyncThunk(
 
             return { cityAddressData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -57,7 +57,7 @@ export const createCityAddress = createAsyncThunk(
 
             return { cityAddressData: data };
         } catch (e) {
-            rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );

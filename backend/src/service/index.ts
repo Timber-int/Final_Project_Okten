@@ -9,3 +9,4 @@ export * from './productInformationService';
 export * from './fileService';
 export * from './productIngredientService';
 export * from './cityAddressService';
+export * from './userOrderService';

@@ -22,4 +22,6 @@ export * from './ProductAdminContent/ProductAdminContent';
 export * from './ProductIngredientAdminContent/ProductIngredientAdminContent';
 export * from './City/City';
 export * from './CityAddress/CityAddress';
-export * from './ProductInformationAdminContent/ProductInformationAdminContent'
+export * from './ProductInformationAdminContent/ProductInformationAdminContent';
+export * from './Footer/Footer';
+export * from './UserChosenAddress/UserChosenAddress';

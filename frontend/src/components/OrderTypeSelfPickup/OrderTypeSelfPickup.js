@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import ReactSelect from 'react-select';
 
 import { orderCardValidatorCustomerDeliver } from '../../validator';
 import css from './OrderTypeSelfPickup.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCityAddress } from '../../store/cityAddressSlice';
 
 const address = [
     {
@@ -25,11 +27,11 @@ const address = [
     },
 ];
 
-const getValueAddress = (value) => {
-    return value ? address.find((address) => address.value === value) : '';
-};
-
 const OrderTypeSelfPickup = () => {
+
+    const dispatch = useDispatch();
+
+    const { cityAddress } = useSelector(state => state['cityAddressReducer']);
 
     const {
         register,
@@ -41,6 +43,15 @@ const OrderTypeSelfPickup = () => {
         mode: 'onTouched',
     });
 
+    useEffect(() => {
+        if (cityAddress.length === 0) {
+            dispatch(getAllCityAddress());
+        }
+    }, [cityAddress]);
+
+    const getValueAddress = (value) => {
+        return value ? cityAddress.find((cityAddress) => cityAddress.value === value) : '';
+    };
     const createUserOrderData = (data) => {
         console.log(data);
     };
@@ -92,7 +103,7 @@ const OrderTypeSelfPickup = () => {
                             <div className={css.selected_address_container}>
                                 <ReactSelect
                                     placeholder={'Виберіть адресу...'}
-                                    options={address}
+                                    options={cityAddress}
                                     value={getValueAddress(value)}
                                     onChange={(newValue) => onChange(newValue.value)}
                                 />

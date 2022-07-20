@@ -8,11 +8,11 @@ import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarous
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import {
     getAllProductIngredients,
-    getAllProductIngredientsData,
     getAllProducts,
     getCategoryById,
-    getProductInformationById, getProductInformationByProductId,
-    orderAction
+    getProductInformationByProductId,
+    orderAction,
+    setProductToOrder
 } from '../../store';
 import { baseURL } from '../../config';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
@@ -77,13 +77,12 @@ const ProductDetails = () => {
     };
 
     const createOrder = (productPrice, product, id) => {
-        dispatch(orderAction.setTotalOrderCount({
-            productData: {
+        dispatch(setProductToOrder({
                 productPrice,
                 product,
                 id,
             }
-        }));
+        ));
     };
 
     return (
@@ -183,7 +182,7 @@ const ProductDetails = () => {
                         </div>
                         <div className={css.order_button_container}>
                             <button className={css.order_button}
-                                    onClick={() => createOrder(product ? product.productPrice : productPrice, singleProduct, id)}>Додати у кошик
+                                    onClick={() => createOrder(product ? product.productPrice : productPrice, product, id)}>Додати у кошик
                             </button>
                         </div>
                     </div>

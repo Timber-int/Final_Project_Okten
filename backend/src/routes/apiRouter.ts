@@ -9,10 +9,12 @@ import { productInformationRoute } from './productInformationRoute';
 import { productIngredientRouter } from './productIngredientRouter';
 import { cityRouter } from './cityRouter';
 import { cityAddressRouter } from './cityAddressRouter';
+import { userOrderRouter } from './userOrderRouter';
 
 const router = Router();
 
 router.use('/users', userRouter);
+router.use('/orders', userOrderRouter);
 router.use('/categories', categoryRouter);
 router.use('/products', productRouter);
 router.use('/productIngredients', productIngredientRouter);

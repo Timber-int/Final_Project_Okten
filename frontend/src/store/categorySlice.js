@@ -14,7 +14,7 @@ export const getAllCategories = createAsyncThunk(
 
             return { categoriesData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -39,7 +39,7 @@ export const createCategory = createAsyncThunk(
 
             return { categoriesData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -55,7 +55,7 @@ export const getCategoryById = createAsyncThunk(
 
             return { categoryData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -73,7 +73,7 @@ export const deleteCategoryById = createAsyncThunk(
 
             return { categoryData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -108,7 +108,7 @@ export const updateCategoryById = createAsyncThunk(
 
             return { categoryData: data };
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );

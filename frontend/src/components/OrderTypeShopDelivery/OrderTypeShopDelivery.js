@@ -1,33 +1,11 @@
 import React from 'react';
 import ReactSelect from 'react-select';
+import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
 
 import { orderCardValidatorShopDeliver } from '../../validator';
 import css from './OrderTypeShopDelivery.module.css';
-
-const options = [
-    {
-        value: 'Lviv',
-        label: 'Lviv'
-    },
-    {
-        value: 'Kyiv',
-        label: 'Kyiv'
-    },
-    {
-        value: 'Rome',
-        label: 'Rome'
-    },
-    {
-        value: 'London',
-        label: 'London'
-    },
-];
-
-const getValue = (value) => {
-    return value ? options.find((option) => option.value === value) : '';
-};
 
 const OrderTypeShopDelivery = () => {
 
@@ -40,6 +18,12 @@ const OrderTypeShopDelivery = () => {
         resolver: joiResolver(orderCardValidatorShopDeliver),
         mode: 'onTouched',
     });
+
+    const { cities } = useSelector(state => state['cityReducer']);
+
+    const getValue = (value) => {
+        return value ? cities.find((city) => city.value === value) : '';
+    };
 
     const createUserOrderData = (data) => {
         console.log(data);
@@ -90,7 +74,7 @@ const OrderTypeShopDelivery = () => {
                         <div className={css.selected_city_container}>
                             <ReactSelect
                                 placeholder={'Select a city...'}
-                                options={options}
+                                options={cities}
                                 value={getValue(value)}
                                 onChange={(newValue) => onChange(newValue.value)}
                             />
