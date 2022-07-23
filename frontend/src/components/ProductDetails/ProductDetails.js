@@ -11,7 +11,7 @@ import {
     getAllProducts,
     getCategoryById,
     getProductInformationByProductId,
-    orderAction,
+    orderAction, productAction,
     setProductToOrder
 } from '../../store';
 import { baseURL } from '../../config';

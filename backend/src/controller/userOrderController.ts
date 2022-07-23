@@ -39,7 +39,18 @@ class UserOrderController {
 
     public async createUserOrder(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const userOrderData = await userOrderService.createUserOrder(req.body);
+            const order = req.body;
+
+            let userOrderData;
+
+            const orderFromDB = await userOrderService.getUserOrderByProductName(order.productName, order.productIngredients);
+
+            if (orderFromDB && orderFromDB.productName === req.body.productName && orderFromDB.productIngredients === order.productIngredients) {
+                await userOrderService.updateUserOrderById(orderFromDB.id, order, orderFromDB);
+                userOrderData = await userOrderService.getUserOrderById(orderFromDB.id);
+            } else if (orderFromDB?.productIngredients !== order.productIngredients || orderFromDB?.productName !== req.body.productName) {
+                userOrderData = await userOrderService.createUserOrder(order);
+            }
 
             res.json({ data: userOrderData });
         } catch (e) {

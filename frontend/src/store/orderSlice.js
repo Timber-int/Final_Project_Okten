@@ -9,7 +9,6 @@ export const getAllOrder = createAsyncThunk(
         rejectWithValue
     }) => {
         try {
-
             const data = await orderService.getAllOrder();
 
             return { createdOrderData: data };
@@ -21,7 +20,10 @@ export const getAllOrder = createAsyncThunk(
 
 export const deleteOrderProductById = createAsyncThunk(
     'orderSlice/deleteOrderProductById',
-    async ({ id }, {
+    async ({
+        id,
+        productOrderPrice
+    }, {
         dispatch,
         rejectWithValue
     }) => {
@@ -29,7 +31,8 @@ export const deleteOrderProductById = createAsyncThunk(
 
             const data = await orderService.deleteOrderById(id);
 
-            dispatch(orderAction.deleteSingleOrderProductById({id}));
+            dispatch(orderAction.deleteSingleOrderProductById({ id }));
+            dispatch(orderAction.deleteOrderProductChangeTotalCount({ productOrderPrice }));
 
             return { createdOrderData: data };
         } catch (e) {
@@ -112,6 +115,9 @@ const orderSlice = createSlice({
         },
         deleteSingleOrderProductById: (state, action) => {
             state.chosenOrderProducts = state.chosenOrderProducts.filter(element => element.id !== action.payload.id);
+        },
+        deleteOrderProductChangeTotalCount: (state, action) => {
+            state.totalOrderCount = state.totalOrderCount - action.payload.productOrderPrice;
         }
     },
     extraReducers: {
@@ -162,12 +168,14 @@ const {
     setTotalOrderCount,
     setOrderType,
     deleteSingleOrderProductById,
+    deleteOrderProductChangeTotalCount,
 } = orderSlice.actions;
 
 export const orderAction = {
     setTotalOrderCount,
     setOrderType,
-    deleteSingleOrderProductById
+    deleteSingleOrderProductById,
+    deleteOrderProductChangeTotalCount,
 };
 
 export default orderReducer;

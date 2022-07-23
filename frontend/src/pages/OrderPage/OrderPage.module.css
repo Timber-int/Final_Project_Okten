@@ -43,7 +43,6 @@
     width: 45%;
     padding: 0.5vh;
     margin: 1%;
-    background-color: #497BE8;
 }
 
 .delivery_method {
@@ -487,7 +486,7 @@
 }
 
 .table_name_first {
-    width: 60%;
+    width: 55%;
 }
 
 .table_name_second {
@@ -548,6 +547,20 @@
     border-radius: 1vh;
 }
 
+.product_information_element_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product_information_element {
+    width: 100%;
+}
+
+.product_information_element_product_ingredients {
+    width: 100%;
+    color: #6B6B6B;
+}
+
 .second_element {
     width: 20%;
 }
@@ -555,7 +568,8 @@
 .third_element {
     width: 20%;
 }
-.productPrice{
+
+.productPrice {
     font-size: 26px;
     color: #e53935;
 }

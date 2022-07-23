@@ -1,5 +1,5 @@
 import {
-    DeleteResult, EntityRepository, getManager, Repository,
+    DeleteResult, EntityRepository, getManager, Repository, UpdateResult,
 } from 'typeorm';
 import { IUserOrder, UserOrder } from '../../entity';
 import { IUserOrderRepository } from './userOrderRepositoryInterface';
@@ -22,6 +22,25 @@ class UserOrderRepository extends Repository<UserOrder> implements IUserOrderRep
         return getManager()
             .getRepository(UserOrder)
             .findOne({ id });
+    }
+
+    public async updateUserOrderById(id: number, orderDataToUpdate: IUserOrder, orderFromDB: IUserOrder): Promise<UpdateResult> {
+        return getManager()
+            .getRepository(UserOrder)
+            .update({ id }, {
+                ...orderFromDB,
+                totalCount: orderFromDB.totalCount + orderDataToUpdate.totalCount,
+                productPrice: orderFromDB.productPrice + orderDataToUpdate.productPrice,
+            });
+    }
+
+    public async getUserOrderByProductName(productName: string, productIngredients: string): Promise<IUserOrder | undefined> {
+        return getManager()
+            .getRepository(UserOrder)
+            .findOne({
+                productName,
+                productIngredients,
+            });
     }
 
     public async getAllUserOrder(): Promise<IUserOrder[]> {

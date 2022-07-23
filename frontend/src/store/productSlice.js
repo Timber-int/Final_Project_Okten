@@ -332,13 +332,13 @@ const productSlice = createSlice({
 
             state.ingredientsArray.push(ingredient.productIngredientName);
 
-            // state.uniqueIngredientsArray = [...new Set(state.ingredientsArray)];
+            state.uniqueIngredientsArray = [...new Set(state.ingredientsArray)];
 
             state.products = state.products.map(product => product.id === productId ? {
                 ...product,
                 productPrice: product.productPrice + ingredient.productPrice,
                 productWeight: product.productWeight + ingredient.productWeight,
-                chosenProductIngredients: product.chosenProductIngredients = state.ingredientsArray,
+                chosenProductIngredients: product.chosenProductIngredients = state.uniqueIngredientsArray,
             } : product);
 
             state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount + ingredient.productPrice;
@@ -371,7 +371,7 @@ const productSlice = createSlice({
             } : product);
 
             state.ingredientsArray = state.ingredientsArray.filter(element => element !== ingredient.productIngredientName);
-            // state.uniqueIngredientsArray = state.uniqueIngredientsArray.filter(element => element !== ingredient.productIngredientName);
+            state.uniqueIngredientsArray = state.uniqueIngredientsArray.filter(element => element !== ingredient.productIngredientName);
 
             state.selectedProductIngredientsTotalCount = state.selectedProductIngredientsTotalCount - ingredient.productPrice;
 
@@ -391,6 +391,8 @@ const productSlice = createSlice({
                 status: false
             } : element);
             state.selectedProductIngredientsId = [];
+            state.ingredientsArray = [];
+            state.uniqueIngredientsArray = [];
         },
 
         deleteSingleProductById: (state, action) => {
@@ -418,7 +420,6 @@ const productSlice = createSlice({
             state.productIngredients = state.productIngredients.map(productIngredient => productIngredient.id === id ? { ...updatedProductIngredient } : productIngredient);
             state.productIngredientDataToUpdate = null;
         },
-
     },
     extraReducers: {
         [getAllProducts.pending]: (state, action) => {
@@ -550,8 +551,7 @@ const {
     setProductCount,
     deleteSingleProductIngredientById,
     updateSingleProductIngredientById,
-    updateProductIngredientGetData
-
+    updateProductIngredientGetData,
 } = productSlice.actions;
 
 export const productAction = {
@@ -566,7 +566,7 @@ export const productAction = {
     setProductCount,
     deleteSingleProductIngredientById,
     updateSingleProductIngredientById,
-    updateProductIngredientGetData
+    updateProductIngredientGetData,
 };
 
 export default productReducer;

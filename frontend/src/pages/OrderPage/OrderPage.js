@@ -14,11 +14,12 @@ const OrderPage = () => {
         totalOrderCount,
         chosenOrderProducts,
     } = useSelector(state => state['orderReducer']);
-    console.log(chosenOrderProducts);
+
     const dispatch = useDispatch();
 
-    const deleteOrderProduct = (id) => {
-        dispatch(deleteOrderProductById({ id }));
+    const deleteOrderProduct = (id, productOrderPrice) => {
+        dispatch(deleteOrderProductById({ id ,productOrderPrice}));
+
     };
 
     useEffect(() => {
@@ -28,13 +29,13 @@ const OrderPage = () => {
     return (
         <div className={css.order_container}>
             {
-                new Date().getHours() < 8 || new Date().getHours() >= 22
+                new Date().getHours() < 10 || new Date().getHours() >= 22
                     ?
                     <div className={css.shop_is_closed}>
                         Замовлення приймаються з 10:00 до 22:00. Вибачте за тимчасові незручності
                     </div>
                     :
-                    totalOrderCount === 0
+                    totalOrderCount === 0 && chosenOrderProducts.length === 0
                         ?
                         <div className={css.not_order_container}>
                             <div className={css.bucket_empty}>Ваш кошик порожній</div>
@@ -98,24 +99,33 @@ const OrderPage = () => {
                                         <div className={css.order_table_body}>
                                             <div className={css.chosen_product_container}>
                                                 {
-                                                    chosenOrderProducts.map(orderElement => (
-                                                        <div className={css.chosen_product_container_table}>
+                                                    chosenOrderProducts.map((orderElement, index) => (
+                                                        <div className={css.chosen_product_container_table} key={index}>
                                                             <div className={css.first_element}>
                                                                 <div>
                                                                     <img className={css.chosen_product_image}
                                                                          src={baseURL + '/' + orderElement.productPhoto}
                                                                          alt={`${orderElement.productName}`}/>
                                                                 </div>
-                                                                <div>
-                                                                    {orderElement.productName}
+                                                                <div className={css.product_information_element_container}>
+                                                                    <div className={css.product_information_element}>{orderElement.productName}</div>
+                                                                    {
+                                                                        orderElement.productIngredients.length > 0
+                                                                            ?
+                                                                            <div className={css.product_information_element_product_ingredients}>
+                                                                                {orderElement.productIngredients}
+                                                                            </div>
+                                                                            :
+                                                                            <></>
+                                                                    }
                                                                 </div>
                                                             </div>
-                                                            <div className={css.second_element}>sfdsdf</div>
+                                                            <div className={css.second_element}>{orderElement.totalCount}</div>
                                                             <div className={css.third_element}>
                                                                 <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
                                                             </div>
                                                             <div className={css.delete_order_product}
-                                                                 onClick={() => deleteOrderProduct(orderElement.id)}>
+                                                                 onClick={() => deleteOrderProduct(orderElement.id, orderElement.productPrice)}>
                                                                 ✖
                                                             </div>
                                                             <hr/>
