@@ -8,6 +8,7 @@ const router = Router();
 
 router.get('/', cityController.getAllCities);
 router.get('/:id', cityController.getCityById);
+router.get('/city/:cityName', cityController.getCityByName);
 router.post('/', (req: IRequestExtended, res: Response, next: NextFunction) => {
     req.chosenValidationType = createCityValidator;
     next();

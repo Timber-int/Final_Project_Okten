@@ -7,7 +7,7 @@ export class CreateTableUserOrders1654923264313 implements MigrationInterface {
         id INT PRIMARY KEY AUTO_INCREMENT,
         productName  VARCHAR(255) NOT NULL,
         productPhoto VARCHAR(255) NOT NULL,
-        productBigPhoto VARCHAR(255) NOT NULL,
+        productBigPhoto VARCHAR(255),
         productIngredients VARCHAR(255) NOT NULL,
         description VARCHAR(255) NOT NULL,
         productPrice INT CHECK (productPrice >= 0),

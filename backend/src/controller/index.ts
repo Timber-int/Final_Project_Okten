@@ -7,3 +7,4 @@ export * from './productIngredientController';
 export * from './cityController';
 export * from './cityAddressController';
 export * from './userOrderController';
+export * from './totalOrderCountController';

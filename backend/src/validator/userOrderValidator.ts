@@ -27,6 +27,7 @@ export const createProductOrderValidator = Joi.object({
             'string.pattern.base': 'Enter only letter min 3 max 255',
         }),
     productBigPhoto: Joi.string()
+        .allow(null)
         .min(3)
         .max(255)
         .required()

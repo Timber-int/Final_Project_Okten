@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-
-
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { getCityByName } from '../../store';
 import css from './UserChosenAddress.module.css';
 
 const UserChosenAddress = () => {
@@ -10,23 +10,28 @@ const UserChosenAddress = () => {
 
     const city = localStorage.getItem('city');
 
-    const { cities } = useSelector(state => state['cityReducer']);
+    useEffect(() => {
+        dispatch(getCityByName({ cityName: city }));
+    }, [city]);
 
-    const { cityAddress } = useSelector(state => state['cityAddressReducer']);
+    const {
+        city: cityFromDB,
+        filterCityAddress,
+    } = useSelector(state => state['cityReducer']);
 
     return (
-        <div>
-            <div>{city}</div>
-            {/* <div> */}
-            {/*     { */}
-            {/*         [...cityAddress].filter(address => address.cityId === city.id) */}
-            {/*             .map(address => ( */}
-            {/*                 <div> */}
-            {/*                     <div>{address.addressName}</div> */}
-            {/*                 </div> */}
-            {/*             )) */}
-            {/*     } */}
-            {/* </div> */}
+        <div className={css.city_block}>
+            <div className={css.city_box}>{cityFromDB ? cityFromDB.cityName : city}</div>
+            <ul className={css.address_box}>
+                {
+                    filterCityAddress.map(address => (
+                            <li className={css.address_name} key={address.id}>
+                                {address.addressName}
+                            </li>
+                        )
+                    )
+                }
+            </ul>
         </div>
     );
 };

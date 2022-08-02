@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
 import { baseURL } from '../../config';
-import { getProductInformationByProductId, orderAction, setProductToOrder } from '../../store';
+import { createTotalOrderCount, getProductInformationByProductId, setProductToOrder } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
 
@@ -31,11 +31,11 @@ const Product = ({
 
     const createOrder = (productPrice, product, id) => {
         dispatch(setProductToOrder({
-                productPrice,
                 product,
                 id,
             }
         ));
+        dispatch(createTotalOrderCount({ product }));
     };
 
     useEffect(() => {

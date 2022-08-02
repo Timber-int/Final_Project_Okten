@@ -2,36 +2,25 @@ import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import ReactSelect from 'react-select';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { orderCardValidatorCustomerDeliver } from '../../validator';
+import { getCityByName } from '../../store';
 import css from './OrderTypeSelfPickup.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllCityAddress } from '../../store/cityAddressSlice';
-
-const address = [
-    {
-        value: 'aaaaaaaaaaaa',
-        label: 'aaaaaaaaaaaa'
-    },
-    {
-        value: 'bbbbbbbbbbbbbbbb',
-        label: 'bbbbbbbbbbbbbbbb'
-    },
-    {
-        value: 'vvvvvvvvvvvvvvvv',
-        label: 'vvvvvvvvvvvvvvvv'
-    },
-    {
-        value: 'dddddddddddddddddd',
-        label: 'dddddddddddddddddd'
-    },
-];
 
 const OrderTypeSelfPickup = () => {
 
     const dispatch = useDispatch();
 
-    const { cityAddress } = useSelector(state => state['cityAddressReducer']);
+    const city = localStorage.getItem('city');
+
+    useEffect(() => {
+        dispatch(getCityByName({ cityName: city }));
+    }, [city]);
+
+    const {
+        filterCityAddress,
+    } = useSelector(state => state['cityReducer']);
 
     const {
         register,
@@ -43,14 +32,8 @@ const OrderTypeSelfPickup = () => {
         mode: 'onTouched',
     });
 
-    useEffect(() => {
-        if (cityAddress.length === 0) {
-            dispatch(getAllCityAddress());
-        }
-    }, [cityAddress]);
-
     const getValueAddress = (value) => {
-        return value ? cityAddress.find((cityAddress) => cityAddress.value === value) : '';
+        return value ? filterCityAddress.find(address => address.value === value) : '';
     };
     const createUserOrderData = (data) => {
         console.log(data);
@@ -103,7 +86,7 @@ const OrderTypeSelfPickup = () => {
                             <div className={css.selected_address_container}>
                                 <ReactSelect
                                     placeholder={'Виберіть адресу...'}
-                                    options={cityAddress}
+                                    options={filterCityAddress}
                                     value={getValueAddress(value)}
                                     onChange={(newValue) => onChange(newValue.value)}
                                 />

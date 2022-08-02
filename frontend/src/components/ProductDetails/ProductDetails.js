@@ -7,11 +7,11 @@ import { SelectedProductIngredients } from '../SelectedProductIngredients/Select
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import {
+    createTotalOrderCount,
     getAllProductIngredients,
     getAllProducts,
     getCategoryById,
     getProductInformationByProductId,
-    orderAction, productAction,
     setProductToOrder
 } from '../../store';
 import { baseURL } from '../../config';
@@ -78,11 +78,11 @@ const ProductDetails = () => {
 
     const createOrder = (productPrice, product, id) => {
         dispatch(setProductToOrder({
-                productPrice,
                 product,
                 id,
             }
         ));
+        dispatch(createTotalOrderCount({ product }));
     };
 
     return (

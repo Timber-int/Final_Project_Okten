@@ -17,6 +17,22 @@ export const getAllCities = createAsyncThunk(
     }
 );
 
+export const getCityByName = createAsyncThunk(
+    'citySlice/getCityByName',
+    async ({ cityName }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const city = await cityService.getCityByName(cityName);
+
+            return { city };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+
 export const deleteCityById = createAsyncThunk(
     'citySlice/deleteCityById',
     async ({ id }, {
@@ -62,6 +78,8 @@ const citySlice = createSlice({
         cities: [],
         chosenCity: '',
         localKey: 'city',
+        city: {},
+        filterCityAddress: [],
         cityStatus: false,
         serverErrors: null,
     },
@@ -111,6 +129,23 @@ const citySlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
+        [getCityByName.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [getCityByName.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.city = action.payload.city.data;
+            state.filterCityAddress = action.payload.city.filterCityAddress.map(address => Object.assign(address, {
+                label: address.addressName,
+                value: address.addressName
+            }));
+            state.serverErrors = null;
+        },
+        [getCityByName.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
         [createCity.pending]: (state, action) => {
             state.status = CONSTANTS.LOADING;
             state.serverErrors = null;
@@ -143,8 +178,7 @@ export const cityActions = {
     setChosenCity,
     setCityStatusFalse,
     setCityStatusTrue,
-    deleteSingleCityById
-
+    deleteSingleCityById,
 };
 
 export default cityReducer;

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CONSTANTS } from '../constants';
-import { orderService } from '../service';
+import { categoryService, orderService } from '../service';
 
 export const getAllOrder = createAsyncThunk(
     'orderSlice/getAllOrder',
@@ -21,18 +21,17 @@ export const getAllOrder = createAsyncThunk(
 export const deleteOrderProductById = createAsyncThunk(
     'orderSlice/deleteOrderProductById',
     async ({
-        id,
-        productOrderPrice
+        orderElement
     }, {
         dispatch,
         rejectWithValue
     }) => {
         try {
+            const {id} = orderElement;
 
             const data = await orderService.deleteOrderById(id);
 
             dispatch(orderAction.deleteSingleOrderProductById({ id }));
-            dispatch(orderAction.deleteOrderProductChangeTotalCount({ productOrderPrice }));
 
             return { createdOrderData: data };
         } catch (e) {
@@ -44,7 +43,6 @@ export const deleteOrderProductById = createAsyncThunk(
 export const setProductToOrder = createAsyncThunk(
     'orderSlice/setProductToOrder',
     async ({
-        productPrice,
         product,
         id,
     }, {
@@ -79,12 +77,6 @@ export const setProductToOrder = createAsyncThunk(
 
             const data = await orderService.createOrder(orderData);
 
-            dispatch(orderAction.setTotalOrderCount({
-                productData: {
-                    productPrice,
-                }
-            }));
-
             return { createdOrderData: data };
         } catch (e) {
             return rejectWithValue(e.response.data.message);
@@ -98,27 +90,15 @@ const orderSlice = createSlice({
         chosenOrderProducts: [],
         serverErrors: null,
         status: null,
-        totalOrderCount: 0,
         usedOrderType: '',
     },
     reducers: {
-        setTotalOrderCount: (state, action) => {
-            const {
-                productPrice,
-            } = action.payload.productData;
-
-            state.totalOrderCount = state.totalOrderCount + productPrice;
-
-        },
         setOrderType: (state, action) => {
             state.usedOrderType = action.payload.orderType;
         },
         deleteSingleOrderProductById: (state, action) => {
             state.chosenOrderProducts = state.chosenOrderProducts.filter(element => element.id !== action.payload.id);
         },
-        deleteOrderProductChangeTotalCount: (state, action) => {
-            state.totalOrderCount = state.totalOrderCount - action.payload.productOrderPrice;
-        }
     },
     extraReducers: {
         [setProductToOrder.pending]: (state, action) => {
@@ -165,17 +145,13 @@ const orderSlice = createSlice({
 const orderReducer = orderSlice.reducer;
 
 const {
-    setTotalOrderCount,
     setOrderType,
     deleteSingleOrderProductById,
-    deleteOrderProductChangeTotalCount,
 } = orderSlice.actions;
 
 export const orderAction = {
-    setTotalOrderCount,
     setOrderType,
     deleteSingleOrderProductById,
-    deleteOrderProductChangeTotalCount,
 };
 
 export default orderReducer;

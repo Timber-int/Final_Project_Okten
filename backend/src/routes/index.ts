@@ -8,3 +8,4 @@ export * from './productIngredientRouter';
 export * from './cityRouter';
 export * from './cityAddressRouter';
 export * from './userOrderRouter';
+export * from './totalOrderCountRouter';

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ModalWindow } from '../ModalWindow/ModalWindow';
 import css from './Layout.module.css';
-import { cityActions, getAllCategories } from '../../store';
+import { cityActions, getAllCategories, getAllTotalOrderCount } from '../../store';
 import { baseURL } from '../../config';
 import { Footer } from '../Footer/Footer';
 
@@ -16,7 +16,7 @@ const Layout = () => {
 
     const {
         totalOrderCount,
-    } = useSelector(state => state['orderReducer']);
+    } = useSelector(state => state['totalOrderCountReducer']);
 
     const {
         chosenCity,
@@ -29,6 +29,7 @@ const Layout = () => {
 
     useEffect(() => {
         dispatch(getAllCategories());
+        dispatch(getAllTotalOrderCount());
     }, [totalOrderCount, chosenCity, city]);
 
     return (

@@ -8,6 +8,8 @@ export const cityService = {
         .then(value => value.data),
     deleteCityById: (id) => axiosService.delete(baseURL + urls.cities + '/' + id)
         .then(value => value.data),
+    getCityByName: (cityName) => axiosService.get(baseURL + urls.cities + '/city/' + cityName)
+        .then(value => value.data),
     createCity: (city) => axiosService.post(baseURL + urls.cities, city)
         .then(value => value.data),
 };

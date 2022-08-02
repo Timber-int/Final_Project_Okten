@@ -7,6 +7,7 @@ import orderReducer from './orderSlice';
 import cityReducer from './citySlice';
 import cityAddressReducer from './cityAddressSlice';
 import productInformationReducer from './productInformationSlice';
+import totalOrderCountReducer from './totalOrderCountSlice';
 
 const store = configureStore({
     reducer: {
@@ -16,7 +17,8 @@ const store = configureStore({
         orderReducer,
         cityReducer,
         cityAddressReducer,
-        productInformationReducer
+        productInformationReducer,
+        totalOrderCountReducer,
     }
 });
 

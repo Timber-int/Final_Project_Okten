@@ -10,6 +10,7 @@ import { productIngredientRouter } from './productIngredientRouter';
 import { cityRouter } from './cityRouter';
 import { cityAddressRouter } from './cityAddressRouter';
 import { userOrderRouter } from './userOrderRouter';
+import { totalOrderCountRouter } from './totalOrderCountRouter';
 
 const router = Router();
 
@@ -22,6 +23,7 @@ router.use('/auth', authRouter);
 router.use('/productInformation', productInformationRoute);
 router.use('/cities', cityRouter);
 router.use('/cityAddress', cityAddressRouter);
+router.use('/totalCounts', totalOrderCountRouter);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { OrderTypeSelfPickup, OrderTypeShopDelivery } from '../../components';
-import { deleteOrderProductById, getAllOrder, orderAction } from '../../store';
-import css from './OrderPage.module.css';
+import { deleteOrderProductById, deleteTotalOrderCount, getAllOrder, orderAction } from '../../store';
 import { baseURL } from '../../config';
+import css from './OrderPage.module.css';
 
 const OrderPage = () => {
 
@@ -17,9 +18,11 @@ const OrderPage = () => {
 
     const dispatch = useDispatch();
 
-    const deleteOrderProduct = (id, productOrderPrice) => {
-        dispatch(deleteOrderProductById({ id ,productOrderPrice}));
-
+    const deleteOrderProduct = (orderElement) => {
+        dispatch(deleteOrderProductById({
+            orderElement
+        }));
+        dispatch(deleteTotalOrderCount({orderElement}));
     };
 
     useEffect(() => {
@@ -29,7 +32,7 @@ const OrderPage = () => {
     return (
         <div className={css.order_container}>
             {
-                new Date().getHours() < 10 || new Date().getHours() >= 22
+                new Date().getHours() < 8 || new Date().getHours() >= 22
                     ?
                     <div className={css.shop_is_closed}>
                         Замовлення приймаються з 10:00 до 22:00. Вибачте за тимчасові незручності
@@ -99,8 +102,8 @@ const OrderPage = () => {
                                         <div className={css.order_table_body}>
                                             <div className={css.chosen_product_container}>
                                                 {
-                                                    chosenOrderProducts.map((orderElement, index) => (
-                                                        <div className={css.chosen_product_container_table} key={index}>
+                                                    chosenOrderProducts.map(orderElement => (
+                                                        <div className={css.chosen_product_container_table} key={uuidv4()}>
                                                             <div className={css.first_element}>
                                                                 <div>
                                                                     <img className={css.chosen_product_image}
@@ -125,7 +128,7 @@ const OrderPage = () => {
                                                                 <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
                                                             </div>
                                                             <div className={css.delete_order_product}
-                                                                 onClick={() => deleteOrderProduct(orderElement.id, orderElement.productPrice)}>
+                                                                 onClick={() => deleteOrderProduct(orderElement)}>
                                                                 ✖
                                                             </div>
                                                             <hr/>
