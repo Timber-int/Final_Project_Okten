@@ -8,3 +8,4 @@ export * from './cityController';
 export * from './cityAddressController';
 export * from './userOrderController';
 export * from './totalOrderCountController';
+export * from './partnersRequestController';

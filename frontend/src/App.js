@@ -5,13 +5,22 @@ import { Layout } from './components';
 import {
     ActionPage,
     AdminPage,
-    CategoryPage, CityPage,
+    CategoryPage,
+    CityPage,
     DeliveryHardPage,
     NotFoundPage,
     OrderPage,
-    ProductDetailsPage, ProductIngredientsComponentDetailsPage, ProductIngredientsPage,
+    ProductDetailsPage,
+    ProductIngredientsComponentDetailsPage,
+    ProductIngredientsPage,
     ProductPage,
-    RegistrationPage, CityAddressDetailsComponentPage, CityAddressPage, ProductInformationPage, ProductInformationDetailsComponentPage
+    RegistrationPage,
+    CityAddressDetailsComponentPage,
+    CityAddressPage,
+    ProductInformationPage,
+    ProductInformationDetailsComponentPage,
+    AboutAsPage,
+    OfferPage, ForPartnersPage
 } from './pages';
 import { getAllCities } from './store';
 import { useDispatch } from 'react-redux';
@@ -54,6 +63,9 @@ const App = () => {
                     <Route path={'productDetails/:id'} element={<ProductsComponentDetailsPage/>}/>
                 </Route>
             </Route>
+            <Route path={'aboutAs'} element={<AboutAsPage/>}/>
+            <Route path={'offer'} element={<OfferPage/>}/>
+            <Route path={'forPartners'} element={<ForPartnersPage/>}/>
             <Route path={'*'} element={<NotFoundPage/>}/>
         </Routes>
     );

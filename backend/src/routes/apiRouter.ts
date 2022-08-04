@@ -11,6 +11,7 @@ import { cityRouter } from './cityRouter';
 import { cityAddressRouter } from './cityAddressRouter';
 import { userOrderRouter } from './userOrderRouter';
 import { totalOrderCountRouter } from './totalOrderCountRouter';
+import { partnersRequestRouter } from './partnersRequestRouter';
 
 const router = Router();
 
@@ -24,6 +25,7 @@ router.use('/productInformation', productInformationRoute);
 router.use('/cities', cityRouter);
 router.use('/cityAddress', cityAddressRouter);
 router.use('/totalCounts', totalOrderCountRouter);
+router.use('/partnerRequests', partnersRequestRouter);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {

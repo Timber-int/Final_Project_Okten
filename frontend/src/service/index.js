@@ -8,3 +8,4 @@ export * from './cityAddressService';
 export * from './productInformationService';
 export * from './orderService';
 export * from './totalCountService';
+export * from './partnersRequestService';

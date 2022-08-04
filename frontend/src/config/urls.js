@@ -12,5 +12,6 @@ export const urls = {
     cities: '/cities',
     cityAddress: '/cityAddress',
     orders: '/orders',
-    totalCounts: '/totalCounts'
+    totalCounts: '/totalCounts',
+    partnerRequests: '/partnerRequests',
 };

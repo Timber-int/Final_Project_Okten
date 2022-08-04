@@ -8,6 +8,7 @@ import cityReducer from './citySlice';
 import cityAddressReducer from './cityAddressSlice';
 import productInformationReducer from './productInformationSlice';
 import totalOrderCountReducer from './totalOrderCountSlice';
+import partnersRequestReducer from './partnersRequestSlice';
 
 const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
         cityAddressReducer,
         productInformationReducer,
         totalOrderCountReducer,
+        partnersRequestReducer
     }
 });
 

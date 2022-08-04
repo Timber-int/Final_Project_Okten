@@ -5,3 +5,4 @@ export * from './productInformationValidator';
 export * from './cityValidatior';
 export * from './cityAddressValidator';
 export * from './userOrderValidator';
+export * from './partnersRequestValidator';

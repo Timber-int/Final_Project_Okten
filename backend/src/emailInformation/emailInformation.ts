@@ -27,4 +27,8 @@ export const emailInformation = {
         subject: 'Our sincere congratulations, we are glad that you are with us!!!',
         templateName: 'surpriseMessage',
     },
+    [EmailActionEnum.REQUEST_PARTNERS_MESSAGE]: {
+        subject: 'Partners request',
+        templateName: 'partnersRequest',
+    },
 };

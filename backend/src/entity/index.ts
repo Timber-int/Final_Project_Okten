@@ -10,3 +10,4 @@ export * from './city';
 export * from './cityAddress';
 export * from './userOrder';
 export * from './totalOrderCount';
+export * from './partnersRequest';

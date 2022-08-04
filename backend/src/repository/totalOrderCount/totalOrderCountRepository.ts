@@ -45,6 +45,15 @@ class TotalOrderCountRepository extends Repository<TotalOrderCount> implements I
             .getRepository(TotalOrderCount)
             .delete({ productUniqueData: deletePath });
     }
+
+    public async deleteAllTotalOrderCount(): Promise<void> {
+        await getManager()
+            .getRepository(TotalOrderCount)
+            .find()
+            .then((data) => data.forEach((element) => getManager()
+                .getRepository(TotalOrderCount)
+                .delete({ id: element.id })));
+    }
 }
 
 export const totalOrderCountRepository = new TotalOrderCountRepository();

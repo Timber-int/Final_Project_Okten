@@ -9,3 +9,4 @@ export * from './cityRouter';
 export * from './cityAddressRouter';
 export * from './userOrderRouter';
 export * from './totalOrderCountRouter';
+export * from './partnersRequestRouter';

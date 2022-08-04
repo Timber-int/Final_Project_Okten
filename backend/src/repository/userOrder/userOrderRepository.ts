@@ -48,6 +48,15 @@ class UserOrderRepository extends Repository<UserOrder> implements IUserOrderRep
             .getRepository(UserOrder)
             .find();
     }
+
+    public async deleteAllUserOrders(): Promise<void> {
+        await getManager()
+            .getRepository(UserOrder)
+            .find()
+            .then((data) => data.forEach((element) => getManager()
+                .getRepository(UserOrder)
+                .delete({ id: element.id })));
+    }
 }
 
 export const userOrderRepository = new UserOrderRepository();

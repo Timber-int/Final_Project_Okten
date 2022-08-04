@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20vh;
+    font-size: 4.5vh;
+    font-weight: bold;
+    height: 7vh;
+    background-color: #e8e8e8;
+}
+
+.text_content {
+    margin-top: 10vh;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.text_content > div {
+    margin: 1vh 0 1vh 0;
+    font-size: 2vh;
+}

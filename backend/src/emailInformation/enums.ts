@@ -10,5 +10,7 @@ export enum EmailActionEnum {
     // eslint-disable-next-line no-unused-vars
     CHANGE_PASSWORD,
     // eslint-disable-next-line no-unused-vars
-    SEND_SURPRISE_MESSAGE
+    SEND_SURPRISE_MESSAGE,
+    // eslint-disable-next-line no-unused-vars
+    REQUEST_PARTNERS_MESSAGE,
 }

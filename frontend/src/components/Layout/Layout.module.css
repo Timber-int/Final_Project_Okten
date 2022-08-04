@@ -10,6 +10,10 @@
     align-items: center;
     z-index: 1;
 }
+::selection {
+    background-color: #000000;
+    color: whitesmoke;
+}
 
 .header > a > span {
     display: flex;
