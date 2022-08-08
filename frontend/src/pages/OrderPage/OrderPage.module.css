@@ -519,6 +519,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    height: 50%;
     justify-content: center;
     align-items: center;
     font-size: 2vh;
@@ -554,19 +555,29 @@
 
 .product_information_element {
     width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
 }
 
 .product_information_element_product_ingredients {
     width: 100%;
     color: #6B6B6B;
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .second_element {
     width: 20%;
+    display: flex;
+    justify-content: center;
 }
 
 .third_element {
     width: 20%;
+    display: flex;
+    justify-content: center;
 }
 
 .productPrice {
@@ -574,9 +585,19 @@
     color: #e53935;
 }
 
+.third_element > span {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .delete_order_product {
     width: 5%;
     cursor: pointer;
+    height: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .delete_order_product:hover {
@@ -596,7 +617,29 @@
     width: 40%;
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+}
+
+.checkbox_servet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+}
+
+.checkbox_servet > input {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.servet_text {
+    display: flex;
+    align-items: center;
+    width: 75%;
 }
 
 .discount {

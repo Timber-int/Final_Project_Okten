@@ -27,7 +27,7 @@ export const deleteOrderProductById = createAsyncThunk(
         rejectWithValue
     }) => {
         try {
-            const {id} = orderElement;
+            const { id } = orderElement;
 
             const data = await orderService.deleteOrderById(id);
 
@@ -91,10 +91,13 @@ const orderSlice = createSlice({
         serverErrors: null,
         status: null,
         usedOrderType: '',
+        discount: 0,
     },
     reducers: {
         setOrderType: (state, action) => {
             state.usedOrderType = action.payload.orderType;
+            console.log(action.payload.orderType);
+            console.log('x');
         },
         deleteSingleOrderProductById: (state, action) => {
             state.chosenOrderProducts = state.chosenOrderProducts.filter(element => element.id !== action.payload.id);

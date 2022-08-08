@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,19 +10,25 @@ import css from './OrderPage.module.css';
 
 const OrderPage = () => {
 
+    const [servetStatus, setServetStatus] = useState(false);
+
     const {
         usedOrderType,
-        totalOrderCount,
         chosenOrderProducts,
+        discount,
     } = useSelector(state => state['orderReducer']);
+
+    const {
+        totalOrderCount,
+    } = useSelector(state => state['totalOrderCountReducer']);
 
     const dispatch = useDispatch();
 
     const deleteOrderProduct = (orderElement) => {
         dispatch(deleteOrderProductById({
-            orderElement
+            orderElement,
         }));
-        dispatch(deleteTotalOrderCount({orderElement}));
+        dispatch(deleteTotalOrderCount({ orderElement }));
     };
 
     useEffect(() => {
@@ -32,7 +38,7 @@ const OrderPage = () => {
     return (
         <div className={css.order_container}>
             {
-                new Date().getHours() < 8 || new Date().getHours() >= 22
+                new Date().getHours() < 7 || new Date().getHours() >= 22
                     ?
                     <div className={css.shop_is_closed}>
                         Замовлення приймаються з 10:00 до 22:00. Вибачте за тимчасові незручності
@@ -116,7 +122,14 @@ const OrderPage = () => {
                                                                         orderElement.productIngredients.length > 0
                                                                             ?
                                                                             <div className={css.product_information_element_product_ingredients}>
-                                                                                {orderElement.productIngredients}
+                                                                                {
+                                                                                    orderElement.productIngredients.split(',')
+                                                                                        .map(element => (
+                                                                                            <div key={element}>
+                                                                                                {element},
+                                                                                            </div>
+                                                                                        ))
+                                                                                }
                                                                             </div>
                                                                             :
                                                                             <></>
@@ -138,9 +151,14 @@ const OrderPage = () => {
                                             </div>
                                         </div>
                                         <div className={css.order_price_container}>
-                                            <div className={css.question_servet_block}>[] Без серветок</div>
-                                            <div className={css.discount}>Знижка: 324 грн</div>
-                                            <div className={css.price}>Разом: 213 грн</div>
+                                            <div className={css.question_servet_block}>
+                                                <span className={css.checkbox_servet}>
+                                                <input type="checkbox" onChange={() => setServetStatus(!servetStatus)}/>
+                                                </span>
+                                                <span className={css.servet_text}>Без серветок</span>
+                                            </div>
+                                            <div className={css.discount}>Знижка: {discount} грн</div>
+                                            <div className={css.price}>Разом: {totalOrderCount} грн</div>
                                         </div>
                                     </div>
                                 </div>
