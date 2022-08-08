@@ -163,7 +163,10 @@ const ProductDetails = () => {
                                 <div className={css.counter_box}>
                                     <span>Кількість:</span>
                                     <span className={css.counter}>
-                                        <OrderComponentButton totalCount={product ? product.totalCount : totalCount} id={id}/>
+                                        <OrderComponentButton
+                                            totalCount={product ? product.totalCount : totalCount}
+                                            id={id}
+                                        />
                                     </span>
                                 </div>
                                 <div className={css.price_box}>

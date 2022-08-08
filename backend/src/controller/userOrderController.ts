@@ -37,9 +37,30 @@ class UserOrderController {
         }
     }
 
+    public async plusOrderProduct(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            const { id } = req.params;
+
+            const { defaultPrice } = req.body;
+
+            const userFromDB = await userOrderService.getUserOrderById(Number(id));
+
+            if (userFromDB) {
+                await userOrderService.plusOrderProduct(Number(id), defaultPrice, userFromDB);
+            }
+
+            const userOrderData = await userOrderService.getUserOrderById(Number(id));
+
+            res.json({ data: userOrderData });
+        } catch (e) {
+            next(e);
+        }
+    }
+
     public async createUserOrder(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const order = req.body;
+            console.log(order);
             let userOrderData;
 
             const orderFromDB = await userOrderService.getUserOrderByProductName(order.productName, order.productIngredients);

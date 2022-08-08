@@ -155,7 +155,6 @@ const categorySlice = createSlice({
         [getCategoryById.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
             state.category = action.payload.categoryData.data;
-            state.productIngredients = action.payload.categoryData.data.productIngredients;
             state.serverErrors = null;
         },
         [getCategoryById.rejected]: (state, action) => {

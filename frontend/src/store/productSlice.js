@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CONSTANTS } from '../constants';
 import { productIngredientService, productService } from '../service';
-import { logDOM } from '@testing-library/react';
 
 export const getAllProducts = createAsyncThunk(
     'productSlice/getAllProducts',
@@ -294,26 +293,28 @@ const productSlice = createSlice({
             state.products = state.products.map(product => product.id === id ? {
                 ...product,
                 totalCount: count <= 0 ? product.totalCount = count - count + 1 : product.totalCount = count,
-                productPrice: product.productPrice = state.selectedProductIngredientsId.length > 0
-                    ? product.defaultPrice * product.totalCount + state.selectedProductIngredientsTotalCount
+                productPrice: state.selectedProductIngredientsId.length > 0
+                    ? (product.defaultPrice + state.selectedProductIngredientsTotalCount) * product.totalCount
                     : product.defaultPrice * product.totalCount,
             } : product);
 
         },
         plusProductCount: (state, action) => {
-            const id = action.payload.id;
+            const {
+                id,
+            } = action.payload;
 
             state.products = state.products.map(product => product.id === id ? {
                 ...product,
                 totalCount: product.totalCount + 1,
-                productPrice: product.productPrice + product.defaultPrice,
+                productPrice: product.productPrice + product.defaultPrice + state.selectedProductIngredientsTotalCount,
             } : product);
 
         },
         minusProductCount: (state, action) => {
             const {
                 id,
-                totalCount
+                totalCount,
             } = action.payload.minusProduct;
 
             if (totalCount === 1) return;
@@ -321,7 +322,7 @@ const productSlice = createSlice({
             state.products = state.products.map(product => product.id === id ? {
                 ...product,
                 totalCount: product.totalCount === 1 || product.totalCount <= 0 ? 1 : product.totalCount - 1,
-                productPrice: product.totalCount === 1 || product.totalCount <= 0 ? product.defaultPrice : product.productPrice - product.defaultPrice,
+                productPrice: product.totalCount === 1 ? product.defaultPrice + state.selectedProductIngredientsTotalCount : product.productPrice - product.defaultPrice - state.selectedProductIngredientsTotalCount,
             } : product);
         },
         setSelectedProductIngredients: (state, action) => {
@@ -336,7 +337,7 @@ const productSlice = createSlice({
 
             state.products = state.products.map(product => product.id === productId ? {
                 ...product,
-                productPrice: product.productPrice + ingredient.productPrice,
+                productPrice: product.productPrice + ingredient.productPrice* product.totalCount,
                 productWeight: product.productWeight + ingredient.productWeight,
                 chosenProductIngredients: product.chosenProductIngredients = state.uniqueIngredientsArray,
             } : product);
@@ -365,7 +366,7 @@ const productSlice = createSlice({
 
             state.products = state.products.map(product => product.id === productId ? {
                 ...product,
-                productPrice: product.productPrice - ingredient.productPrice,
+                productPrice: product.productPrice - ingredient.productPrice * product.totalCount,
                 productWeight: product.productWeight - ingredient.productWeight,
                 chosenProductIngredients: product.chosenProductIngredients.filter(element => element !== ingredient.productIngredientName),
             } : product);

@@ -13,6 +13,7 @@ export class CreateTableUserOrders1654923264313 implements MigrationInterface {
         productPrice INT CHECK (productPrice >= 0),
         productWeight INT CHECK (productWeight >= 0),
         totalCount INT CHECK (totalCount >= 1) DEFAULT(1),
+        defaultPrice INT NOT NULL,
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
         deletedAt TIMESTAMP
         )

@@ -17,6 +17,28 @@ export const getAllOrder = createAsyncThunk(
         }
     }
 );
+export const plusOrderProduct = createAsyncThunk(
+    'orderSlice/plusOrderProduct',
+    async ({ productData }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+
+            const {
+                id,
+            } = productData;
+
+            const data = await orderService.plusOrderProduct(id, productData);
+
+            dispatch(orderAction.plusOrderSingleProduct({ updatedOrderData: data }));
+
+            return { createdOrderData: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
 
 export const deleteOrderProductById = createAsyncThunk(
     'orderSlice/deleteOrderProductById',
@@ -60,6 +82,7 @@ export const setProductToOrder = createAsyncThunk(
                 description,
                 totalCount,
                 chosenProductIngredients,
+                defaultPrice
             } = product;
 
             const productIngredients = chosenProductIngredients.join(',');
@@ -73,6 +96,7 @@ export const setProductToOrder = createAsyncThunk(
                 description,
                 totalCount,
                 productIngredients,
+                defaultPrice,
             };
 
             const data = await orderService.createOrder(orderData);
@@ -96,12 +120,15 @@ const orderSlice = createSlice({
     reducers: {
         setOrderType: (state, action) => {
             state.usedOrderType = action.payload.orderType;
-            console.log(action.payload.orderType);
-            console.log('x');
         },
         deleteSingleOrderProductById: (state, action) => {
             state.chosenOrderProducts = state.chosenOrderProducts.filter(element => element.id !== action.payload.id);
         },
+        plusOrderSingleProduct: (state, action) => {
+            const orderFromDB = action.payload.updatedOrderData.data;
+
+            state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id? {...orderFromDB}:element);
+        }
     },
     extraReducers: {
         [setProductToOrder.pending]: (state, action) => {
@@ -124,6 +151,7 @@ const orderSlice = createSlice({
         [getAllOrder.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
             state.chosenOrderProducts = action.payload.createdOrderData.data;
+            console.log(action.payload.createdOrderData.data);
             state.serverErrors = null;
         },
         [getAllOrder.rejected]: (state, action) => {
@@ -142,6 +170,18 @@ const orderSlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
+        [plusOrderProduct.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [plusOrderProduct.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.serverErrors = null;
+        },
+        [plusOrderProduct.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
     }
 });
 
@@ -150,11 +190,13 @@ const orderReducer = orderSlice.reducer;
 const {
     setOrderType,
     deleteSingleOrderProductById,
+    plusOrderSingleProduct,
 } = orderSlice.actions;
 
 export const orderAction = {
     setOrderType,
     deleteSingleOrderProductById,
+    plusOrderSingleProduct,
 };
 
 export default orderReducer;

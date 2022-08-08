@@ -10,9 +10,6 @@ const OrderComponentButton = ({
 }) => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-    }, [totalCount]);
-
     return (
         <div>
             <span className={css.nav_button}

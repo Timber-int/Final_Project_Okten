@@ -11,6 +11,10 @@ class UserOrderService {
         return userOrderRepository.deleteUserOrder(id);
     }
 
+    public async plusOrderProduct(id: number, defaultPrice: number, userFromDB: IUserOrder): Promise<UpdateResult> {
+        return userOrderRepository.plusOrderProduct(id, defaultPrice, userFromDB);
+    }
+
     public async getUserOrderById(id: number): Promise<IUserOrder | undefined> {
         return userOrderRepository.getUserOrderById(id);
     }

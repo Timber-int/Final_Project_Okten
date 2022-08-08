@@ -25,3 +25,4 @@ export * from './CityAddress/CityAddress';
 export * from './ProductInformationAdminContent/ProductInformationAdminContent';
 export * from './Footer/Footer';
 export * from './UserChosenAddress/UserChosenAddress';
+export * from './OrderComponentButtonOrderPage/OrderComponentButtonOrderPage';

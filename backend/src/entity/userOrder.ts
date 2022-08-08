@@ -12,6 +12,7 @@ export interface IUserOrder {
     productPrice: number,
     productWeight: number,
     totalCount: number,
+    defaultPrice: number,
 }
 
 @Entity('userorders', { database: CONSTANTS.DATA_BASE })
@@ -56,6 +57,11 @@ export class UserOrder extends DefaultValue implements IUserOrder {
         type: 'int',
     })
         productPrice: number;
+
+    @Column({
+        type: 'int',
+    })
+        defaultPrice: number;
 
     @Column({
         type: 'int',

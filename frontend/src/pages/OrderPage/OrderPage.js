@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { OrderTypeSelfPickup, OrderTypeShopDelivery } from '../../components';
+import { OrderComponentButtonOrderPage, OrderTypeSelfPickup, OrderTypeShopDelivery } from '../../components';
 import { deleteOrderProductById, deleteTotalOrderCount, getAllOrder, orderAction } from '../../store';
 import { baseURL } from '../../config';
 import css from './OrderPage.module.css';
@@ -106,53 +106,59 @@ const OrderPage = () => {
                                             </div>
                                         </div>
                                         <div className={css.order_table_body}>
-                                                {
-                                                    chosenOrderProducts.map(orderElement => (
-                                                        <div className={css.chosen_product_container_table} key={uuidv4()}>
-                                                            {console.log(orderElement,'element')}
-                                                            <div className={css.first_element}>
-                                                                <div>
-                                                                    <img className={css.chosen_product_image}
-                                                                         src={baseURL + '/' + orderElement.productPhoto}
-                                                                         alt={`${orderElement.productName}`}/>
-                                                                </div>
-                                                                <div>
-                                                                    <div className={css.product_information_element}>{orderElement.productName}</div>
-                                                                    {
-                                                                        orderElement.productIngredients.length > 0
-                                                                            ?
-                                                                            <div className={css.product_information_element_product_ingredients}>
-                                                                                {
-                                                                                    orderElement.productIngredients.split(',')
-                                                                                        .map(element => (
-                                                                                            <div key={element}>
-                                                                                                {element},
-                                                                                            </div>
-                                                                                        ))
-                                                                                }
-                                                                            </div>
-                                                                            :
-                                                                            <></>
-                                                                    }
-                                                                </div>
+                                            {
+                                                chosenOrderProducts.map(orderElement => (
+                                                    <div className={css.chosen_product_container_table} key={uuidv4()}>
+                                                        <div className={css.first_element}>
+                                                            <div>
+                                                                <img className={css.chosen_product_image}
+                                                                     src={baseURL + '/' + orderElement.productPhoto}
+                                                                     alt={`${orderElement.productName}`}/>
                                                             </div>
-                                                            <div className={css.second_element}>{orderElement.totalCount}</div>
-                                                            <div className={css.third_element}>
-                                                                <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
+                                                            <div>
+                                                                <div className={css.product_information_element}>{orderElement.productName}</div>
+                                                                {
+                                                                    orderElement.productIngredients.length > 0
+                                                                        ?
+                                                                        <div className={css.product_information_element_product_ingredients}>
+                                                                            {
+                                                                                orderElement.productIngredients.split(',')
+                                                                                    .map(element => (
+                                                                                        <div key={element}>
+                                                                                            {element},
+                                                                                        </div>
+                                                                                    ))
+                                                                            }
+                                                                        </div>
+                                                                        :
+                                                                        <></>
+                                                                }
                                                             </div>
-                                                            <div className={css.delete_order_product}
-                                                                 onClick={() => deleteOrderProduct(orderElement)}>
-                                                                ✖
-                                                            </div>
-                                                            <hr/>
                                                         </div>
-                                                    ))
-                                                }
+                                                        <div className={css.second_element}>
+                                                            {console.log(orderElement)}
+                                                            <OrderComponentButtonOrderPage
+                                                                defaultPrice={orderElement.defaultPrice}
+                                                                id={orderElement.id}
+                                                                totalCount={orderElement.totalCount}
+                                                            />
+                                                        </div>
+                                                        <div className={css.third_element}>
+                                                            <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
+                                                        </div>
+                                                        <div className={css.delete_order_product}
+                                                             onClick={() => deleteOrderProduct(orderElement)}>
+                                                            ✖
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+                                                ))
+                                            }
                                         </div>
                                         <div className={css.order_price_container}>
                                             <div className={css.question_servet_block}>
                                                 <span className={css.checkbox_servet}>
-                                                <input type='checkbox' onChange={() => setServetStatus(!servetStatus)}/>
+                                                <input type="checkbox" onChange={() => setServetStatus(!servetStatus)}/>
                                                 </span>
                                                 <span className={css.servet_text}>Без серветок</span>
                                             </div>

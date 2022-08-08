@@ -8,4 +8,6 @@ export const orderService = {
         .then(value => value.data),
     deleteOrderById: (id) => axiosService.delete(baseURL + urls.orders + '/' + id)
         .then(value => value.data),
+    plusOrderProduct: (id, productData) => axiosService.put(baseURL + urls.orders + '/plus/' + id, productData)
+        .then(value => value.data),
 };

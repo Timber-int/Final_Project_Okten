@@ -486,15 +486,19 @@
 }
 
 .table_name_first {
-    width: 65%;
+    width: 59%;
 }
 
 .table_name_second {
-    width: 15%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
 }
 
 .table_name_third {
-    width: 15%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
 }
 
 .order_table_body {
@@ -521,7 +525,7 @@
 }
 
 .first_element {
-    width: 65%;
+    width: 59%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -553,21 +557,23 @@
     display: flex;
     flex-wrap: wrap;
 }
-.product_information_element_product_ingredients>div{
+
+.product_information_element_product_ingredients > div {
     display: flex;
     justify-content: center;
 }
 
 .second_element {
-    width: 15%;
+    width: 20%;
+    height: 50%;
     display: flex;
     justify-content: center;
 }
 
 .third_element {
-    width: 15%;
+    width: 20%;
     display: flex;
-    justify-content: center;
+    justify-content: right;
 }
 
 .productPrice {
@@ -576,15 +582,13 @@
 }
 
 .third_element > span {
-    width: 45%;
     display: flex;
     margin: 0.5vh;
-    justify-content: center;
     align-items: center;
 }
 
 .delete_order_product {
-    width: 5%;
+    width: 1%;
     cursor: pointer;
     height: 50%;
     display: flex;

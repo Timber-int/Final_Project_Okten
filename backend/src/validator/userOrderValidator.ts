@@ -67,5 +67,6 @@ export const createProductOrderValidator = Joi.object({
             'string.empty': '"productWeight" Can not be empty',
             'string.pattern.base': 'Enter only letter min 0 max 1000000',
         }),
-
+    defaultPrice: Joi.number()
+        .required(),
 });
