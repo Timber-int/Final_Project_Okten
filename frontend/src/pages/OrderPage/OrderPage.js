@@ -106,17 +106,17 @@ const OrderPage = () => {
                                             </div>
                                         </div>
                                         <div className={css.order_table_body}>
-                                            <div className={css.chosen_product_container}>
                                                 {
                                                     chosenOrderProducts.map(orderElement => (
                                                         <div className={css.chosen_product_container_table} key={uuidv4()}>
+                                                            {console.log(orderElement,'element')}
                                                             <div className={css.first_element}>
                                                                 <div>
                                                                     <img className={css.chosen_product_image}
                                                                          src={baseURL + '/' + orderElement.productPhoto}
                                                                          alt={`${orderElement.productName}`}/>
                                                                 </div>
-                                                                <div className={css.product_information_element_container}>
+                                                                <div>
                                                                     <div className={css.product_information_element}>{orderElement.productName}</div>
                                                                     {
                                                                         orderElement.productIngredients.length > 0
@@ -148,12 +148,11 @@ const OrderPage = () => {
                                                         </div>
                                                     ))
                                                 }
-                                            </div>
                                         </div>
                                         <div className={css.order_price_container}>
                                             <div className={css.question_servet_block}>
                                                 <span className={css.checkbox_servet}>
-                                                <input type="checkbox" onChange={() => setServetStatus(!servetStatus)}/>
+                                                <input type='checkbox' onChange={() => setServetStatus(!servetStatus)}/>
                                                 </span>
                                                 <span className={css.servet_text}>Без серветок</span>
                                             </div>
