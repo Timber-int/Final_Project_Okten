@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { baseURL } from '../../config';
 import css from './DeliveryHardPage.module.css';
 
 const DeliveryHardPage = () => {

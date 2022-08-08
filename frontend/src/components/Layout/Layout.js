@@ -38,7 +38,7 @@ const Layout = () => {
             <div className={css.header}>
                 <NavLink to={'/action'} className={css.category_path}>
                     <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'} alt={'action'}/></span>
-                    <span>Акції</span>
+                    <span>Special offers</span>
                 </NavLink>
                 {
                     categories.map(category =>
@@ -47,6 +47,25 @@ const Layout = () => {
                             <span>{category.name}</span>
                         </NavLink>)
                 }
+                <div className={css.information_menu}>
+                    <div className={css.information_path}>
+                        <span>
+                            <img
+                                className={css.category_image}
+                                src={'https://la.ua/ivano-frankivsk/wp-content/uploads/sites/4/2021/06/menu-icon-5.svg'}
+                                alt={'action'}
+                            />
+                        </span>
+                        <span>Information</span>
+                    </div>
+                    <div className={css.information_drop_down_menu}>
+                        <NavLink className={css.information_drop_down_path} to={'/aboutUs'}>About us</NavLink>
+                        <NavLink className={css.information_drop_down_path} to={'/offer'}>Offer</NavLink>
+                        <NavLink className={css.information_drop_down_path} to={'/forPartners'}>For partners</NavLink>
+                        <NavLink className={css.information_drop_down_path} to={'/contacts'}>Contacts</NavLink>
+                        <NavLink className={css.information_drop_down_path} to={'/payment'}>Payment</NavLink>
+                    </div>
+                </div>
                 <div className={css.city_box} onClick={() => dispatch(cityActions.setCityStatusTrue())}>
                     <div>
                         <img className={css.image_city_location}
@@ -55,7 +74,7 @@ const Layout = () => {
                     <div className={css.city_name}>{city ? city : chosenCity}</div>
                 </div>
                 <NavLink to={'/registration'}>Registration</NavLink>
-                <NavLink to={'/OrderPage'}>
+                <NavLink to={'/OrderPage'} className={css.order_total_count}>
                     <div className={css.order_content}>
                         <div>
                             <img className={css.basket_image}

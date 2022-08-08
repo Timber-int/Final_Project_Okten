@@ -1,0 +1,105 @@
+.container {
+    margin-top: 20vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 4.5vh;
+    font-weight: bold;
+    height: 7vh;
+    background-color: #e8e8e8;
+}
+
+.clock_container_block {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.clock_container_block > div > span {
+    width: 45%;
+    font-size: 2.5vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.first_element {
+    margin-right: 5%;
+    display: flex;
+    justify-content: right;
+}
+
+.first_element_clock {
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.clock_container {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5vh 0 5vh 0;
+}
+
+.clock_container_block > div {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 3vh;
+}
+
+hr {
+    width: 70%;
+    margin: 3vh 0 3vh 0;
+}
+
+.open_time {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 2vh;
+    align-items: center;
+}
+
+.open_time > span {
+    width: 45%;
+    font-size: 2.5vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.address_container {
+    width: 40%;
+}
+
+.address_box {
+    margin: 5vh 0 0 0;
+    font-size: 3vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.address_box > span {
+    width: 45%;
+    font-size: 3vh;
+}
+.street_element{
+    display: flex;
+    justify-content: center;
+}

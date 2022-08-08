@@ -1,8 +1,8 @@
 import React from 'react';
 
-import css from './AboutAsPage.module.css';
+import css from './AboutUsPage.module.css';
 
-const AboutAsPage = () => {
+const AboutUsPage = () => {
     return (
         <div className={css.container}>
             <div className={css.header}>
@@ -34,4 +34,4 @@ const AboutAsPage = () => {
     );
 };
 
-export { AboutAsPage };
+export { AboutUsPage };

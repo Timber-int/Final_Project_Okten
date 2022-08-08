@@ -19,8 +19,8 @@ import {
     CityAddressPage,
     ProductInformationPage,
     ProductInformationDetailsComponentPage,
-    AboutAsPage,
-    OfferPage, ForPartnersPage
+    AboutUsPage,
+    OfferPage, ForPartnersPage, ContactsPage, PaymentPage
 } from './pages';
 import { getAllCities } from './store';
 import { useDispatch } from 'react-redux';
@@ -46,6 +46,12 @@ const App = () => {
                 <Route path={'deliveryHardPage/:id'} element={<DeliveryHardPage/>}/>
                 <Route path={'orderPage'} element={<OrderPage/>}/>
                 <Route path={'action'} element={<ActionPage/>}/>
+                <Route path={'aboutUs'} element={<AboutUsPage/>}/>
+                <Route path={'offer'} element={<OfferPage/>}/>
+                <Route path={'forPartners'} element={<ForPartnersPage/>}/>
+                <Route path={'contacts'} element={<ContactsPage/>}/>
+                <Route path={'payment'} element={<PaymentPage/>}/>
+                <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>
             <Route path={'/adminPage'} element={<AdminPage/>}>
                 <Route path={'category'} element={<CategoryPage/>}/>
@@ -63,10 +69,6 @@ const App = () => {
                     <Route path={'productDetails/:id'} element={<ProductsComponentDetailsPage/>}/>
                 </Route>
             </Route>
-            <Route path={'aboutAs'} element={<AboutAsPage/>}/>
-            <Route path={'offer'} element={<OfferPage/>}/>
-            <Route path={'forPartners'} element={<ForPartnersPage/>}/>
-            <Route path={'*'} element={<NotFoundPage/>}/>
         </Routes>
     );
 };

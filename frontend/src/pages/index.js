@@ -16,7 +16,9 @@ export * from './CityAddressPage/CityAddressPage';
 export * from './CityAddressDetailsComponentPage/CityAddressDetailsComponentPage';
 export * from './ProductInformationPage/ProductInformationPage';
 export * from './ProductInformationDetailsComponentPage/ProductInformationDetailsComponentPage';
-export * from './AboutAsPage/AboutAsPage';
+export * from './AboutUsPage/AboutUsPage';
 export * from './OfferPage/OfferPage';
 export * from './ForPartnersPage/ForPartnersPage';
+export * from './ContactsPage/ContactsPage';
+export * from './PaymentPage/PaymentPage';
 

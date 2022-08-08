@@ -397,6 +397,7 @@ const productSlice = createSlice({
 
         deleteSingleProductById: (state, action) => {
             state.products = state.products.filter(product => product.id !== action.payload.id);
+            state.productDataToUpdate = null;
         },
         updateProductGetData: (state, action) => {
             state.productDataToUpdate = action.payload.productDataToUpdate;
