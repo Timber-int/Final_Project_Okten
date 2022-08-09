@@ -76,13 +76,20 @@ const ProductDetails = () => {
         window.scroll(0, 800);
     };
 
-    const createOrder = (productPrice, product, id) => {
-        dispatch(setProductToOrder({
-                product,
-                id,
+    const createOrder = async (productPrice, product, id) => {
+        try {
+            await dispatch(setProductToOrder({
+                    product,
+                    id,
+                }
+            ));
+            await dispatch(createTotalOrderCount({ product }));
+        } catch (e) {
+            if (e) {
+                document.alert(e);
+                return;
             }
-        ));
-        dispatch(createTotalOrderCount({ product }));
+        }
     };
 
     return (

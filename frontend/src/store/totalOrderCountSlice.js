@@ -75,6 +75,70 @@ export const createTotalOrderCount = createAsyncThunk(
     }
 );
 
+export const plusTotalOrderCount = createAsyncThunk(
+    'totalOrderCountSlice/plusTotalOrderCount',
+    async ({ product }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const {
+                productPrice,
+                productName,
+                categoryId,
+                productId,
+                productIngredients
+            } = product;
+
+            const countData = {
+                productPrice,
+                categoryId,
+                productId,
+                productUniqueData: productIngredients.replaceAll(',', '-') + '-' + productName,
+            };
+
+            const data = await totalCountService.plusTotalOrderCount(countData.productUniqueData, countData);
+
+            return { totalCountData: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+export const minusTotalOrderCount = createAsyncThunk(
+    'totalOrderCountSlice/minusTotalOrderCount',
+    async ({ product }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const {
+                productPrice,
+                productName,
+                categoryId,
+                productId,
+                productIngredients,
+                totalCount
+            } = product;
+
+            if (totalCount <= 1) return;
+
+            const countData = {
+                productPrice,
+                categoryId,
+                productId,
+                productUniqueData: productIngredients.replaceAll(',', '-') + '-' + productName,
+            };
+
+            const data = await totalCountService.minusTotalOrderCount(countData.productUniqueData, countData);
+
+            return { totalCountData: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+
 const totalOrderCountSlice = createSlice({
     name: 'totalOrderCountSlice',
     initialState: {
@@ -126,6 +190,34 @@ const totalOrderCountSlice = createSlice({
             state.serverErrors = null;
         },
         [deleteTotalOrderCount.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [plusTotalOrderCount.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [plusTotalOrderCount.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            const count = action.payload.totalCountData.data;
+            state.totalOrderCount = state.totalOrderCount + count.productPrice;
+            state.serverErrors = null;
+        },
+        [plusTotalOrderCount.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [minusTotalOrderCount.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [minusTotalOrderCount.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            const count = action.payload.totalCountData.data;
+            state.totalOrderCount = state.totalOrderCount - count.productPrice;
+            state.serverErrors = null;
+        },
+        [minusTotalOrderCount.rejected]: (state, action) => {
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },

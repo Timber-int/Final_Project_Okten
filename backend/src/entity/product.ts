@@ -6,6 +6,7 @@ import { DefaultValue } from './defaultValue';
 import { Category } from './category';
 import { IProductInformation, ProductInformation } from './productInformation';
 import { TotalOrderCount } from './totalOrderCount';
+import { UserOrder } from './userOrder';
 
 export interface IProduct {
     id: number,
@@ -18,6 +19,7 @@ export interface IProduct {
     categoryId: number,
     productInformation?: ProductInformation,
     totalOrderCount?: TotalOrderCount[],
+    userOrderElement?: UserOrder[],
 }
 
 @Entity('products', { database: CONSTANTS.DATA_BASE })
@@ -76,4 +78,7 @@ export class Product extends DefaultValue implements IProduct {
 
     @OneToMany(() => TotalOrderCount, (TotalOrderCount) => TotalOrderCount.product)
         totalOrderCount: TotalOrderCount[];
+
+    @OneToMany(() => UserOrder, (UserOrder) => UserOrder.product)
+        userOrderElement: UserOrder[];
 }

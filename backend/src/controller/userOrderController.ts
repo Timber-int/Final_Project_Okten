@@ -41,12 +41,28 @@ class UserOrderController {
         try {
             const { id } = req.params;
 
-            const { defaultPrice } = req.body;
+            const userOrderFromDB = await userOrderService.getUserOrderById(Number(id));
 
-            const userFromDB = await userOrderService.getUserOrderById(Number(id));
+            if (userOrderFromDB) {
+                await userOrderService.plusOrderProduct(Number(id), userOrderFromDB);
+            }
 
-            if (userFromDB) {
-                await userOrderService.plusOrderProduct(Number(id), defaultPrice, userFromDB);
+            const userOrderData = await userOrderService.getUserOrderById(Number(id));
+
+            res.json({ data: userOrderData });
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    public async minusOrderProduct(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            const { id } = req.params;
+
+            const userOrderFromDB = await userOrderService.getUserOrderById(Number(id));
+
+            if (userOrderFromDB) {
+                await userOrderService.minusOrderProduct(Number(id), userOrderFromDB);
             }
 
             const userOrderData = await userOrderService.getUserOrderById(Number(id));

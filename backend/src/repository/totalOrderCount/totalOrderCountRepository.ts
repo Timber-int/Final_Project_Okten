@@ -13,7 +13,7 @@ class TotalOrderCountRepository extends Repository<TotalOrderCount> implements I
             .find();
     }
 
-    public async getAllTotalOrderCountById(id: number): Promise<ITotalOrderCount | undefined> {
+    public async getTotalOrderCountById(id: number): Promise<ITotalOrderCount | undefined> {
         return getManager()
             .getRepository(TotalOrderCount)
             .findOne({ id });
@@ -31,6 +31,24 @@ class TotalOrderCountRepository extends Repository<TotalOrderCount> implements I
             .update({ id }, {
                 ...dataToUpdate,
                 productPrice: dataToUpdate.productPrice + priceBeforeUpdate,
+            });
+    }
+
+    public async plusTotalOrderCountById(id: number, dataToUpdate: ITotalOrderCount, priceBeforeUpdate: number): Promise<UpdateResult> {
+        return getManager()
+            .getRepository(TotalOrderCount)
+            .update({ id }, {
+                ...dataToUpdate,
+                productPrice: dataToUpdate.productPrice + priceBeforeUpdate,
+            });
+    }
+
+    public async minusTotalOrderCountById(id: number, dataToUpdate: ITotalOrderCount, priceBeforeUpdate: number): Promise<UpdateResult> {
+        return getManager()
+            .getRepository(TotalOrderCount)
+            .update({ id }, {
+                ...dataToUpdate,
+                productPrice: priceBeforeUpdate - dataToUpdate.productPrice,
             });
     }
 

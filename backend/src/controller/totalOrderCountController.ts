@@ -33,7 +33,51 @@ class TotalOrderCountController {
             if (totalOrderCountDataFromDB) {
                 await totalOrderCountService
                     .updateTotalOrderCountById(totalOrderCountDataFromDB.id, req.body, totalOrderCountDataFromDB.productPrice);
-                totalOrderCountData = totalOrderCountService.getAllTotalOrderCountById(totalOrderCountDataFromDB.id);
+                totalOrderCountData = totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
+            } else {
+                totalOrderCountData = await totalOrderCountService.createTotalOrderCount(req.body);
+            }
+
+            res.json({ data: totalOrderCountData });
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    public async plusTotalOrderCount(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            let totalOrderCountData;
+
+            const totalOrderCountDataFromDB = await totalOrderCountService.getTotalCountByUniqueData(req.body.productUniqueData);
+
+            if (totalOrderCountDataFromDB) {
+                await totalOrderCountService
+                    .plusTotalOrderCountById(totalOrderCountDataFromDB.id, req.body, totalOrderCountDataFromDB.productPrice);
+                totalOrderCountData = totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
+            } else {
+                totalOrderCountData = await totalOrderCountService.createTotalOrderCount(req.body);
+            }
+
+            res.json({ data: totalOrderCountData });
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    public async minusTotalOrderCount(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            let totalOrderCountData;
+
+            const { totalCount } = req.body;
+
+            if (totalCount <= 1) return;
+
+            const totalOrderCountDataFromDB = await totalOrderCountService.getTotalCountByUniqueData(req.body.productUniqueData);
+
+            if (totalOrderCountDataFromDB) {
+                await totalOrderCountService
+                    .minusTotalOrderCountById(totalOrderCountDataFromDB.id, req.body, totalOrderCountDataFromDB.productPrice);
+                totalOrderCountData = totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
             } else {
                 totalOrderCountData = await totalOrderCountService.createTotalOrderCount(req.body);
             }

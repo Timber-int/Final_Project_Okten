@@ -136,11 +136,8 @@ const OrderPage = () => {
                                                             </div>
                                                         </div>
                                                         <div className={css.second_element}>
-                                                            {console.log(orderElement)}
                                                             <OrderComponentButtonOrderPage
-                                                                defaultPrice={orderElement.defaultPrice}
-                                                                id={orderElement.id}
-                                                                totalCount={orderElement.totalCount}
+                                                                orderData={orderElement}
                                                             />
                                                         </div>
                                                         <div className={css.third_element}>

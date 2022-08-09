@@ -1,6 +1,10 @@
-import { Column, Entity } from 'typeorm';
+import {
+    Column, Entity, JoinColumn, ManyToOne,
+} from 'typeorm';
 import { DefaultValue } from './defaultValue';
 import { CONSTANTS } from '../constants';
+import { Category } from './category';
+import { Product } from './product';
 
 export interface IUserOrder {
     id: number,
@@ -12,7 +16,8 @@ export interface IUserOrder {
     productPrice: number,
     productWeight: number,
     totalCount: number,
-    defaultPrice: number,
+    productId: number,
+    categoryId: number,
 }
 
 @Entity('userorders', { database: CONSTANTS.DATA_BASE })
@@ -61,15 +66,28 @@ export class UserOrder extends DefaultValue implements IUserOrder {
     @Column({
         type: 'int',
     })
-        defaultPrice: number;
-
-    @Column({
-        type: 'int',
-    })
         productWeight: number;
 
     @Column({
         type: 'int',
     })
         totalCount: number;
+
+    @Column({
+        type: 'int',
+    })
+        categoryId: number;
+
+    @Column({
+        type: 'int',
+    })
+        productId: number;
+
+    @ManyToOne(() => Category, (Category) => Category.userOrderElement)
+    @JoinColumn({ name: 'categoryId' })
+        category: Category;
+
+    @ManyToOne(() => Product, (Product) => Product.userOrderElement)
+    @JoinColumn({ name: 'productId' })
+        product: Product;
 }

@@ -8,4 +8,8 @@ export const totalCountService = {
         .then(value => value.data),
     deleteTotalOrderCount: (deletePath) => axiosService.delete(baseURL + urls.totalCounts + '/' + deletePath)
         .then(value => value.data),
+    plusTotalOrderCount: (uniqueName, countData) => axiosService.put(baseURL + urls.totalCounts + '/plus/' + uniqueName, countData)
+        .then(value => value.data),
+    minusTotalOrderCount: (uniqueName, countData) => axiosService.put(baseURL + urls.totalCounts + '/minus/' + uniqueName, countData)
+        .then(value => value.data),
 };

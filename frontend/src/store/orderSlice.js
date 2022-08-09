@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CONSTANTS } from '../constants';
-import { categoryService, orderService } from '../service';
+import { orderService } from '../service';
 
 export const getAllOrder = createAsyncThunk(
     'orderSlice/getAllOrder',
@@ -19,7 +19,7 @@ export const getAllOrder = createAsyncThunk(
 );
 export const plusOrderProduct = createAsyncThunk(
     'orderSlice/plusOrderProduct',
-    async ({ productData }, {
+    async ({ productDataId }, {
         dispatch,
         rejectWithValue
     }) => {
@@ -27,11 +27,38 @@ export const plusOrderProduct = createAsyncThunk(
 
             const {
                 id,
-            } = productData;
 
-            const data = await orderService.plusOrderProduct(id, productData);
+            } = productDataId;
+
+            const data = await orderService.plusOrderProduct(id, productDataId);
 
             dispatch(orderAction.plusOrderSingleProduct({ updatedOrderData: data }));
+
+            return { createdOrderData: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+
+export const minusOrderProduct = createAsyncThunk(
+    'orderSlice/minusOrderProduct',
+    async ({ productDataId }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+
+            const {
+                id,
+                totalCount,
+            } = productDataId;
+
+            if (totalCount <= 1) return;
+
+            const data = await orderService.minusOrderProduct(id, productDataId);
+
+            dispatch(orderAction.minusOrderSingleProduct({ updatedOrderData: data }));
 
             return { createdOrderData: data };
         } catch (e) {
@@ -72,7 +99,6 @@ export const setProductToOrder = createAsyncThunk(
         rejectWithValue
     }) => {
         try {
-
             const {
                 productName,
                 productPhoto,
@@ -82,7 +108,8 @@ export const setProductToOrder = createAsyncThunk(
                 description,
                 totalCount,
                 chosenProductIngredients,
-                defaultPrice
+                id,
+                categoryId
             } = product;
 
             const productIngredients = chosenProductIngredients.join(',');
@@ -96,7 +123,8 @@ export const setProductToOrder = createAsyncThunk(
                 description,
                 totalCount,
                 productIngredients,
-                defaultPrice,
+                productId: id,
+                categoryId,
             };
 
             const data = await orderService.createOrder(orderData);
@@ -127,8 +155,13 @@ const orderSlice = createSlice({
         plusOrderSingleProduct: (state, action) => {
             const orderFromDB = action.payload.updatedOrderData.data;
 
-            state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id? {...orderFromDB}:element);
-        }
+            state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id ? { ...orderFromDB } : element);
+        },
+        minusOrderSingleProduct: (state, action) => {
+            const orderFromDB = action.payload.updatedOrderData.data;
+
+            state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id ? { ...orderFromDB } : element);
+        },
     },
     extraReducers: {
         [setProductToOrder.pending]: (state, action) => {
@@ -151,7 +184,6 @@ const orderSlice = createSlice({
         [getAllOrder.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
             state.chosenOrderProducts = action.payload.createdOrderData.data;
-            console.log(action.payload.createdOrderData.data);
             state.serverErrors = null;
         },
         [getAllOrder.rejected]: (state, action) => {
@@ -182,6 +214,18 @@ const orderSlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
+        [minusOrderProduct.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [minusOrderProduct.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.serverErrors = null;
+        },
+        [minusOrderProduct.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
     }
 });
 
@@ -191,12 +235,14 @@ const {
     setOrderType,
     deleteSingleOrderProductById,
     plusOrderSingleProduct,
+    minusOrderSingleProduct,
 } = orderSlice.actions;
 
 export const orderAction = {
     setOrderType,
     deleteSingleOrderProductById,
     plusOrderSingleProduct,
+    minusOrderSingleProduct,
 };
 
 export default orderReducer;

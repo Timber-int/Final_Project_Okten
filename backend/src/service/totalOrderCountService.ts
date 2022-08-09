@@ -7,8 +7,8 @@ class TotalOrderCountService {
         return totalOrderCountRepository.getAllTotalOrderCount();
     }
 
-    public async getAllTotalOrderCountById(id: number): Promise<ITotalOrderCount | undefined> {
-        return totalOrderCountRepository.getAllTotalOrderCountById(id);
+    public async getTotalOrderCountById(id: number): Promise<ITotalOrderCount | undefined> {
+        return totalOrderCountRepository.getTotalOrderCountById(id);
     }
 
     public async createTotalOrderCount(data: TotalOrderCount): Promise<ITotalOrderCount> {
@@ -21,6 +21,14 @@ class TotalOrderCountService {
 
     public async updateTotalOrderCountById(id: number, dataToUpdate: ITotalOrderCount, priceBeforeUpdate: number): Promise<UpdateResult> {
         return totalOrderCountRepository.updateTotalOrderCountById(id, dataToUpdate, priceBeforeUpdate);
+    }
+
+    public async plusTotalOrderCountById(id: number, dataToUpdate: ITotalOrderCount, priceBeforeUpdate: number): Promise<UpdateResult> {
+        return totalOrderCountRepository.plusTotalOrderCountById(id, dataToUpdate, priceBeforeUpdate);
+    }
+
+    public async minusTotalOrderCountById(id: number, dataToUpdate: ITotalOrderCount, priceBeforeUpdate: number): Promise<UpdateResult> {
+        return totalOrderCountRepository.minusTotalOrderCountById(id, dataToUpdate, priceBeforeUpdate);
     }
 
     public async deleteTotalOrderCount(deletePath: string): Promise<DeleteResult> {

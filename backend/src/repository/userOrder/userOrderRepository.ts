@@ -18,13 +18,23 @@ class UserOrderRepository extends Repository<UserOrder> implements IUserOrderRep
             .delete({ id });
     }
 
-    public async plusOrderProduct(id: number, defaultPrice: number, userFromDB: IUserOrder): Promise<UpdateResult> {
+    public async plusOrderProduct(id: number, userOrderFromDB: IUserOrder): Promise<UpdateResult> {
         return getManager()
             .getRepository(UserOrder)
             .update({ id }, {
-                ...userFromDB,
-                productPrice: userFromDB.productPrice + defaultPrice,
-                totalCount: userFromDB.totalCount + 1,
+                ...userOrderFromDB,
+                productPrice: userOrderFromDB.productPrice + userOrderFromDB.productPrice / userOrderFromDB.totalCount,
+                totalCount: userOrderFromDB.totalCount + 1,
+            });
+    }
+
+    public async minusOrderProduct(id: number, userOrderFromDB: IUserOrder): Promise<UpdateResult> {
+        return getManager()
+            .getRepository(UserOrder)
+            .update({ id }, {
+                ...userOrderFromDB,
+                productPrice: userOrderFromDB.productPrice - userOrderFromDB.productPrice / userOrderFromDB.totalCount,
+                totalCount: userOrderFromDB.totalCount <= 1 ? userOrderFromDB.totalCount : userOrderFromDB.totalCount - 1,
             });
     }
 

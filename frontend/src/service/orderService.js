@@ -10,4 +10,6 @@ export const orderService = {
         .then(value => value.data),
     plusOrderProduct: (id, productData) => axiosService.put(baseURL + urls.orders + '/plus/' + id, productData)
         .then(value => value.data),
+    minusOrderProduct: (id, productData) => axiosService.put(baseURL + urls.orders + '/minus/' + id, productData)
+        .then(value => value.data),
 };
