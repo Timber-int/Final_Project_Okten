@@ -10,7 +10,19 @@
     align-items: center;
     z-index: 1;
 }
-
+.logo_image{
+    height: 60%;
+    background-color: #FFD600;
+    border-radius: 1vh;
+    padding: 1vh;
+}
+.home_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    height: 100px;
+}
 ::selection {
     background-color: #000000;
     color: whitesmoke;

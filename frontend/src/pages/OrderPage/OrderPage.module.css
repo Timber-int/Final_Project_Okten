@@ -37,6 +37,7 @@
     flex-wrap: wrap;
     justify-content: right;
     margin: 1%;
+    max-height: 10vh;
 }
 
 .second_block {

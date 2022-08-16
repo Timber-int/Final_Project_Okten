@@ -2,7 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    width: 50%;
     height: 100%;
 }
 

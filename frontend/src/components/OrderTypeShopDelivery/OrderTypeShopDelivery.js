@@ -38,6 +38,14 @@ const OrderTypeShopDelivery = () => {
                 <label>Ваше ім`я*</label>
                 <div className={css.errors_span}>{errors.firstName && <span>{errors.firstName.message}</span>}</div>
             </div>
+            <div className={css.chosen_order_client_firstName_box}>
+                <input type="text" {...register('lastName')}
+                       className={css.chosen_order_client_firstName_input}
+                       required={true}
+                />
+                <label>Ваше прізвище*</label>
+                <div className={css.errors_span}>{errors.lastName && <span>{errors.lastName.message}</span>}</div>
+            </div>
             <div className={css.chosen_order_client_email_box}>
                 <input type="email" {...register('email')}
                        className={css.chosen_order_client_email_input}
@@ -45,14 +53,6 @@ const OrderTypeShopDelivery = () => {
                 />
                 <label>Емейл*</label>
                 <div className={css.errors_span}>{errors.email && <span>{errors.email.message}</span>}</div>
-            </div>
-            <div className={css.chosen_order_client_telephone_box}>
-                <input type="text" {...register('telephone')}
-                       className={css.chosen_order_client_telephone_input}
-                       required={true}
-                />
-                <label>Телефон*</label>
-                <div className={css.errors_span}>{errors.telephone && <span>{errors.telephone.message}</span>}</div>
             </div>
             <div className={css.checked_registration_block}>
                 Ви не зареєстровані, увійдіть щоб використати бонуси.
