@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CONSTANTS } from '../constants';
 import { orderService } from '../service';
+import { createTotalOrderCount } from './totalOrderCountSlice';
 
 export const getAllOrder = createAsyncThunk(
     'orderSlice/getAllOrder',
@@ -128,6 +129,8 @@ export const setProductToOrder = createAsyncThunk(
             };
 
             const data = await orderService.createOrder(orderData);
+
+            dispatch(createTotalOrderCount({ product }));
 
             return { createdOrderData: data };
         } catch (e) {

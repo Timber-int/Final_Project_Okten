@@ -33,7 +33,7 @@ class TotalOrderCountController {
             if (totalOrderCountDataFromDB) {
                 await totalOrderCountService
                     .updateTotalOrderCountById(totalOrderCountDataFromDB.id, req.body, totalOrderCountDataFromDB.productPrice);
-                totalOrderCountData = totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
+                totalOrderCountData = await totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
             } else {
                 totalOrderCountData = await totalOrderCountService.createTotalOrderCount(req.body);
             }
@@ -53,7 +53,7 @@ class TotalOrderCountController {
             if (totalOrderCountDataFromDB) {
                 await totalOrderCountService
                     .plusTotalOrderCountById(totalOrderCountDataFromDB.id, req.body, totalOrderCountDataFromDB.productPrice);
-                totalOrderCountData = totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
+                totalOrderCountData = await totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
             } else {
                 totalOrderCountData = await totalOrderCountService.createTotalOrderCount(req.body);
             }
@@ -77,7 +77,7 @@ class TotalOrderCountController {
             if (totalOrderCountDataFromDB) {
                 await totalOrderCountService
                     .minusTotalOrderCountById(totalOrderCountDataFromDB.id, req.body, totalOrderCountDataFromDB.productPrice);
-                totalOrderCountData = totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
+                totalOrderCountData = await totalOrderCountService.getTotalOrderCountById(totalOrderCountDataFromDB.id);
             } else {
                 totalOrderCountData = await totalOrderCountService.createTotalOrderCount(req.body);
             }

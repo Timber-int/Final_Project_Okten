@@ -77,19 +77,11 @@ const ProductDetails = () => {
     };
 
     const createOrder = async (productPrice, product, id) => {
-        try {
             await dispatch(setProductToOrder({
                     product,
                     id,
                 }
             ));
-            await dispatch(createTotalOrderCount({ product }));
-        } catch (e) {
-            if (e) {
-                document.alert(e);
-                return;
-            }
-        }
     };
 
     return (
