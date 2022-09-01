@@ -15,7 +15,7 @@ import {
     setProductToOrder
 } from '../../store';
 import { baseURL } from '../../config';
-import { DEFAULT_CATEGORY_NAME } from '../../constants';
+import { CONSTANTS, DEFAULT_CATEGORY_NAME } from '../../constants';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
 import css from './ProductDetails.module.css';
 
@@ -32,6 +32,10 @@ const ProductDetails = () => {
     const {
         category,
     } = useSelector(state => state['categoryReducer']);
+
+    const {
+        status,
+    } = useSelector(state => state['orderReducer']);
 
     const {
         singleProductInformation,
@@ -77,11 +81,11 @@ const ProductDetails = () => {
     };
 
     const createOrder = async (productPrice, product, id) => {
-            await dispatch(setProductToOrder({
-                    product,
-                    id,
-                }
-            ));
+        await dispatch(setProductToOrder({
+                product,
+                id,
+            }
+        ));
     };
 
     return (
@@ -183,7 +187,15 @@ const ProductDetails = () => {
                             />
                         </div>
                         <div className={css.order_button_container}>
-                            <button className={css.order_button}
+                            <button className={
+                                status === CONSTANTS.LOADING
+                                ||
+                                status === CONSTANTS.REJECTED
+                                    ?
+                                    css.order_button_disabled
+                                    :
+                                    css.order_button
+                            }
                                     onClick={() => createOrder(product ? product.productPrice : productPrice, product, id)}>Додати у кошик
                             </button>
                         </div>

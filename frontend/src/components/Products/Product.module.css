@@ -6,6 +6,14 @@
     justify-content: center;
 }
 
+.search_bar_container {
+    margin-top: 5vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .content {
     display: flex;
     flex-wrap: wrap;

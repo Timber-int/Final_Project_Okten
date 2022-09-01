@@ -2,7 +2,7 @@
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    bottom: 1.5em;
+    bottom: 0.5em;
     z-index: 2;
 }
 

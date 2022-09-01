@@ -77,6 +77,7 @@ class UserOrderController {
         try {
             const order = req.body;
             let userOrderData;
+            // console.log(req.body);
 
             const orderFromDB = await userOrderService.getUserOrderByProductName(order.productName, order.productIngredients);
             console.log(orderFromDB);

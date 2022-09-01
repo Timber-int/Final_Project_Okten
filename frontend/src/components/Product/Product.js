@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
 import { baseURL } from '../../config';
-import { createTotalOrderCount, getProductInformationByProductId, setProductToOrder } from '../../store';
-import { DEFAULT_CATEGORY_NAME } from '../../constants';
+import { getProductInformationByProductId, setProductToOrder } from '../../store';
+import { CONSTANTS, DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
 
 const Product = ({
@@ -17,6 +17,10 @@ const Product = ({
     const dispatch = useDispatch();
 
     const { singleProductInformation } = useSelector(state => state['productInformationReducer']);
+
+    const {
+        status,
+    } = useSelector(state => state['orderReducer']);
 
     const {
         productName,
@@ -134,7 +138,16 @@ const Product = ({
                 </div>
                 <div><OrderComponentButton id={id} totalCount={totalCount}/></div>
                 <div>
-                    <button className={css.product_order_button} onClick={() => createOrder(productPrice, product, id)}>Замовити</button>
+                    <button
+                        className={
+                        status === CONSTANTS.LOADING
+                        ||
+                        status === CONSTANTS.REJECTED
+                            ? css.product_order_button_disabled
+                            : css.product_order_button}
+                        onClick={() => createOrder(productPrice, product, id)}>
+                        Замовити
+                    </button>
                 </div>
             </div>
         </div>

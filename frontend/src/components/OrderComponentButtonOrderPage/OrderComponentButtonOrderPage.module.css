@@ -31,6 +31,16 @@ input[type=number] {
     cursor: pointer;
 }
 
+.nav_button_disabled {
+    width: 15%;
+    color: #e53935;
+    font-size: 38px;
+    /*margin: 0 5px 0 5px;*/
+    font-weight: bold;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .order_container {
     width: 60%;
     display: flex;

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CONSTANTS } from '../constants';
 import { orderService } from '../service';
-import { createTotalOrderCount } from './totalOrderCountSlice';
+import { createTotalOrderCount, minusTotalOrderCount, plusTotalOrderCount } from './totalOrderCountSlice';
 
 export const getAllOrder = createAsyncThunk(
     'orderSlice/getAllOrder',
@@ -20,7 +20,10 @@ export const getAllOrder = createAsyncThunk(
 );
 export const plusOrderProduct = createAsyncThunk(
     'orderSlice/plusOrderProduct',
-    async ({ productDataId }, {
+    async ({
+        productDataId,
+        productData
+    }, {
         dispatch,
         rejectWithValue
     }) => {
@@ -28,12 +31,30 @@ export const plusOrderProduct = createAsyncThunk(
 
             const {
                 id,
-
             } = productDataId;
+
+            const {
+                productId,
+                categoryId,
+                productPrice,
+                totalCount,
+                productName,
+                productIngredients,
+            } = productData;
 
             const data = await orderService.plusOrderProduct(id, productDataId);
 
-            dispatch(orderAction.plusOrderSingleProduct({ updatedOrderData: data }));
+            await dispatch(orderAction.plusOrderSingleProduct({ updatedOrderData: data }));
+
+            await dispatch(plusTotalOrderCount({
+                product: {
+                    productId,
+                    categoryId,
+                    productPrice: productPrice / totalCount,
+                    productName,
+                    productIngredients,
+                }
+            }));
 
             return { createdOrderData: data };
         } catch (e) {
@@ -44,7 +65,10 @@ export const plusOrderProduct = createAsyncThunk(
 
 export const minusOrderProduct = createAsyncThunk(
     'orderSlice/minusOrderProduct',
-    async ({ productDataId }, {
+    async ({
+        productDataId,
+        productData
+    }, {
         dispatch,
         rejectWithValue
     }) => {
@@ -52,14 +76,33 @@ export const minusOrderProduct = createAsyncThunk(
 
             const {
                 id,
-                totalCount,
             } = productDataId;
+
+            const {
+                productId,
+                totalCount,
+                categoryId,
+                productPrice,
+                productName,
+                productIngredients,
+            } = productData;
 
             if (totalCount <= 1) return;
 
             const data = await orderService.minusOrderProduct(id, productDataId);
 
-            dispatch(orderAction.minusOrderSingleProduct({ updatedOrderData: data }));
+           await dispatch(orderAction.minusOrderSingleProduct({ updatedOrderData: data }));
+
+            await dispatch(minusTotalOrderCount({
+                product: {
+                    productId,
+                    categoryId,
+                    productPrice: productPrice / totalCount,
+                    productName,
+                    productIngredients,
+                    totalCount
+                }
+            }));
 
             return { createdOrderData: data };
         } catch (e) {
@@ -130,7 +173,7 @@ export const setProductToOrder = createAsyncThunk(
 
             const data = await orderService.createOrder(orderData);
 
-            dispatch(createTotalOrderCount({ product }));
+            await dispatch(createTotalOrderCount({ product }));
 
             return { createdOrderData: data };
         } catch (e) {

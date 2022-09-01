@@ -5,8 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { ImageCarousel } from '../ImageCarousel/ImageCarousel';
 import { getAllProducts, getCategoryById, productAction } from '../../store';
 import { DEFAULT_CATEGORY_NAME } from '../../constants';
-import css from './Product.module.css';
 import { Product } from '../Product/Product';
+import { SearchBar } from '../SearchBar/SearchBar';
+import css from './Product.module.css';
 
 const Products = () => {
 
@@ -49,6 +50,9 @@ const Products = () => {
             }>
                 {category?.name}
             </h1>
+            <div className={css.search_bar_container}>
+                <SearchBar category={category} products={products}/>
+            </div>
 
             <div className={css.product_container}>
                 {

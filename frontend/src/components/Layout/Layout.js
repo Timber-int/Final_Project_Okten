@@ -7,6 +7,7 @@ import css from './Layout.module.css';
 import { cityActions, getAllCategories, getAllTotalOrderCount } from '../../store';
 import { baseURL } from '../../config';
 import { Footer } from '../Footer/Footer';
+import { CONSTANTS } from '../../constants';
 
 const Layout = () => {
 
@@ -17,6 +18,9 @@ const Layout = () => {
     const {
         totalOrderCount,
     } = useSelector(state => state['totalOrderCountReducer']);
+    const {
+        status,
+    } = useSelector(state => state['orderReducer']);
 
     const {
         chosenCity,
@@ -35,17 +39,26 @@ const Layout = () => {
     return (
         <div>
             {!city || cityStatus === true ? <ModalWindow/> : <></>}
+            <div className={css.loading}>
+                {status === CONSTANTS.LOADING
+                    &&
+                    <div className={css.line_box}>
+                        <div className={css.line}/>
+                    </div>
+                }
+            </div>
             <div className={css.header}>
-                <NavLink className={css.home_page} to={'/'}>
-                    <img className={css.logo_image} src='https://la.ua/wp-content/themes/lapiec/assets/frontend/img/logo-dark.svg' alt='logo'/>
+                <NavLink  className={css.home_page} to={'/'}>
+                    <img className={css.logo_image} src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/logo-dark.svg" alt="logo"/>
                 </NavLink>
                 <NavLink to={'/action'} className={css.category_path}>
-                    <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'} alt={'action'}/></span>
+                        <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'}
+                                   alt={'action'}/></span>
                     <span>Special offers</span>
                 </NavLink>
                 {
                     categories.map(category =>
-                        <NavLink key={category.id} to={'/'} state={category} className={css.category_path}>
+                        <NavLink  key={category.id} to={'/'} state={category} className={css.category_path}>
                             <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
                             <span>{category.name}</span>
                         </NavLink>)

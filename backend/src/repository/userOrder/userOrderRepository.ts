@@ -57,10 +57,10 @@ class UserOrderRepository extends Repository<UserOrder> implements IUserOrderRep
     public async getUserOrderByProductName(productName: string, productIngredients: string): Promise<IUserOrder | undefined> {
         return getManager()
             .getRepository(UserOrder)
-            .findOne({
-                productName,
-                productIngredients,
-            });
+            .createQueryBuilder('order')
+            .where('order.productName = :productName', { productName })
+            .andWhere('order.productIngredients = :productIngredients', { productIngredients })
+            .getOne();
     }
 
     public async getAllUserOrder(): Promise<IUserOrder[]> {

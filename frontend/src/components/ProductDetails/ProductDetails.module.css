@@ -24,7 +24,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 90vh;
+    height: 100vh;
+    min-height: 100vh;
 }
 
 .details_container > div {
@@ -208,6 +209,18 @@
     font-weight: bold;
     cursor: pointer;
 }
+.order_button_disabled{
+    width: 30%;
+    height: 5vh;
+    background-color: #FFD600;
+    border: none;
+    border-radius: 5vh;
+    font-size: 100%;
+    font-weight: bold;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 
 .order_button:hover {
     color: #ffffff;

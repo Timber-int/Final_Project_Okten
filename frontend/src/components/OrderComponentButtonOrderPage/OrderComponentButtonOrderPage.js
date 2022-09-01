@@ -1,8 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { minusOrderProduct, minusTotalOrderCount, plusOrderProduct, plusTotalOrderCount } from '../../store';
 import css from './OrderComponentButtonOrderPage.module.css';
+import { CONSTANTS } from '../../constants';
 
 const OrderComponentButtonOrderPage = ({
     orderData,
@@ -20,64 +21,58 @@ const OrderComponentButtonOrderPage = ({
 
     const dispatch = useDispatch();
 
-    const minusOrderProductFunc = async () => {
-        try {
-            await dispatch(minusOrderProduct({
-                productDataId: {
-                    totalCount,
-                    id
-                }
-            }));
-            await dispatch(minusTotalOrderCount({
-                product: {
-                    productId,
-                    categoryId,
-                    productPrice: productPrice / totalCount,
-                    productName,
-                    productIngredients,
-                    totalCount
-                }
-            }));
-        } catch (e) {
-            if (e) {
-                document.alert(e);
-                return;
+    const { status } = useSelector(state => state['orderReducer']);
+
+    const minusOrderProductFunc = () => {
+        dispatch(minusOrderProduct({
+            productDataId: {
+                id,
+            },
+            productData: {
+                productId,
+                categoryId,
+                productPrice,
+                totalCount,
+                productName,
+                productIngredients,
             }
-        }
+        }));
     };
 
-    const plusOrderProductFunc = async () => {
-        try {
-            await dispatch(plusOrderProduct({
-                productDataId: {
-                    id,
-                }
-            }));
-            await dispatch(plusTotalOrderCount({
-                product: {
-                    productId,
-                    categoryId,
-                    productPrice: productPrice / totalCount,
-                    productName,
-                    productIngredients,
-                }
-            }));
-        } catch (e) {
-            if (e) {
-                document.alert(e);
-                return;
+    const plusOrderProductFunc = () => {
+        dispatch(plusOrderProduct({
+            productDataId: {
+                id,
+            },
+            productData: {
+                productId,
+                categoryId,
+                productPrice,
+                totalCount,
+                productName,
+                productIngredients,
             }
-        }
+        }));
     };
 
     return (
         <div className={css.order_counter}>
-            <span className={css.nav_button}
+            <span className={
+                status === CONSTANTS.LOADING
+                ||
+                status === CONSTANTS.REJECTED
+                    ? css.nav_button_disabled
+                    : css.nav_button}
                   onClick={() => minusOrderProductFunc()}>-</span>
             <span className={css.order_container}>
                 <div className={css.product_order_box}>{totalCount}</div>
             </span>
-            <span className={css.nav_button}
+            <span className={
+                status === CONSTANTS.LOADING
+                ||
+                status === CONSTANTS.REJECTED
+                    ? css.nav_button_disabled
+                    : css.nav_button}
                   onClick={() => plusOrderProductFunc()}>+</span>
         </div>
     );
