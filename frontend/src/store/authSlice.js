@@ -12,12 +12,12 @@ export const registration = createAsyncThunk(
         try {
             const data = await authService.registration(registrationPayload);
 
-            // dispatch(authAction.userRegistrationData({registeredUser: data}));
+            dispatch(authAction.userRegistration({ registeredUser: data }));
 
-            return {user: data};
+            return { user: data };
 
         } catch (e) {
-            return rejectWithValue(e.message);
+            return rejectWithValue(e.response.data.message);
         }
     }
 );
@@ -30,7 +30,11 @@ const authSlice = createSlice({
         serverErrors: null,
         status: null,
     },
-    reducers: {},
+    reducers: {
+        userRegistration: (state, action) => {
+
+        }
+    },
     extraReducers: {
         [registration.pending]: (state, action) => {
             state.status = CONSTANTS.LOADING;
@@ -50,8 +54,8 @@ const authSlice = createSlice({
 
 const authReducer = authSlice.reducer;
 
-const {} = authSlice.actions;
+const {userRegistration} = authSlice.actions;
 
-export const authAction = {};
+export const authAction = {userRegistration};
 
 export default authReducer;

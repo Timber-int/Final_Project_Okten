@@ -37,6 +37,11 @@
     background-color: #e53935;
 }
 
+.product_data {
+width: 100%;
+    display: flex;
+}
+
 .product_element {
     width: 95%;
     min-height: 5vh;
@@ -70,6 +75,10 @@
 .product_element p {
     margin-left: 20px;
     font-size: 2vh;
+}
+
+.product_price {
+    color: #e53935;
 }
 
 .product_element {

@@ -46,6 +46,18 @@
     }
 }
 
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #FFD600;
+}
+
 .logo_image {
     height: 60%;
     background-color: #FFD600;
