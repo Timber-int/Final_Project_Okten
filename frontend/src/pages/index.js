@@ -21,4 +21,5 @@ export * from './OfferPage/OfferPage';
 export * from './ForPartnersPage/ForPartnersPage';
 export * from './ContactsPage/ContactsPage';
 export * from './PaymentPage/PaymentPage';
+export * from './LoginPage/LoginPage';
 

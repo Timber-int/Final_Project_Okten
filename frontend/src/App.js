@@ -20,7 +20,7 @@ import {
     ProductInformationPage,
     ProductInformationDetailsComponentPage,
     AboutUsPage,
-    OfferPage, ForPartnersPage, ContactsPage, PaymentPage
+    OfferPage, ForPartnersPage, ContactsPage, PaymentPage, LoginPage
 } from './pages';
 import { getAllCities } from './store';
 import { useDispatch } from 'react-redux';
@@ -43,6 +43,7 @@ const App = () => {
                 <Route index element={<ProductPage/>}/>
                 <Route path={'productId/:id'} element={<ProductDetailsPage/>}/>
                 <Route path={'registration'} element={<RegistrationPage/>}/>
+                <Route path={'login'} element={<LoginPage/>}/>
                 <Route path={'deliveryHardPage/:id'} element={<DeliveryHardPage/>}/>
                 <Route path={'orderPage'} element={<OrderPage/>}/>
                 <Route path={'action'} element={<ActionPage/>}/>

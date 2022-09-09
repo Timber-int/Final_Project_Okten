@@ -40,3 +40,21 @@ export const userBodyForRegistrationValidator = Joi.object({
         }),
 
 });
+
+export const userBodyForLoginValidator = Joi.object({
+    email: Joi.string()
+        .regex(CONSTANTS.EMAIL_REGEXP)
+        .required()
+        .trim()
+        .messages({
+            'string.pattern.base': 'Email not valid',
+        }),
+    password: Joi.string()
+        .regex(CONSTANTS.PASSWORD_REGEXP)
+        .required()
+        .trim()
+        .messages({
+            'string.pattern.base': 'Password not valid',
+        }),
+
+});

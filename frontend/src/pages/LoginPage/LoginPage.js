@@ -1,12 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
-import { Registration } from '../../components';
 import { useSelector } from 'react-redux';
+import { Login } from '../../components';
 import { CONSTANTS } from '../../constants';
-import css from './RegistrationPage.module.css';
+import css from './LoginPage.module.css';
 
-const RegistrationPage = () => {
+const LoginPage = () => {
 
     const {
         serverErrors,
@@ -14,13 +13,12 @@ const RegistrationPage = () => {
     } = useSelector(state => state['authReducer']);
 
     return (
-        <div className={css.registration_container}>
+        <div className={css.login_container}>
             <div className={css.server_errors_container}>{serverErrors}</div>
             {status === CONSTANTS.LOADING ? <div className={css.loading_container}>Loading...</div> : <></>}
-            <Registration/>
-            <NavLink to={'/login'} className={css.move_to_login}>I already have an account</NavLink>
+            <Login/>
         </div>
     );
 };
 
-export { RegistrationPage };
+export { LoginPage };

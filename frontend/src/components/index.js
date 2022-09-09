@@ -27,3 +27,4 @@ export * from './Footer/Footer';
 export * from './UserChosenAddress/UserChosenAddress';
 export * from './OrderComponentButtonOrderPage/OrderComponentButtonOrderPage';
 export * from './SearchBar/SearchBar';
+export * from './Login/Login';
