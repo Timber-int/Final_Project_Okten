@@ -4,6 +4,8 @@ export const urls = {
     auth: '/auth',
     registration: '/registration',
     login: '/login',
+    logout: '/logout',
+    refresh: '/refresh',
     products: '/products',
     productInformation: '/productInformation',
     productIngredients: '/productIngredients',

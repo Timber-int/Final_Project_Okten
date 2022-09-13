@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userBodyForLoginValidator } from '../../validator';
 import { CONSTANTS } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../store';
 import css from './Login.module.css';
 
@@ -19,14 +20,17 @@ const Login = () => {
         mode: 'onTouched',
     });
 
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const {
         status,
     } = useSelector(state => state['authReducer']);
 
-    const submit = (data) => {
-        dispatch(login({ loginPayload: data }));
+    const submit = async (data) => {
+        await dispatch(login({ loginPayload: data }));
+        await navigate('/customerPanel', { replace: true });
     };
 
     return (

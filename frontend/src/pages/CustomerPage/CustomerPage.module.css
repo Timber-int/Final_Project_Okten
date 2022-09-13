@@ -1,0 +1,14 @@
+.server_errors_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #e53935;
+    font-size: 2vh;
+}
+
+.loading_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 2vh;
+}

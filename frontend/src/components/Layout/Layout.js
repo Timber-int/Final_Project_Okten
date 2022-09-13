@@ -18,6 +18,11 @@ const Layout = () => {
     const {
         totalOrderCount,
     } = useSelector(state => state['totalOrderCountReducer']);
+
+    const {
+        user: userRegistered,
+    } = useSelector(state => state['authReducer']);
+
     const {
         status,
     } = useSelector(state => state['orderReducer']);
@@ -48,7 +53,7 @@ const Layout = () => {
                 }
             </div>
             <div className={css.header}>
-                <NavLink  className={css.home_page} to={'/'}>
+                <NavLink className={css.home_page} to={'/'}>
                     <img className={css.logo_image} src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/logo-dark.svg" alt="logo"/>
                 </NavLink>
                 <NavLink to={'/action'} className={css.category_path}>
@@ -58,7 +63,7 @@ const Layout = () => {
                 </NavLink>
                 {
                     categories.map(category =>
-                        <NavLink  key={category.id} to={'/'} state={category} className={css.category_path}>
+                        <NavLink key={category.id} to={'/'} state={category} className={css.category_path}>
                             <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
                             <span>{category.name}</span>
                         </NavLink>)
@@ -89,7 +94,17 @@ const Layout = () => {
                     </div>
                     <div className={css.city_name}>{city ? city : chosenCity}</div>
                 </div>
-                <NavLink to={'/registration'}>Registration</NavLink>
+                {
+                    userRegistered
+                        ?
+                        <NavLink to={'/customerPanel'}>
+                            <div
+                                className={css.customer_data_box}>{userRegistered?.user?.firstName[0].toUpperCase()}{userRegistered?.user?.lastName[0].toUpperCase()}
+                            </div>
+                        </NavLink>
+                        :
+                        <NavLink to={'/registration'}>Sign in</NavLink>
+                }
                 <NavLink to={'/OrderPage'} className={css.order_total_count}>
                     <div className={css.order_content}>
                         <div>

@@ -232,3 +232,27 @@
     border: 0.5vh solid #FFD600;
 }
 
+a {
+    text-decoration: none;
+    font-size: 2vh;
+    color: #0E0E0E;
+}
+
+.customer_data_box {
+    width: 40px;
+    height: 40px;
+    padding: 2vh;
+    border-radius: 100%;
+    background-color: #FFD600;
+    font-weight: bold;
+    color: #0E0E0E;
+    font-size: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.customer_data_box:hover {
+    background-color: #e53935;
+}

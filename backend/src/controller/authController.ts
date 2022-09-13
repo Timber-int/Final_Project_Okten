@@ -5,17 +5,28 @@ import {
 } from '../service';
 import { IUser } from '../entity';
 import { MESSAGE } from '../message';
+import { CONSTANTS } from '../constants';
 
 class AuthController {
     public async registration(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
+            req.body.isActivated = true;
+
             const user = await userService.createUser(req.body);
 
             const tokenPair = await authService.registration(user);
 
-            const { accessToken, refreshToken } = tokenPair;
+            const {
+                accessToken,
+                refreshToken,
+            } = tokenPair;
 
             const userNormalized = await passwordService.userNormalization(user);
+
+            res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+            });
 
             res.json({
                 accessToken,
@@ -29,19 +40,38 @@ class AuthController {
 
     public async login(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const { password: hashPassword, id, email } = req.user as IUser;
+            const {
+                password: hashPassword,
+                id,
+                email,
+            } = req.user as IUser;
 
             const { password } = req.body;
 
             await userService.comparePassword(password, hashPassword);
 
-            const tokenPair = await tokenService.generateTokenPair({ userId: id, userEmail: email });
+            const tokenPair = await tokenService.generateTokenPair({
+                userId: id,
+                userEmail: email,
+            });
 
-            const { accessToken, refreshToken } = tokenPair;
+            const {
+                accessToken,
+                refreshToken,
+            } = tokenPair;
 
-            await tokenService.saveTokenToDB({ userId: id, refreshToken, accessToken });
+            await tokenService.saveTokenToDB({
+                userId: id,
+                refreshToken,
+                accessToken,
+            });
 
             const userNormalized = await passwordService.userNormalization(req.user);
+
+            res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+            });
 
             res.json({
                 accessToken,
@@ -63,6 +93,8 @@ class AuthController {
 
             await tokenService.deleteToken(id);
 
+            res.clearCookie(CONSTANTS.REFRESH_TOKEN);
+
             res.json(`${MESSAGE.LOGOUT_USER} ${firstName} ${lastName}`);
         } catch (e) {
             next(e);
@@ -76,13 +108,30 @@ class AuthController {
                 email,
             } = req.user as IUser;
 
-            const tokenPair = await tokenService.generateTokenPair({ userId: id, userEmail: email });
+            const tokenPair = await tokenService.generateTokenPair({
+                userId: id,
+                userEmail: email,
+            });
 
-            const { accessToken, refreshToken } = tokenPair;
+            const {
+                accessToken,
+                refreshToken,
+            } = tokenPair;
 
-            await tokenService.saveTokenToDB({ userId: id, refreshToken, accessToken });
+            await tokenService.saveTokenToDB({
+                userId: id,
+                refreshToken,
+                accessToken,
+            });
 
             const userNormalized = await passwordService.userNormalization(req.user);
+
+            res.clearCookie(CONSTANTS.REFRESH_TOKEN);
+
+            res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+            });
 
             res.json({
                 accessToken,
@@ -101,9 +150,15 @@ class AuthController {
                 email,
             } = req.user as IUser;
 
-            const actionToken = await tokenService.generateActionToken({ userId: id, userEmail: email });
+            const actionToken = await tokenService.generateActionToken({
+                userId: id,
+                userEmail: email,
+            });
 
-            await tokenService.saveActionTokenToDB({ userId: id, actionToken });
+            await tokenService.saveActionTokenToDB({
+                userId: id,
+                actionToken,
+            });
 
             const userNormalized = await passwordService.userNormalization(req.user);
 

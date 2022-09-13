@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { CONSTANTS } from '../constants';
+import { CONSTANTS, TokenType } from '../constants';
 import { authService } from '../service';
+import { baseURL, urls } from '../config';
 
 export const registration = createAsyncThunk(
     'authSlice/registration',
@@ -12,7 +13,9 @@ export const registration = createAsyncThunk(
         try {
             const data = await authService.registration(registrationPayload);
 
-            dispatch(authAction.userRegistration({ registeredUser: data }));
+            await dispatch(authAction.userRegistration({ loginUser: data }));
+            await dispatch(authAction.setUser({ loginUser: data }));
+            await dispatch(authAction.setAuth({ loginUser: data }));
 
             return { user: data };
 
@@ -30,7 +33,46 @@ export const login = createAsyncThunk(
         try {
             const data = await authService.login(loginPayload);
 
-            dispatch(authAction.userLogin({ loginUser: data }));
+            await dispatch(authAction.userRegistration({ loginUser: data }));
+            await dispatch(authAction.setUser({ loginUser: data }));
+            await dispatch(authAction.setAuth({ loginUser: data }));
+
+            return { user: data };
+
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+export const logout = createAsyncThunk(
+    'authSlice/logout',
+    async (_, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+            const data = await authService.logout();
+
+            await dispatch(authAction.userLogout());
+
+            return { user: data };
+
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+export const checkAuth = createAsyncThunk(
+    'authSlice/checkAuth',
+    async (_, {
+        dispatch,
+        rejectWithValue,
+    }) => {
+        try {
+
+            const data = await authService.refresh(baseURL + urls.auth + urls.refresh);
+            await dispatch(authAction.setUser({ loginUser: data }));
+            await dispatch(authAction.setAuth({ loginUser: data }));
 
             return { user: data };
 
@@ -47,13 +89,27 @@ const authSlice = createSlice({
         registrationData: null,
         serverErrors: null,
         status: null,
+        isAuth: false,
     },
     reducers: {
         userRegistration: (state, action) => {
-            console.log(action.payload.registeredUser, 'registeredUser');
+            localStorage.setItem(TokenType.ACCESS, action.payload.loginUser.accessToken);
+            localStorage.setItem(TokenType.REFRESH, action.payload.loginUser.refreshToken);
         },
-        userLogin: (state, action) => {
-            console.log(action.payload.loginUser, 'loginUser');
+        userLogout: (state, action) => {
+            localStorage.removeItem(TokenType.ACCESS);
+            localStorage.removeItem(TokenType.REFRESH);
+            state.user = null;
+            state.isAuth = false;
+        },
+        setAuth: (state, action) => {
+            state.isAuth = action.payload.loginUser.user.isActivated;
+        },
+        setUser: (state, action) => {
+            state.user = action.payload.loginUser.user;
+        },
+        setLoading:(state,action)=>{
+            state.status = CONSTANTS.LOADING;
         }
     },
     extraReducers: {
@@ -83,6 +139,19 @@ const authSlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
+        [checkAuth.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [checkAuth.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.user = action.payload.user;
+            state.serverErrors = null;
+        },
+        [checkAuth.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
     }
 });
 
@@ -90,12 +159,16 @@ const authReducer = authSlice.reducer;
 
 const {
     userRegistration,
-    userLogin
+    setAuth,
+    setUser,
+    userLogout
 } = authSlice.actions;
 
 export const authAction = {
     userRegistration,
-    userLogin
+    setAuth,
+    setUser,
+    userLogout
 };
 
 export default authReducer;

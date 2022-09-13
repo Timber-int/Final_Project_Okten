@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userBodyForRegistrationValidator } from '../../validator';
+
 import { registration } from '../../store';
 import css from './Registration.module.css';
 import { CONSTANTS } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
     const {
@@ -18,20 +20,18 @@ const Registration = () => {
         mode: 'onTouched',
     });
 
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const {
-        user,
         status,
     } = useSelector(state => state['authReducer']);
 
-    const submit = (data) => {
-        dispatch(registration({ registrationPayload: data }));
+    const submit = async (data) => {
+        await dispatch(registration({ registrationPayload: data }));
+        await navigate('/customerPanel', { replace: true });
     };
-
-    useEffect(() => {
-
-    }, [user]);
 
     return (
         <form onSubmit={handleSubmit(submit)} className={css.registration_form}>

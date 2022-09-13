@@ -3,29 +3,36 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { Layout } from './components';
 
 import {
+    AboutUsPage,
     ActionPage,
     AdminPage,
     CategoryPage,
+    CityAddressDetailsComponentPage,
+    CityAddressPage,
     CityPage,
+    ContactsPage,
+    CustomerPage,
     DeliveryHardPage,
+    ForPartnersPage,
+    LoginPage,
     NotFoundPage,
+    OfferPage,
     OrderPage,
+    PaymentPage,
     ProductDetailsPage,
+    ProductInformationDetailsComponentPage,
+    ProductInformationPage,
     ProductIngredientsComponentDetailsPage,
     ProductIngredientsPage,
     ProductPage,
-    RegistrationPage,
-    CityAddressDetailsComponentPage,
-    CityAddressPage,
-    ProductInformationPage,
-    ProductInformationDetailsComponentPage,
-    AboutUsPage,
-    OfferPage, ForPartnersPage, ContactsPage, PaymentPage, LoginPage
+    RegistrationPage
 } from './pages';
-import { getAllCities } from './store';
+import { checkAuth, getAllCities } from './store';
 import { useDispatch } from 'react-redux';
 import { ProductsPage } from './pages/ProductsPage/ProductsPage';
 import { ProductsComponentDetailsPage } from './pages/ProductsComponentDetailsPage/ProductsComponentDetailsPage';
+import { TokenType } from './constants';
+import { RequireAuth } from './components/hoc';
 
 const App = () => {
 
@@ -35,6 +42,9 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getAllCities());
+        if (localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)) {
+            dispatch(checkAuth());
+        }
     }, [path]);
 
     return (
@@ -52,6 +62,7 @@ const App = () => {
                 <Route path={'forPartners'} element={<ForPartnersPage/>}/>
                 <Route path={'contacts'} element={<ContactsPage/>}/>
                 <Route path={'payment'} element={<PaymentPage/>}/>
+                <Route path={'customerPanel'} element={<RequireAuth><CustomerPage/></RequireAuth>}/>
                 <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>
             <Route path={'/adminPage'} element={<AdminPage/>}>

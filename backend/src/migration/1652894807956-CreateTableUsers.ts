@@ -9,6 +9,7 @@ export class CreateTableUsers1652894807956 implements MigrationInterface {
                 lastName VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL UNIQUE,
                 role VARCHAR(255) DEFAULT('user') NOT NULL,
+                isActivated TINYINT(1) DEFAULT(false) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
                 deletedAt TIMESTAMP

@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import express from 'express';
 import { createConnection } from 'typeorm';
 import { engine } from 'express-handlebars';
+import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
 import path from 'path';
 import cors from 'cors';
@@ -13,12 +14,19 @@ import { cronRunner } from './cron';
 
 const app = express();
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionSuccessStatus: 200,
+};
+
 app.use(fileUpload());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'fileDirectory')));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cookieParser());
+app.use(cors(corsOptions));
 
 app.set('view engine', '.hbs');
 app.engine('.hbs', engine({ defaultLayout: false }));

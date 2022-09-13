@@ -6,5 +6,5 @@ export interface IRequestExtended extends Request {
     chosenValidationType?: any,
     userRoles?: string[],
     user?: IUser,
-    category?:ICategory,
+    category?: ICategory,
 }

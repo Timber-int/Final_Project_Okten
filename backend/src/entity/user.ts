@@ -9,6 +9,7 @@ export interface IUser extends IDefaultValue {
     email: string,
     password: string;
     role?: string;
+    isActivated?: boolean;
 }
 
 @Entity('users', { database: CONSTANTS.DATA_BASE })
@@ -49,4 +50,11 @@ export class User extends DefaultValue implements IUser {
         default: 'user',
     })
         role: string;
+
+    @Column({
+        type: 'boolean',
+        nullable: false,
+        default: 'false',
+    })
+        isActivated: boolean;
 }
