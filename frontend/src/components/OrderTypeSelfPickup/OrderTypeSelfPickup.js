@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import ReactSelect from 'react-select';
@@ -6,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { orderCardValidatorCustomerDeliver } from '../../validator';
 import { getCityByName } from '../../store';
+import { TokenType } from '../../constants';
+import { customerOrderAction } from '../../store/customerOrderSlice';
 import css from './OrderTypeSelfPickup.module.css';
 
 const OrderTypeSelfPickup = () => {
@@ -21,6 +24,9 @@ const OrderTypeSelfPickup = () => {
     const {
         filterCityAddress,
     } = useSelector(state => state['cityReducer']);
+    const {
+        user,
+    } = useSelector(state => state['authReducer']);
 
     const {
         register,
@@ -36,7 +42,7 @@ const OrderTypeSelfPickup = () => {
         return value ? filterCityAddress.find(address => address.value === value) : '';
     };
     const createUserOrderData = (data) => {
-        console.log(data);
+        dispatch(customerOrderAction.setUserData({ userData: data }));
     };
 
     return (
@@ -45,6 +51,7 @@ const OrderTypeSelfPickup = () => {
                 <input type="text" {...register('firstName')}
                        className={css.chosen_order_client_firstName_input}
                        required={true}
+                       value={user ? user.firstName : ''}
                 />
                 <label>Ваше ім`я*</label>
                 <div className={css.errors_span}>{errors.firstName && <span>{errors.firstName.message}</span>}</div>
@@ -53,6 +60,7 @@ const OrderTypeSelfPickup = () => {
                 <input type="text" {...register('lastName')}
                        className={css.chosen_order_client_firstName_input}
                        required={true}
+                       value={user ? user.lastName : ''}
                 />
                 <label>Ваше прізвище*</label>
                 <div className={css.errors_span}>{errors.lastName && <span>{errors.lastName.message}</span>}</div>
@@ -61,13 +69,26 @@ const OrderTypeSelfPickup = () => {
                 <input type="email" {...register('email')}
                        className={css.chosen_order_client_email_input}
                        required={true}
+                       value={user ? user.email : ''}
                 />
                 <label>Емейл*</label>
                 <div className={css.errors_span}>{errors.email && <span>{errors.email.message}</span>}</div>
             </div>
-            <div className={css.checked_registration_block}>
-                Ви не зареєстровані, увійдіть щоб використати бонуси.
-            </div>
+            {
+                !localStorage.getItem(TokenType.ACCESS) && !localStorage.getItem(TokenType.REFRESH)
+                    ?
+                    <div className={css.checked_registration_block}>
+                        Ви не зареєстровані, <span className={css.move_to_login_box}>
+                        <NavLink to={'/login'}
+                                 className={css.move_to_login}>увійдіть
+                        </NavLink>
+                    </span>
+                        щоб
+                        використати бонуси.
+                    </div>
+                    :
+                    <></>
+            }
             <div className={css.self_pickup_container_address_data_container}>
                 <div className={css.address_self_pickup}>
                     <Controller

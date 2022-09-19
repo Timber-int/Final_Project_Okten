@@ -13,9 +13,9 @@ export const registration = createAsyncThunk(
         try {
             const data = await authService.registration(registrationPayload);
 
-            await dispatch(authAction.userRegistration({ loginUser: data }));
-            await dispatch(authAction.setUser({ loginUser: data }));
-            await dispatch(authAction.setAuth({ loginUser: data }));
+             dispatch(authAction.userRegistration({ loginUser: data }));
+             dispatch(authAction.setUser({ loginUser: data }));
+             dispatch(authAction.setAuth({ loginUser: data }));
 
             return { user: data };
 
@@ -33,9 +33,9 @@ export const login = createAsyncThunk(
         try {
             const data = await authService.login(loginPayload);
 
-            await dispatch(authAction.userRegistration({ loginUser: data }));
-            await dispatch(authAction.setUser({ loginUser: data }));
-            await dispatch(authAction.setAuth({ loginUser: data }));
+             dispatch(authAction.userRegistration({ loginUser: data }));
+             dispatch(authAction.setUser({ loginUser: data }));
+             dispatch(authAction.setAuth({ loginUser: data }));
 
             return { user: data };
 
@@ -85,7 +85,7 @@ export const checkAuth = createAsyncThunk(
 const authSlice = createSlice({
     name: 'authSlice',
     initialState: {
-        user: null,
+        user: localStorage.getItem(CONSTANTS.USER) ? JSON.parse(localStorage.getItem(CONSTANTS.USER)) : null,
         registrationData: null,
         serverErrors: null,
         status: null,
@@ -95,10 +95,12 @@ const authSlice = createSlice({
         userRegistration: (state, action) => {
             localStorage.setItem(TokenType.ACCESS, action.payload.loginUser.accessToken);
             localStorage.setItem(TokenType.REFRESH, action.payload.loginUser.refreshToken);
+            localStorage.setItem(CONSTANTS.USER, JSON.stringify(action.payload.loginUser.user));
         },
         userLogout: (state, action) => {
             localStorage.removeItem(TokenType.ACCESS);
             localStorage.removeItem(TokenType.REFRESH);
+            localStorage.removeItem(CONSTANTS.USER);
             state.user = null;
             state.isAuth = false;
         },
@@ -106,9 +108,10 @@ const authSlice = createSlice({
             state.isAuth = action.payload.loginUser.user.isActivated;
         },
         setUser: (state, action) => {
-            state.user = action.payload.loginUser.user;
+            localStorage.setItem(CONSTANTS.USER, JSON.stringify(action.payload.loginUser.user));
+            state.user = JSON.parse(localStorage.getItem(CONSTANTS.USER));
         },
-        setLoading:(state,action)=>{
+        setLoading: (state, action) => {
             state.status = CONSTANTS.LOADING;
         }
     },
@@ -119,7 +122,6 @@ const authSlice = createSlice({
         },
         [registration.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
-            state.user = action.payload.user;
             state.serverErrors = null;
         },
         [registration.rejected]: (state, action) => {
@@ -132,7 +134,6 @@ const authSlice = createSlice({
         },
         [login.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
-            state.user = action.payload.user;
             state.serverErrors = null;
         },
         [login.rejected]: (state, action) => {

@@ -28,3 +28,8 @@ export * from './UserChosenAddress/UserChosenAddress';
 export * from './OrderComponentButtonOrderPage/OrderComponentButtonOrderPage';
 export * from './SearchBar/SearchBar';
 export * from './Login/Login';
+export * from './AccordionQuestion/AccordionQuestion';
+export * from './PizzaReadMoreReadLess/PizzaReadMoreReadLess';
+export * from './BurgerReadMoreReadLess/BurgerReadMoreReadLess';
+export * from './DrinkReadMoreReadLess/DrinkReadMoreReadLess';
+export * from './SushiReadMoreReadLess/SushiReadMoreReadLess';

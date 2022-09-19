@@ -140,8 +140,8 @@ export const orderCardValidatorCustomerDeliver = Joi.object({
         .max(100)
         .required()
         .messages({
-            'string.empty': '"City" Can not be empty',
-            'string.pattern.base': 'City not valid',
+            'string.empty': '"Address" Can not be empty',
+            'string.pattern.base': 'Address not valid',
         }),
     orderComment: Joi.string()
         .min(0)

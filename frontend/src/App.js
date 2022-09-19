@@ -42,9 +42,9 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getAllCities());
-        if (localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)) {
-            dispatch(checkAuth());
-        }
+        // if (localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)) {
+        //     dispatch(checkAuth());
+        // }
     }, [path]);
 
     return (

@@ -1,0 +1,44 @@
+.accordion {
+    width: 100%;
+
+}
+
+.item {
+    width: 100%;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+
+.content_show {
+    font-size: 2vh;
+    height: auto;
+    max-height: 1000px;
+    transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.separator {
+    margin-top: 1vh;
+    width: 100%;
+    background-color: #e8e8e8;
+    height: 1px;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.title:hover {
+    color: #e53935;
+}
+
+.arrow {
+    color: #FFD600;
+}

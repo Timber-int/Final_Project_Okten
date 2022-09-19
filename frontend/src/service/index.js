@@ -9,4 +9,5 @@ export * from './productInformationService';
 export * from './orderService';
 export * from './totalCountService';
 export * from './partnersRequestService';
+export * from './customerOrderService';
 

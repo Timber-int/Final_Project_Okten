@@ -2,6 +2,10 @@ export const CONSTANTS = {
     AUTHORIZATION: 'Authorization',
     HASH_SALT: 15,
     DATA_BASE: 'Online_shop',
+    USER: 'user',
+
+    ORDER: 'order',
+    SELF_PICKUP: 'selfPickup',
 
     LOADING: 'Loading',
     RESOLVED: 'Resolved',
@@ -36,8 +40,10 @@ export const TokenType = {
     ACTION: 'ACTION',
 };
 
-export const DEFAULT_CATEGORY_NAME ={
+export const DEFAULT_CATEGORY_NAME = {
     PIZZA: 'pizza',
+    SUSHI: 'sushi',
     DESERTS: 'deserts',
     DRINKS: 'drinks',
-}
+    BURGER: 'burger'
+};

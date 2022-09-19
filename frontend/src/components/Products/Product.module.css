@@ -38,3 +38,34 @@
     display: flex;
     justify-content: center;
 }
+
+.question_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 80vh;
+    background-color: #fafafa;
+}
+
+.header_question_text {
+    width: 100%;
+    font-size: 5vh;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: 10vh;
+}
+
+.accordion_container {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
+.pizza_more_information_container, .burger_more_information_container, .drink_more_information_container, .sushi_more_information_container {
+    margin: 10vh 0 10vh 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

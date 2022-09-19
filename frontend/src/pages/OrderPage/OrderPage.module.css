@@ -650,3 +650,33 @@
     height: 100%;
     align-items: center;
 }
+
+.order_button_container {
+    margin-top: 5vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.order_button {
+    width: 50%;
+    height: 5vh;
+    background-color: #FFD600;
+    cursor: pointer;
+    border: none;
+    border-radius: 5vh;
+    font-size: 24px;
+
+}
+
+.order_button:hover {
+    background-color: #e53935;
+    color: #ffffff;
+}
+
+.customer_information {
+    margin-top: 5vh;
+    width: 100%;
+    font-size: 2.5vh;
+}

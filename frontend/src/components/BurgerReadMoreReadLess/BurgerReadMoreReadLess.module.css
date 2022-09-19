@@ -1,0 +1,38 @@
+.information_block {
+    width: 60%;
+}
+
+.category_name {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.information_block_button {
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.information_block_button:hover {
+    color: #e53935;
+}
+
+h1 {
+    font-size: 3vh;
+    padding: 3vh 0 3vh 0;
+}
+
+p {
+    font-size: 2vh;
+}
+
+li {
+    font-size: 2vh;
+}
+
+.information_block_header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #e53935;
+}

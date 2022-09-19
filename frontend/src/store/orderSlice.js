@@ -188,7 +188,7 @@ const orderSlice = createSlice({
         chosenOrderProducts: [],
         serverErrors: null,
         status: null,
-        usedOrderType: '',
+        usedOrderType: CONSTANTS.ORDER,
         discount: 0,
     },
     reducers: {

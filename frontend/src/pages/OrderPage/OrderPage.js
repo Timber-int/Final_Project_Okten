@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,10 +7,10 @@ import { OrderComponentButtonOrderPage, OrderTypeSelfPickup, OrderTypeShopDelive
 import { deleteOrderProductById, deleteTotalOrderCount, getAllOrder, orderAction } from '../../store';
 import { baseURL } from '../../config';
 import css from './OrderPage.module.css';
+import { createCustomerOrder, customerOrderAction } from '../../store/customerOrderSlice';
+import { CONSTANTS } from '../../constants';
 
 const OrderPage = () => {
-
-    const [servetStatus, setServetStatus] = useState(false);
 
     const {
         usedOrderType,
@@ -21,6 +21,11 @@ const OrderPage = () => {
     const {
         totalOrderCount,
     } = useSelector(state => state['totalOrderCountReducer']);
+
+    const {
+        userData,
+        servetStatus
+    } = useSelector(state => state['customerOrderReducer']);
 
     const dispatch = useDispatch();
 
@@ -34,6 +39,23 @@ const OrderPage = () => {
     useEffect(() => {
         dispatch(getAllOrder());
     }, []);
+
+    const makeOrder = () => {
+        // if (!userData) {
+        //     return;
+        // }
+        if (usedOrderType === CONSTANTS.ORDER) {
+            dispatch(createCustomerOrder({
+                payload: {
+                    userData,
+                    totalOrderCount,
+                    usedOrderType,
+                    chosenOrderProducts,
+                    servetStatus,
+                }
+            }));
+        }
+    };
 
     return (
         <div className={css.order_container}>
@@ -83,7 +105,7 @@ const OrderPage = () => {
                                     </div>
                                     <div className={css.chosen_order_type_data}>
                                         {
-                                            usedOrderType === 'selfPickup'
+                                            usedOrderType === CONSTANTS.SELF_PICKUP
                                                 ?
                                                 <div className={css.delivery_type}>
                                                     <OrderTypeSelfPickup/>
@@ -155,13 +177,25 @@ const OrderPage = () => {
                                         <div className={css.order_price_container}>
                                             <div className={css.question_servet_block}>
                                                 <span className={css.checkbox_servet}>
-                                                <input type="checkbox" onChange={() => setServetStatus(!servetStatus)}/>
+                                                <input type="checkbox" onChange={() => dispatch(customerOrderAction.setServeStatus())}/>
                                                 </span>
                                                 <span className={css.servet_text}>Без серветок</span>
                                             </div>
                                             <div className={css.discount}>Знижка: {discount} грн</div>
                                             <div className={css.price}>Разом: {totalOrderCount} грн</div>
                                         </div>
+                                        {
+                                            userData
+                                                ?
+                                                <div className={css.order_button_container}>
+                                                    <button onClick={() => makeOrder()} className={css.order_button}>
+                                                        Order
+                                                    </button>
+                                                </div>
+                                                :
+                                                <div className={css.customer_information}>If you want to place an order, you must fill out the buyer's form, also if you are not registered on our site, please do so. </div>
+                                        }
+
                                     </div>
                                 </div>
                             </div>

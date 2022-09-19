@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactSelect from 'react-select';
-import { useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
+import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
 
 import { orderCardValidatorShopDeliver } from '../../validator';
+import { TokenType } from '../../constants';
 import css from './OrderTypeShopDelivery.module.css';
+import { customerOrderAction } from '../../store/customerOrderSlice';
 
 const OrderTypeShopDelivery = () => {
 
@@ -19,14 +21,12 @@ const OrderTypeShopDelivery = () => {
         mode: 'onTouched',
     });
 
-    const { cities } = useSelector(state => state['cityReducer']);
+    const dispatch = useDispatch();
 
-    const getValue = (value) => {
-        return value ? cities.find((city) => city.value === value) : '';
-    };
+    const { user } = useSelector(state => state['authReducer']);
 
     const createUserOrderData = (data) => {
-        console.log(data);
+        dispatch(customerOrderAction.setUserData({ userData: data }));
     };
     return (
         <form className={css.delivery_container} onSubmit={handleSubmit(createUserOrderData)}>
@@ -34,6 +34,7 @@ const OrderTypeShopDelivery = () => {
                 <input type="text" {...register('firstName')}
                        className={css.chosen_order_client_firstName_input}
                        required={true}
+                       value={user ? user.firstName : ''}
                 />
                 <label>Ваше ім`я*</label>
                 <div className={css.errors_span}>{errors.firstName && <span>{errors.firstName.message}</span>}</div>
@@ -42,6 +43,7 @@ const OrderTypeShopDelivery = () => {
                 <input type="text" {...register('lastName')}
                        className={css.chosen_order_client_firstName_input}
                        required={true}
+                       value={user ? user.lastName : ''}
                 />
                 <label>Ваше прізвище*</label>
                 <div className={css.errors_span}>{errors.lastName && <span>{errors.lastName.message}</span>}</div>
@@ -50,45 +52,35 @@ const OrderTypeShopDelivery = () => {
                 <input type="email" {...register('email')}
                        className={css.chosen_order_client_email_input}
                        required={true}
+                       value={user ? user.email : ''}
                 />
                 <label>Емейл*</label>
                 <div className={css.errors_span}>{errors.email && <span>{errors.email.message}</span>}</div>
             </div>
-            <div className={css.checked_registration_block}>
-                Ви не зареєстровані, увійдіть щоб використати бонуси.
-            </div>
-            <div className={css.self_pickup_container_city_data_container}>
-                <Controller
-                    control={control}
-                    name={'city'}
-                    rules={{
-                        required: 'City is required'
-                    }}
-                    render={({
-                        field: {
-                            onChange,
-                            value
-                        },
-                        fieldState: { error }
-                    }) => (
-                        <div className={css.selected_city_container}>
-                            <ReactSelect
-                                placeholder={'Select a city...'}
-                                options={cities}
-                                value={getValue(value)}
-                                onChange={(newValue) => onChange(newValue.value)}
-                            />
-                            {
-                                error &&
-                                <div className={css.errors_span}>
-                                    {errors.city &&
-                                        <span>{errors.city.message}</span>
-                                    }
-                                </div>}
-                        </div>
-                    )}
+            <div className={css.chosen_order_client_city_box}>
+                <input type="text" {...register('city')}
+                       className={css.chosen_order_client_city_input}
+                       required={true}
+                       value={localStorage.getItem('city') ? localStorage.getItem('city') : ''}
                 />
+                <label>City*</label>
+                <div className={css.errors_span}>{errors.city && <span>{errors.city.message}</span>}</div>
             </div>
+            {
+                !localStorage.getItem(TokenType.ACCESS) && !localStorage.getItem(TokenType.REFRESH)
+                    ?
+                    <div className={css.checked_registration_block}>
+                        Ви не зареєстровані, <span className={css.move_to_login_box}>
+                        <NavLink to={'/login'}
+                                 className={css.move_to_login}>увійдіть
+                        </NavLink>
+                    </span>
+                        щоб
+                        використати бонуси.
+                    </div>
+                    :
+                    <></>
+            }
             <div className={css.address_details_box}>
                 <div className={css.address_details_box_first_block}>
                     <input type="text" {...register('street')}
@@ -165,7 +157,7 @@ const OrderTypeShopDelivery = () => {
                     :
                     css.address_comment}>
                 <input type="text"{...register('addressComment')}
-                    placeholder={'Коментар до адреси...'}
+                       placeholder={'Коментар до адреси...'}
                        className={css.chosen_address_comment_input}
                 />
                 <div className={css.errors_span}>{errors.addressComment &&

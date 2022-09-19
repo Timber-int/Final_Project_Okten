@@ -3,11 +3,11 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ModalWindow } from '../ModalWindow/ModalWindow';
-import css from './Layout.module.css';
-import { cityActions, getAllCategories, getAllTotalOrderCount } from '../../store';
-import { baseURL } from '../../config';
 import { Footer } from '../Footer/Footer';
-import { CONSTANTS } from '../../constants';
+import { baseURL } from '../../config';
+import { CONSTANTS, TokenType } from '../../constants';
+import { cityActions, getAllCategories, getAllTotalOrderCount } from '../../store';
+import css from './Layout.module.css';
 
 const Layout = () => {
 
@@ -95,11 +95,11 @@ const Layout = () => {
                     <div className={css.city_name}>{city ? city : chosenCity}</div>
                 </div>
                 {
-                    userRegistered
+                    localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)
                         ?
                         <NavLink to={'/customerPanel'}>
                             <div
-                                className={css.customer_data_box}>{userRegistered?.user?.firstName[0].toUpperCase()}{userRegistered?.user?.lastName[0].toUpperCase()}
+                                className={css.customer_data_box}>{userRegistered?.firstName[0].toUpperCase()}{userRegistered?.lastName[0].toUpperCase()}
                             </div>
                         </NavLink>
                         :

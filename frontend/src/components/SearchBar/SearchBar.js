@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import { ImCross } from 'react-icons/im';
+import { MdDelete } from 'react-icons/md';
 
 import css from './SearchBar.module.css';
 import { NavLink } from 'react-router-dom';
@@ -35,7 +35,8 @@ const SearchBar = ({
     return (
         <div className={css.search}>
             <label className={css.search_input_box}>
-                <input className={css.search_input} type="text" value={wordEntered} placeholder={`Search ${category ? category.name.toLowerCase() : ''}...`}
+                <input className={css.search_input} type="text" value={wordEntered}
+                       placeholder={`Search ${category ? category.name.toLowerCase() : ''}...`}
                        onChange={handleFilter}/>
                 <div className={css.search_input_icon}>
                     {
@@ -47,7 +48,7 @@ const SearchBar = ({
                             )
                             :
                             (
-                                <ImCross onClick={clearInput} className={css.icon}/>
+                                <MdDelete onClick={clearInput} className={css.icon}/>
                             )
                     }
                 </div>
@@ -57,13 +58,19 @@ const SearchBar = ({
                 &&
                 <div className={css.product_results}>
                     {filteredData && [...filteredData].filter(product => product.categoryId === category?.id)
-                        .map(product => {
+                        .map((product, index) => {
                             return <NavLink
                                 to={'/productId/' + product.id}
                                 state={product}
                                 className={css.product_element}
                                 key={product.id}>
-                                <p>{product.productName}</p>
+                                <p className={css.product_element_box}>
+                                    <span>{product.productName}</span>
+                                    <span className={css.product_price}>
+                                        <p className={css.product_price_box}>{product.productPrice}</p>
+                                        <p>UAH</p>
+                                    </span>
+                                </p>
                             </NavLink>;
                         })}
                 </div>

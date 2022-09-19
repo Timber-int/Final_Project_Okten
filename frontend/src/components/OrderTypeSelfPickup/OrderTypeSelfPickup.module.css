@@ -4,14 +4,14 @@
     flex-wrap: wrap;
 }
 
-.chosen_order_client_firstName_box, .chosen_order_client_email_box, .chosen_order_client_telephone_box {
+.chosen_order_client_firstName_box, .chosen_order_client_email_box {
     width: 100%;
     height: 5.5vh;
     margin-top: 3vh;
     position: relative;
 }
 
-.chosen_order_client_firstName_input, .chosen_order_client_email_input, .chosen_order_client_telephone_input {
+.chosen_order_client_firstName_input, .chosen_order_client_email_input {
     width: 94%;
     height: 100%;
     outline: none;
@@ -21,7 +21,7 @@
     transition: 0.3s;
 }
 
-.chosen_order_client_firstName_box label, .chosen_order_client_email_box label, .chosen_order_client_telephone_box label {
+.chosen_order_client_firstName_box label, .chosen_order_client_email_box label {
     font-size: 24px;
     position: absolute;
     left: 3.5%;
@@ -32,15 +32,13 @@
 
 .chosen_order_client_firstName_box input:focus ~ label,
 .chosen_order_client_firstName_box input:valid ~ label,
-.chosen_order_client_telephone_box input:focus ~ label,
-.chosen_order_client_telephone_box input:valid ~ label,
 .chosen_order_client_email_box input:focus ~ label,
 .chosen_order_client_email_box input:valid ~ label {
     background-color: #ffffff;
     top: -30%;
 }
 
-.chosen_order_client_firstName_input:hover, .chosen_order_client_email_input:hover, .chosen_order_client_telephone_input:hover {
+.chosen_order_client_firstName_input:hover, .chosen_order_client_email_input:hover {
     border: 1px solid #0E0E0E;
 }
 
@@ -51,7 +49,13 @@
     align-items: center;
     margin-top: 1vh;
 }
+.move_to_login_box{
+    margin: 0 5px 0 5px;
+}
 
+.move_to_login {
+    color: #e53935;
+}
 .errors_span {
     width: 100%;
     justify-content: center;
