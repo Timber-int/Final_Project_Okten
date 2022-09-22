@@ -7,7 +7,7 @@ import { OrderComponentButtonOrderPage, OrderTypeSelfPickup, OrderTypeShopDelive
 import { deleteOrderProductById, deleteTotalOrderCount, getAllOrder, orderAction } from '../../store';
 import { baseURL } from '../../config';
 import css from './OrderPage.module.css';
-import { createCustomerOrder, customerOrderAction } from '../../store/customerOrderSlice';
+import { createCustomerOrder, createCustomerOrderSelfPickup, customerOrderAction } from '../../store/customerOrderSlice';
 import { CONSTANTS } from '../../constants';
 
 const OrderPage = () => {
@@ -24,7 +24,9 @@ const OrderPage = () => {
 
     const {
         userData,
-        servetStatus
+        servetStatus,
+        serverErrors,
+        status,
     } = useSelector(state => state['customerOrderReducer']);
 
     const dispatch = useDispatch();
@@ -40,12 +42,26 @@ const OrderPage = () => {
         dispatch(getAllOrder());
     }, []);
 
+    console.log(userData);
+
     const makeOrder = () => {
         // if (!userData) {
         //     return;
         // }
         if (usedOrderType === CONSTANTS.ORDER) {
             dispatch(createCustomerOrder({
+                payload: {
+                    userData,
+                    totalOrderCount,
+                    usedOrderType,
+                    chosenOrderProducts,
+                    servetStatus,
+                }
+            }));
+        }
+
+        if (usedOrderType === CONSTANTS.SELF_PICKUP) {
+            dispatch(createCustomerOrderSelfPickup({
                 payload: {
                     userData,
                     totalOrderCount,
@@ -188,12 +204,22 @@ const OrderPage = () => {
                                             userData
                                                 ?
                                                 <div className={css.order_button_container}>
-                                                    <button onClick={() => makeOrder()} className={css.order_button}>
+                                                    <button onClick={() => makeOrder()} className={
+                                                        status === CONSTANTS.LOADING
+                                                        ||
+                                                        status === CONSTANTS.REJECTED
+                                                            ?
+                                                            css.order_button_disabled
+                                                            :
+                                                            css.order_button
+                                                    }
+                                                    >
                                                         Order
                                                     </button>
                                                 </div>
                                                 :
-                                                <div className={css.customer_information}>If you want to place an order, you must fill out the buyer's form, also if you are not registered on our site, please do so. </div>
+                                                <div className={css.customer_information}>If you want to place an order, you must fill out the buyer's
+                                                    form, also if you are not registered on our site, please do so. </div>
                                         }
 
                                     </div>

@@ -12,3 +12,7 @@ export * from './cityAddressService';
 export * from './userOrderService';
 export * from './totalOrderCountService';
 export * from './partnersRequestService';
+export * from './customerDataOrderService';
+export * from './customerProductsForOrderService';
+export * from './customerDataSelfPickupOrderService';
+export * from './customerProductsForSelfPickupService';

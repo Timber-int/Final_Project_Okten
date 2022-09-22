@@ -19,6 +19,23 @@ export const createCustomerOrder = createAsyncThunk(
     }
 );
 
+export const createCustomerOrderSelfPickup = createAsyncThunk(
+    'customerOrderSlice/createCustomerOrderSelfPickup',
+    async ({ payload }, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+
+            const data = await customerOrderService.createCustomerOrderSelfPickup(payload);
+
+            return { customerOrderData: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+
 const customerOrderSlice = createSlice({
     name: 'customerOrderSlice',
     initialState: {
@@ -34,6 +51,9 @@ const customerOrderSlice = createSlice({
         setServeStatus: (state, action) => {
             state.servetStatus = !state.servetStatus;
         },
+        deleteUserData: (state, action) => {
+            state.userData = null;
+        }
     },
     extraReducers: {
         [createCustomerOrder.pending]: (state, action) => {
@@ -48,16 +68,30 @@ const customerOrderSlice = createSlice({
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },
+        [createCustomerOrderSelfPickup.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [createCustomerOrderSelfPickup.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.serverErrors = null;
+        },
+        [createCustomerOrderSelfPickup.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
     },
 });
 
 const customerOrderReducer = customerOrderSlice.reducer;
 const {
     setUserData,
-    setServeStatus
+    setServeStatus,
+    deleteUserData,
 } = customerOrderSlice.actions;
 export const customerOrderAction = {
     setUserData,
-    setServeStatus
+    setServeStatus,
+    deleteUserData
 };
 export default customerOrderReducer;

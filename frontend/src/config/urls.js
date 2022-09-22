@@ -15,6 +15,7 @@ export const urls = {
     cityAddress: '/cityAddress',
     orders: '/orders',
     customerOrders: '/customerOrders',
+    customerOrderSelfPickup: '/customerOrderSelfPickup',
     totalCounts: '/totalCounts',
     partnerRequests: '/partnerRequests',
 };

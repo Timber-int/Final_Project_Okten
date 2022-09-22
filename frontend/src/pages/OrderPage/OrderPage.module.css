@@ -669,6 +669,16 @@
     font-size: 24px;
 
 }
+.order_button_disabled{
+    width: 50%;
+    height: 5vh;
+    background-color: #FFD600;
+    border: none;
+    border-radius: 5vh;
+    font-size: 24px;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
 .order_button:hover {
     background-color: #e53935;

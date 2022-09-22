@@ -1,6 +1,8 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { DefaultValue, IDefaultValue } from './defaultValue';
 import { CONSTANTS } from '../constants';
+import { CustomerDataOrder } from './customerDataOrder';
+import { CustomerDataSelfPickupOrder } from './customerDataSelfPickupOrder';
 
 export interface IUser extends IDefaultValue {
     id: number,
@@ -57,4 +59,10 @@ export class User extends DefaultValue implements IUser {
         default: 'false',
     })
         isActivated: boolean;
+
+    @OneToMany(() => CustomerDataOrder, (CustomerDataOrder) => CustomerDataOrder.user)
+        customerOrder: CustomerDataOrder[];
+
+    @OneToMany(() => CustomerDataSelfPickupOrder, (CustomerDataSelfPickupOrder) => CustomerDataSelfPickupOrder.userSelfPickup)
+        customerOrderSelfPickup: CustomerDataSelfPickupOrder[];
 }

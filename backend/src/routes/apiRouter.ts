@@ -12,6 +12,8 @@ import { cityAddressRouter } from './cityAddressRouter';
 import { userOrderRouter } from './userOrderRouter';
 import { totalOrderCountRouter } from './totalOrderCountRouter';
 import { partnersRequestRouter } from './partnersRequestRouter';
+import { customerOrderRouter } from './customerOrderRouter';
+import { customerOrderSelfPickupRouter } from './customerOrderSelfPickupRouter';
 
 const router = Router();
 
@@ -26,6 +28,8 @@ router.use('/cities', cityRouter);
 router.use('/cityAddress', cityAddressRouter);
 router.use('/totalCounts', totalOrderCountRouter);
 router.use('/partnerRequests', partnersRequestRouter);
+router.use('/customerOrders', customerOrderRouter);
+router.use('/customerOrderSelfPickup', customerOrderSelfPickupRouter);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {
