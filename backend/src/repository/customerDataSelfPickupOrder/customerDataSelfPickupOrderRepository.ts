@@ -9,6 +9,12 @@ class CustomerDataSelfPickupOrderRepository extends Repository<CustomerDataSelfP
             .getRepository(CustomerDataSelfPickupOrder)
             .save(customerDataSelfPickup);
     }
+
+    public async getCustomerDataSelfPickupOrder(): Promise<ICustomerDataSelfPickupOrder[]> {
+        return getManager()
+            .getRepository(CustomerDataSelfPickupOrder)
+            .find();
+    }
 }
 
 export const customerDataSelfPickupOrderRepository = new CustomerDataSelfPickupOrderRepository();

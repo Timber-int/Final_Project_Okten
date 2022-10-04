@@ -10,4 +10,6 @@ router.post('/',
     customerOrderSelfPickupController.createCustomerDataOrderSelfPickup,
 );
 
+router.get('/', authMiddleware.checkAuthorizationHeader, customerOrderSelfPickupController.getCustomerDataOrderSelfPickup);
+
 export const customerOrderSelfPickupRouter = router;

@@ -8,4 +8,6 @@ export const customerOrderService = {
         .then(value => value.data),
     getCustomerOrders: () => axiosService.get(baseURL + urls.customerOrders)
         .then(value => value.data),
+    getCustomerOrdersSelfPickup: () => axiosService.get(baseURL + urls.customerOrderSelfPickup)
+        .then(value => value.data),
 };

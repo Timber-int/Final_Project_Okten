@@ -1,3 +1,7 @@
+.container {
+    margin-top: 15vh;
+}
+
 .server_errors_container {
     width: 100%;
     display: flex;
@@ -11,4 +15,54 @@
     display: flex;
     justify-content: center;
     font-size: 2vh;
+}
+
+.main_order_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 10vh;
+}
+
+.orders_container {
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.self_pickup_orders_container {
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.logout_button_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.logout_button {
+    padding: 5px;
+    height: 100px;
+    width: 500px;
+    border: none;
+    font-size: 30px;
+    border-radius: 50px;
+    transition: ease-out 0.8s;
+    outline: none;
+    background-color: #e53935;
+    box-shadow: inset 0 0 0 0 #f9e506;
+    color: #ffffff;
+}
+
+.logout_button:hover {
+    box-shadow: inset 500px 0 0 0 #f9e506;
+    cursor: pointer;
+    color: #e53935;
+    border: none;
 }

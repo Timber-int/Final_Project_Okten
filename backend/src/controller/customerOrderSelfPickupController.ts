@@ -40,6 +40,16 @@ class CustomerOrderSelfPickupController {
             next(e);
         }
     }
+
+    public async getCustomerDataOrderSelfPickup(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            const customerData = await customerDataSelfPickupOrderService.getCustomerDataSelfPickupOrder();
+
+            res.json(customerData);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const customerOrderSelfPickupController = new CustomerOrderSelfPickupController();

@@ -73,8 +73,10 @@ export class CustomerDataSelfPickupOrder extends DefaultValue implements ICustom
     })
         address: string;
 
-    @ManyToOne(() => User, (User) => User.customerOrder)
-    @JoinColumn({ name: 'email' })
+    @ManyToOne(() => User, (User) => User.customerOrderSelfPickup)
+    @JoinColumn({
+        name: 'email',
+    })
         userSelfPickup: User;
 
     @OneToMany(() => CustomerProductsForSelfPickup, (CustomerProductsForSelfPickup) => CustomerProductsForSelfPickup.customer)

@@ -9,6 +9,12 @@ class CustomerProductsForOrderRepository extends Repository<CustomerProductsForO
             .getRepository(CustomerProductsForOrder)
             .save(customerProduct);
     }
+
+    public async getCustomerProductsForOrder(): Promise<ICustomerProductsForOrder[]> {
+        return getManager()
+            .getRepository(CustomerProductsForOrder)
+            .find();
+    }
 }
 
 export const customerProductsForOrderRepository = new CustomerProductsForOrderRepository();

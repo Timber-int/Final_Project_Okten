@@ -17,6 +17,7 @@ export interface ICustomerProductsForOrder {
     categoryId: number,
     productId: number,
     productIngredients: string,
+    customer?: CustomerDataOrder;
 }
 
 @Entity('customerproductsfororder', { database: CONSTANTS.DATA_BASE })
@@ -83,7 +84,7 @@ export class CustomerProductsForOrder extends DefaultValue implements ICustomerP
     })
         customerId: number;
 
-    @ManyToOne(() => CustomerDataOrder, (CustomerDataOrder) => CustomerDataOrder.products)
+    @ManyToOne(() => CustomerDataOrder, (CustomerDataOrder) => CustomerDataOrder.productsOrder)
     @JoinColumn({ name: 'customerId' })
         customer: CustomerDataOrder;
 }

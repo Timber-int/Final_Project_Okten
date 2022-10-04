@@ -33,3 +33,5 @@ export * from './PizzaReadMoreReadLess/PizzaReadMoreReadLess';
 export * from './BurgerReadMoreReadLess/BurgerReadMoreReadLess';
 export * from './DrinkReadMoreReadLess/DrinkReadMoreReadLess';
 export * from './SushiReadMoreReadLess/SushiReadMoreReadLess';
+export * from './OrderElement/OrderElement';
+export * from './SelfPickupElement/SelfPickupElement';

@@ -49,4 +49,30 @@
     width: 45%;
     margin: 1%;
     min-height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.admin_information_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.information_order_header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 5%;
+    align-items: center;
+}
+
+.order_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 90%;
 }

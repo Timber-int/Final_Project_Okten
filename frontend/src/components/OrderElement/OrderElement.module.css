@@ -1,0 +1,37 @@
+.order_box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5vh;
+    height: 25vh;
+    overflow: hidden;
+    overflow-y: auto;
+    border: 1px solid #497BE8;
+    border-radius: 5vh;
+    padding: 2vh;
+}
+
+.order_block {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+.products_block{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.order_block > div {
+    width: 100%;
+    font-size: 22px;
+}
+.element{
+    color: #e53935;
+    font-size: 24px;
+    font-weight: bold;
+}

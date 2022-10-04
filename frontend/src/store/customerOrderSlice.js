@@ -18,6 +18,39 @@ export const createCustomerOrder = createAsyncThunk(
         }
     }
 );
+export const getCustomerOrder = createAsyncThunk(
+    'customerOrderSlice/getCustomerOrder',
+    async (_, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+
+            const data = await customerOrderService.getCustomerOrders();
+
+            return { customerOrderData: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
+
+export const getCustomerOrderSelfPickup = createAsyncThunk(
+    'customerOrderSlice/getCustomerOrderSelfPickup',
+    async (_, {
+        dispatch,
+        rejectWithValue
+    }) => {
+        try {
+
+            const data = await customerOrderService.getCustomerOrdersSelfPickup();
+
+            return { customerOrderDataSelfPickup: data };
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
 
 export const createCustomerOrderSelfPickup = createAsyncThunk(
     'customerOrderSlice/createCustomerOrderSelfPickup',
@@ -43,6 +76,8 @@ const customerOrderSlice = createSlice({
         serverErrors: null,
         status: null,
         servetStatus: false,
+        orders:[],
+        selfPickupOrders:[],
     },
     reducers: {
         setUserData: (state, action) => {
@@ -77,6 +112,32 @@ const customerOrderSlice = createSlice({
             state.serverErrors = null;
         },
         [createCustomerOrderSelfPickup.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [getCustomerOrderSelfPickup.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [getCustomerOrderSelfPickup.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.selfPickupOrders=action.payload.customerOrderDataSelfPickup;
+            state.serverErrors = null;
+        },
+        [getCustomerOrderSelfPickup.rejected]: (state, action) => {
+            state.status = CONSTANTS.REJECTED;
+            state.serverErrors = action.payload;
+        },
+        [getCustomerOrder.pending]: (state, action) => {
+            state.status = CONSTANTS.LOADING;
+            state.serverErrors = null;
+        },
+        [getCustomerOrder.fulfilled]: (state, action) => {
+            state.status = CONSTANTS.RESOLVED;
+            state.orders = action.payload.customerOrderData;
+            state.serverErrors = null;
+        },
+        [getCustomerOrder.rejected]: (state, action) => {
             state.status = CONSTANTS.REJECTED;
             state.serverErrors = action.payload;
         },

@@ -23,6 +23,7 @@ export interface ICustomerDataOrder extends IDefaultValue {
     totalOrderCount: number,
     usedOrderType: string,
     servetStatus: boolean,
+    products?: CustomerProductsForOrder[];
 }
 
 @Entity('customerorders', { database: CONSTANTS.DATA_BASE })
@@ -127,5 +128,5 @@ export class CustomerDataOrder extends DefaultValue implements ICustomerDataOrde
         user: User;
 
     @OneToMany(() => CustomerProductsForOrder, (CustomerProductsForOrder) => CustomerProductsForOrder.customer)
-        products: CustomerProductsForOrder[];
+        productsOrder: CustomerProductsForOrder[];
 }

@@ -76,7 +76,7 @@ const OrderPage = () => {
     return (
         <div className={css.order_container}>
             {
-                new Date().getHours() < 7 || new Date().getHours() >= 22
+                new Date().getHours() < 7 || new Date().getHours() >= 24
                     ?
                     <div className={css.shop_is_closed}>
                         Замовлення приймаються з 10:00 до 22:00. Вибачте за тимчасові незручності

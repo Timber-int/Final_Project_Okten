@@ -5,10 +5,15 @@ import { CustomerDataOrder, ICustomerDataOrder } from '../../entity';
 @EntityRepository(CustomerDataOrder)
 class CustomerDataOrderRepository extends Repository<CustomerDataOrder> implements ICustomerDataOrderRepository {
     public async createCustomerDataOrder(customerData: ICustomerDataOrder): Promise<ICustomerDataOrder> {
-        console.log(customerData);
         return getManager()
             .getRepository(CustomerDataOrder)
             .save(customerData);
+    }
+
+    public async getCustomerDataOrder(): Promise<ICustomerDataOrder[]> {
+        return getManager()
+            .getRepository(CustomerDataOrder)
+            .find();
     }
 }
 
