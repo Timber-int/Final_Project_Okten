@@ -27,7 +27,7 @@ const OrderElement = ({
                 <div>Time: {createdAt.slice(11, 19)}</div>
             </div>
             <div className={css.products_block}>
-                sdfsdf
+                Products array...
             </div>
         </div>
     );

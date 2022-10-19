@@ -2,7 +2,7 @@ import { NextFunction, Response, Router } from 'express';
 import { productInformationController } from '../controller';
 import { IRequestExtended } from '../interface';
 import { createProductInformationValidator, updateProductInformationValidator } from '../validator';
-import { dataValidatorMiddleware } from '../middlewares';
+import { authMiddleware, dataValidatorMiddleware } from '../middlewares';
 import { productInformationMiddleware } from '../middlewares/productInformationMiddleware';
 
 const router = Router();
@@ -16,6 +16,7 @@ router.post('/',
         req.chosenValidationType = createProductInformationValidator;
         next();
     },
+    authMiddleware.checkIsUserHasLawAdministrator,
     dataValidatorMiddleware.dataValidator,
     productInformationMiddleware.checkIsProductInformationExist,
     productInformationController.createProductInformation);
@@ -24,6 +25,7 @@ router.put('/:id',
         req.chosenValidationType = updateProductInformationValidator;
         next();
     },
+    authMiddleware.checkIsUserHasLawAdministrator,
     dataValidatorMiddleware.dataValidator,
     productInformationController.updateProductInformationById);
 router.delete('/:id', productInformationController.deleteProductInformationById);

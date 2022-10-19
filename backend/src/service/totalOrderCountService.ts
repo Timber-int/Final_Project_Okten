@@ -34,6 +34,10 @@ class TotalOrderCountService {
     public async deleteTotalOrderCount(deletePath: string): Promise<DeleteResult> {
         return totalOrderCountRepository.deleteTotalOrderCount(deletePath);
     }
+
+    public async deleteAllTotalOrderCount(): Promise<DeleteResult> {
+        return totalOrderCountRepository.deleteAllTotalOrderCount();
+    }
 }
 
 export const totalOrderCountService = new TotalOrderCountService();

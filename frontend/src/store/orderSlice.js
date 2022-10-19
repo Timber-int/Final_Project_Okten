@@ -91,7 +91,7 @@ export const minusOrderProduct = createAsyncThunk(
 
             const data = await orderService.minusOrderProduct(id, productDataId);
 
-           await dispatch(orderAction.minusOrderSingleProduct({ updatedOrderData: data }));
+            await dispatch(orderAction.minusOrderSingleProduct({ updatedOrderData: data }));
 
             await dispatch(minusTotalOrderCount({
                 product: {
@@ -208,6 +208,10 @@ const orderSlice = createSlice({
 
             state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id ? { ...orderFromDB } : element);
         },
+        deleteAllOrderProduct: (state, action) => {
+            state.chosenOrderProducts = [];
+        }
+
     },
     extraReducers: {
         [setProductToOrder.pending]: (state, action) => {
@@ -282,6 +286,7 @@ const {
     deleteSingleOrderProductById,
     plusOrderSingleProduct,
     minusOrderSingleProduct,
+    deleteAllOrderProduct
 } = orderSlice.actions;
 
 export const orderAction = {
@@ -289,6 +294,7 @@ export const orderAction = {
     deleteSingleOrderProductById,
     plusOrderSingleProduct,
     minusOrderSingleProduct,
+    deleteAllOrderProduct
 };
 
 export default orderReducer;

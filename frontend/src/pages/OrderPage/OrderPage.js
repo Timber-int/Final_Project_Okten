@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { OrderComponentButtonOrderPage, OrderTypeSelfPickup, OrderTypeShopDelivery } from '../../components';
 import { deleteOrderProductById, deleteTotalOrderCount, getAllOrder, orderAction } from '../../store';
 import { baseURL } from '../../config';
-import css from './OrderPage.module.css';
 import { createCustomerOrder, createCustomerOrderSelfPickup, customerOrderAction } from '../../store/customerOrderSlice';
 import { CONSTANTS } from '../../constants';
+import css from './OrderPage.module.css';
 
 const OrderPage = () => {
+
+    const navigate = useNavigate();
 
     const {
         usedOrderType,
@@ -42,12 +44,8 @@ const OrderPage = () => {
         dispatch(getAllOrder());
     }, []);
 
-    console.log(userData);
-
     const makeOrder = () => {
-        // if (!userData) {
-        //     return;
-        // }
+
         if (usedOrderType === CONSTANTS.ORDER) {
             dispatch(createCustomerOrder({
                 payload: {
@@ -71,34 +69,38 @@ const OrderPage = () => {
                 }
             }));
         }
+
+        if (status === CONSTANTS.RESOLVED) {
+            navigate('/thanks', { replace: true });
+        }
     };
 
     return (
         <div className={css.order_container}>
             {
-                new Date().getHours() < 7 || new Date().getHours() >= 24
+                new Date().getHours() < 7 || new Date().getHours() >= 22
                     ?
                     <div className={css.shop_is_closed}>
-                        Замовлення приймаються з 10:00 до 22:00. Вибачте за тимчасові незручності
+                        Orders are accepted from 10:00 to 22:00. Sorry for the inconvenience
                     </div>
                     :
                     totalOrderCount === 0 && chosenOrderProducts.length === 0
                         ?
                         <div className={css.not_order_container}>
-                            <div className={css.bucket_empty}>Ваш кошик порожній</div>
+                            <div className={css.bucket_empty}>Your basket is empty</div>
                             <div className={css.back_to_menu}>
-                                <NavLink to={'/'}>На головну</NavLink>
+                                <NavLink to={'/'}>On the main one</NavLink>
                             </div>
                         </div>
                         :
                         <div className={css.content}>
                             <div className={css.order_header}>
-                                Ваше замовлення
+                                Your order
                             </div>
                             <div className={css.order_details_container}>
                                 <div className={css.first_block}>
                                     <div className={css.delivery_method}>
-                                        <span className={css.delivery_method_text}>Спосіб доставки</span>
+                                        <span className={css.delivery_method_text}>Delivery method</span>
                                     </div>
                                     <div className={css.chosen_order_type}>
                                         <label>
@@ -108,7 +110,7 @@ const OrderPage = () => {
                                                    name={'chosenOrderType'}
                                                    defaultChecked={true}
                                             />
-                                            <span className={css.chosen_order_type_name}>Доставка</span>
+                                            <span className={css.chosen_order_type_name}>Delivery</span>
                                         </label>
                                         <label>
                                             <input className={css.chosen_order_type_check_box} type="radio"
@@ -116,7 +118,7 @@ const OrderPage = () => {
                                                    value={'selfPickup'}
                                                    name={'chosenOrderType'}
                                             />
-                                            <span className={css.chosen_order_type_name}>Самовивіз</span>
+                                            <span className={css.chosen_order_type_name}>Pickup</span>
                                         </label>
                                     </div>
                                     <div className={css.chosen_order_type_data}>
@@ -138,9 +140,9 @@ const OrderPage = () => {
                                     <div className={css.order_table}>
                                         <div className={css.order_table_head}>
                                             <div className={css.table_container}>
-                                                <div className={css.table_name_first}>Товар</div>
-                                                <div className={css.table_name_second}>К-ть</div>
-                                                <div className={css.table_name_third}>Ціна</div>
+                                                <div className={css.table_name_first}>Product</div>
+                                                <div className={css.table_name_second}>Am-t</div>
+                                                <div className={css.table_name_third}>Price</div>
                                             </div>
                                         </div>
                                         <div className={css.order_table_body}>
@@ -195,10 +197,10 @@ const OrderPage = () => {
                                                 <span className={css.checkbox_servet}>
                                                 <input type="checkbox" onChange={() => dispatch(customerOrderAction.setServeStatus())}/>
                                                 </span>
-                                                <span className={css.servet_text}>Без серветок</span>
+                                                <span className={css.servet_text}>Without napkins</span>
                                             </div>
-                                            <div className={css.discount}>Знижка: {discount} грн</div>
-                                            <div className={css.price}>Разом: {totalOrderCount} грн</div>
+                                            <div className={css.discount}>Discount: {discount} UAH</div>
+                                            <div className={css.price}>Total: {totalOrderCount} UAH</div>
                                         </div>
                                         {
                                             userData

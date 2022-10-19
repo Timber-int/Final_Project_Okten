@@ -49,13 +49,15 @@
     align-items: center;
     margin-top: 1vh;
 }
-.move_to_login_box{
+
+.move_to_login_box {
     margin: 0 5px 0 5px;
 }
 
 .move_to_login {
     color: #e53935;
 }
+
 .errors_span {
     width: 100%;
     justify-content: center;
@@ -79,7 +81,7 @@
 }
 
 .selected_address_container {
-
+    font-size: 2.5vh;
 }
 
 .order_comment {
@@ -92,10 +94,11 @@
     width: 94%;
     height: 100%;
     outline: none;
-    font-size: 24px;
     border: 1px solid #e8e8e8;
     padding: 0 3%;
     transition: 0.3s;
+    font-size: 2.5vh;
+    resize: none;
 }
 
 .chosen_order_client_order_comment_input:hover {

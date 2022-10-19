@@ -11,6 +11,8 @@ export class CreateTableToken1652939051923 implements MigrationInterface {
         createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
         deletedAt TIMESTAMP,
         FOREIGN KEY (userId) REFERENCES Users (id)
+        ON DELETE CASCADE
+          ON UPDATE CASCADE
         )
      `);
     }

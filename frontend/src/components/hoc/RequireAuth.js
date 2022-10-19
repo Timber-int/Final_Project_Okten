@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { TokenType } from '../../constants';
+import { CONSTANTS, TokenType } from '../../constants';
 
 const RequireAuth = ({ children }) => {
     const location = useLocation();
@@ -14,6 +14,9 @@ const RequireAuth = ({ children }) => {
         return <Navigate to={'/login'} state={location}/>;
     }
 
+    if (user.role === CONSTANTS.ADMIN){
+        return <Navigate to={'/adminPage'} state={location}/>;
+    }
     return children;
 };
 

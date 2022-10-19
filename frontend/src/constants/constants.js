@@ -3,6 +3,7 @@ export const CONSTANTS = {
     HASH_SALT: 15,
     DATA_BASE: 'Online_shop',
     USER: 'user',
+    ADMIN: 'admin',
 
     ORDER: 'order',
     SELF_PICKUP: 'selfPickup',

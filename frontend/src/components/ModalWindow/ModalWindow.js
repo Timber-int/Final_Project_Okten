@@ -50,7 +50,7 @@ const ModalWindow = () => {
                         <img className={css.city_image} src="https://la.ua/drogobych/wp-content/themes/lapiec/assets/frontend/img/location_popup.svg"
                              alt="cityImage"/>
                     </div>
-                    <div className={css.chose_city_text_box}>Оберіть місто доставки</div>
+                    <div className={css.chose_city_text_box}>Choose the delivery method</div>
                 </div>
                 <form onSubmit={handleSubmit(choseShopCity)} className={css.chose_city_select}>
                     <Controller
@@ -83,7 +83,7 @@ const ModalWindow = () => {
                         )}
                     />
                     <div className={css.create_user_order_data_container}>
-                        <input type="submit" value={'Підтвердити'} className={css.create_user_order_button}/>
+                        <input type="submit" value={'Confirm'} className={css.create_user_order_button}/>
                     </div>
                 </form>
             </div>

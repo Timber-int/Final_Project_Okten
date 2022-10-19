@@ -13,4 +13,7 @@ export const config = {
 
     NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL,
     NO_REPLY_EMAIL_PASSWORD: process.env.NO_REPLY_EMAIL_PASSWORD,
+
+    SECRET_ADMIN_EMAIL: process.env.SECRET_ADMIN_EMAIL,
+    SECRET_ADMIN_PASSWORD: process.env.SECRET_ADMIN_PASSWORD,
 };

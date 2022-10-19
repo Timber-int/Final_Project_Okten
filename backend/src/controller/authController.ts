@@ -15,7 +15,6 @@ class AuthController {
             const user = await userService.createUser(req.body);
 
             const tokenPair = await authService.registration(user);
-
             const {
                 accessToken,
                 refreshToken,
@@ -67,7 +66,7 @@ class AuthController {
             });
 
             const userNormalized = await passwordService.userNormalization(req.user);
-
+            console.log(userNormalized);
             res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,

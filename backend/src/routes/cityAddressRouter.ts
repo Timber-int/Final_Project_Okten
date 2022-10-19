@@ -2,7 +2,7 @@ import { NextFunction, Response, Router } from 'express';
 import { cityAddressController } from '../controller';
 import { IRequestExtended } from '../interface';
 import { createCityAddressValidator } from '../validator';
-import { cityAddressMiddleware, dataValidatorMiddleware } from '../middlewares';
+import { authMiddleware, cityAddressMiddleware, dataValidatorMiddleware } from '../middlewares';
 
 const router = Router();
 
@@ -11,7 +11,7 @@ router.get('/:id', cityAddressController.getCityAddressById);
 router.post('/', (req: IRequestExtended, res: Response, next: NextFunction) => {
     req.chosenValidationType = createCityAddressValidator;
     next();
-}, dataValidatorMiddleware.dataValidator, cityAddressMiddleware.checkIsCityAddressExist, cityAddressMiddleware.checkIsCityExistByCityId, cityAddressController.createCityAddress);
-router.delete('/:id', cityAddressController.deleteCityAddressById);
+}, authMiddleware.checkIsUserHasLawAdministrator, dataValidatorMiddleware.dataValidator, cityAddressMiddleware.checkIsCityAddressExist, cityAddressMiddleware.checkIsCityExistByCityId, cityAddressController.createCityAddress);
+router.delete('/:id', authMiddleware.checkIsUserHasLawAdministrator, cityAddressController.deleteCityAddressById);
 
 export const cityAddressRouter = router;

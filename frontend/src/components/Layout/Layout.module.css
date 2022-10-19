@@ -91,8 +91,8 @@
 
 .footer {
     width: 100%;
-    margin-top: 15vh;
-    height: 50vh;
+    margin-top: 5vh;
+    height: 40vh;
 }
 
 .order_total_count {
@@ -244,7 +244,7 @@ a {
     border-radius: 100%;
     background-color: #FFD600;
     font-weight: bold;
-    color: #0E0E0E;
+    color: #e53935;
     font-size: 2vh;
     display: flex;
     justify-content: center;
@@ -254,4 +254,5 @@ a {
 
 .customer_data_box:hover {
     background-color: #e53935;
+    color: #FFD600;
 }

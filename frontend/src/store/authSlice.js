@@ -36,7 +36,6 @@ export const login = createAsyncThunk(
              dispatch(authAction.userRegistration({ loginUser: data }));
              dispatch(authAction.setUser({ loginUser: data }));
              dispatch(authAction.setAuth({ loginUser: data }));
-
             return { user: data };
 
         } catch (e) {

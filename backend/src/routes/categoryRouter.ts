@@ -3,6 +3,7 @@ import { categoryController } from '../controller';
 import { IRequestExtended } from '../interface';
 import { createCategoryValidator, updateCategoryValidator } from '../validator';
 import {
+    authMiddleware,
     categoryMiddleware, dataValidatorMiddleware, fileMiddleware,
 } from '../middlewares';
 
@@ -15,6 +16,7 @@ router.post('/',
         req.chosenValidationType = createCategoryValidator;
         next();
     },
+    authMiddleware.checkIsUserHasLawAdministrator,
     dataValidatorMiddleware.dataValidator,
     categoryMiddleware.checkIsCategoryNameExist,
     fileMiddleware.checkIsCategoryPhotoFileExist,
@@ -26,6 +28,7 @@ router.put('/:id',
         req.chosenValidationType = updateCategoryValidator;
         next();
     },
+    authMiddleware.checkIsUserHasLawAdministrator,
     dataValidatorMiddleware.dataValidator,
     categoryMiddleware.checkIsCategoryIdExist,
     fileMiddleware.checkIsCategoryPhotoToUpdateFileExist,
@@ -34,6 +37,7 @@ router.put('/:id',
 );
 
 router.delete('/:id',
+    authMiddleware.checkIsUserHasLawAdministrator,
     categoryMiddleware.checkIsCategoryIdExist,
     categoryController.deleteCategoryById,
 );

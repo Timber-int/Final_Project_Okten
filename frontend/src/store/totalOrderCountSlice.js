@@ -146,7 +146,11 @@ const totalOrderCountSlice = createSlice({
         serverErrors: null,
         status: null,
     },
-    reducers: {},
+    reducers: {
+        deleteAllTotalOrderCount: (state, action) => {
+            state.totalOrderCount = 0;
+        }
+    },
     extraReducers: {
         [getAllTotalOrderCount.pending]: (state, action) => {
             state.status = CONSTANTS.LOADING;
@@ -226,8 +230,8 @@ const totalOrderCountSlice = createSlice({
 
 const totalOrderCountReducer = totalOrderCountSlice.reducer;
 
-const {} = totalOrderCountSlice.actions;
+const {deleteAllTotalOrderCount} = totalOrderCountSlice.actions;
 
-export const totalOrderCountActions = {};
+export const totalOrderCountActions = {deleteAllTotalOrderCount};
 
 export default totalOrderCountReducer;

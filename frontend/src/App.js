@@ -25,7 +25,7 @@ import {
     ProductIngredientsComponentDetailsPage,
     ProductIngredientsPage,
     ProductPage,
-    RegistrationPage
+    RegistrationPage, ThankYouForYourOrderPage
 } from './pages';
 import { checkAuth, getAllCities } from './store';
 import { useDispatch } from 'react-redux';
@@ -63,6 +63,7 @@ const App = () => {
                 <Route path={'contacts'} element={<ContactsPage/>}/>
                 <Route path={'payment'} element={<PaymentPage/>}/>
                 <Route path={'customerPanel'} element={<RequireAuth><CustomerPage/></RequireAuth>}/>
+                <Route path={'/thanks'} element={<ThankYouForYourOrderPage/>}/>
                 <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>
             <Route path={'/adminPage'} element={<AdminPage/>}>

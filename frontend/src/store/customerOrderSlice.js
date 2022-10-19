@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { customerOrderService } from '../service';
 import { CONSTANTS } from '../constants';
+import { orderAction } from './orderSlice';
+import { totalOrderCountActions } from './totalOrderCountSlice';
 
 export const createCustomerOrder = createAsyncThunk(
     'customerOrderSlice/createCustomerOrder',
@@ -11,6 +13,8 @@ export const createCustomerOrder = createAsyncThunk(
         try {
 
             const data = await customerOrderService.createCustomerOrder(payload);
+            dispatch(orderAction.deleteAllOrderProduct());
+            dispatch(totalOrderCountActions.deleteAllTotalOrderCount());
 
             return { customerOrderData: data };
         } catch (e) {
@@ -61,6 +65,8 @@ export const createCustomerOrderSelfPickup = createAsyncThunk(
         try {
 
             const data = await customerOrderService.createCustomerOrderSelfPickup(payload);
+            dispatch(orderAction.deleteAllOrderProduct());
+            dispatch(totalOrderCountActions.deleteAllTotalOrderCount());
 
             return { customerOrderData: data };
         } catch (e) {

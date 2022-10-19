@@ -53,7 +53,7 @@ const OrderTypeSelfPickup = () => {
                        required={true}
                        value={user ? user.firstName : ''}
                 />
-                <label>Ваше ім`я*</label>
+                <label>Your name*</label>
                 <div className={css.errors_span}>{errors.firstName && <span>{errors.firstName.message}</span>}</div>
             </div>
             <div className={css.chosen_order_client_firstName_box}>
@@ -62,7 +62,7 @@ const OrderTypeSelfPickup = () => {
                        required={true}
                        value={user ? user.lastName : ''}
                 />
-                <label>Ваше прізвище*</label>
+                <label>Your last name*</label>
                 <div className={css.errors_span}>{errors.lastName && <span>{errors.lastName.message}</span>}</div>
             </div>
             <div className={css.chosen_order_client_email_box}>
@@ -71,20 +71,19 @@ const OrderTypeSelfPickup = () => {
                        required={true}
                        value={user ? user.email : ''}
                 />
-                <label>Емейл*</label>
+                <label>Email*</label>
                 <div className={css.errors_span}>{errors.email && <span>{errors.email.message}</span>}</div>
             </div>
             {
                 !localStorage.getItem(TokenType.ACCESS) && !localStorage.getItem(TokenType.REFRESH)
                     ?
                     <div className={css.checked_registration_block}>
-                        Ви не зареєстровані, <span className={css.move_to_login_box}>
+                        You are not registered, <span className={css.move_to_login_box}>
                         <NavLink to={'/login'}
-                                 className={css.move_to_login}>увійдіть
+                                 className={css.move_to_login}>log
                         </NavLink>
                     </span>
-                        щоб
-                        використати бонуси.
+                        in to use bonuses.
                     </div>
                     :
                     <></>
@@ -106,7 +105,7 @@ const OrderTypeSelfPickup = () => {
                         }) => (
                             <div className={css.selected_address_container}>
                                 <ReactSelect
-                                    placeholder={'Виберіть адресу...'}
+                                    placeholder={'Select an address...'}
                                     options={filterCityAddress}
                                     value={getValueAddress(value)}
                                     onChange={(newValue) => onChange(newValue.value)}
@@ -123,8 +122,8 @@ const OrderTypeSelfPickup = () => {
                     />
                 </div>
                 <div className={css.order_comment}>
-                    <input type="text"{...register('orderComment')}
-                           placeholder={'Коментар до замовлення...'}
+                    <textarea type="text"{...register('orderComment')}
+                           placeholder={'Comment on the order...'}
                            className={css.chosen_order_client_order_comment_input}
                     />
                     <div className={css.errors_span}>

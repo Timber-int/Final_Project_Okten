@@ -20,10 +20,13 @@ export const slides = [
     {
         id: uuidv4(),
         image: 'https://la.ua/wp-content/uploads/2021/08/4.png',
-        text: 'Акція «2+1» діє в понеділок, вівторок, середу та четвер. Замовляйте дві піци та отримуйте ще одну безкоштовно!\n' +
+        text: 'Action “2+1”\n' +
+            'Our special offer «2+1» is valid on Monday, Tuesday, Wednesday and Thursday inclusively. Order two pizzas and get one for free!\n' +
             '\n' +
-            '* Безкоштовною вважається піца з найменшою вартістю.\n' +
-            '** Ця акція не поєднується з іншими акціями та працює лише на доставку та самовивіз.'
+
+            '* Pizza with the lowest price is considered to be free.\n' +
+
+            '** This promotion is not compatible with other promotions. Only delivery and pickup orders.'
     },
     {
         id: uuidv4(),

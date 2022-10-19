@@ -115,11 +115,11 @@ const Layout = () => {
                             <span className={css.total_count}>
                                 {totalOrderCount}
                             </span>
-                            <span>грн</span>
+                            <span>UAH</span>
                         </div>
                     </div>
                 </NavLink>
-                <NavLink to={'/adminPage'}>AdminPage</NavLink>
+                {/* <NavLink to={'/adminPage'}>AdminPage</NavLink> */}
             </div>
             <div className={css.outlet}>
                 <Outlet/>

@@ -1,5 +1,6 @@
 export const MESSAGE = {
     NOT_USER: 'Sorry but this user doesn\'t exist',
+    USER_DOES_NOT_HAVE_ADMINISTRATOR_RIGHTS: 'The user does not have administrator rights',
     USER_EXIST: 'User is already exists',
     CATEGORY_EXIST: 'Category is already exists',
     CITY_EXIST: 'City is already exists',

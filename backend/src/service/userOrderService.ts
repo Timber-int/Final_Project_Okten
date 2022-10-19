@@ -34,6 +34,10 @@ class UserOrderService {
     public async getAllUserOrder(): Promise<IUserOrder[]> {
         return userOrderRepository.getAllUserOrder();
     }
+
+    public async deleteAllUserOrders(): Promise<DeleteResult> {
+        return userOrderRepository.deleteAllUserOrders();
+    }
 }
 
 export const userOrderService = new UserOrderService();

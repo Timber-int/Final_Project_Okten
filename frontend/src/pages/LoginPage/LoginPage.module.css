@@ -5,6 +5,7 @@
     align-content: center;
     width: 100%;
     height: 100vh;
+    background-color: #497BE8;
 }
 .server_errors_container {
     width: 100%;

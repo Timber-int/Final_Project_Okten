@@ -95,14 +95,14 @@ const Product = ({
                         <div className={css.product_small_information}>
                             <div className={css.product_small_information_content}>
                                 <span className={css.product_weight}>{productWeight}</span>
-                                <span className={css.measure}>гр</span>
+                                <span className={css.measure}>g</span>
                             </div>
                             {
                                 category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
                                     ?
                                     <div className={css.product_small_information_content}>
                                         <span className={css.product_size}>30</span>
-                                        <span className={css.measure}>см</span>
+                                        <span className={css.measure}>cm</span>
                                     </div>
                                     :
                                     <></>
@@ -134,19 +134,19 @@ const Product = ({
             <div className={css.product_box_order_content_container}>
                 <div className={css.product_price_box}>
                     <span className={css.product_price}>{productPrice}</span>
-                    <span className={css.product_price_measure}>грн</span>
+                    <span className={css.product_price_measure}>UAH</span>
                 </div>
                 <div><OrderComponentButton id={id} totalCount={totalCount}/></div>
                 <div>
                     <button
                         className={
-                        status === CONSTANTS.LOADING
-                        ||
-                        status === CONSTANTS.REJECTED
-                            ? css.product_order_button_disabled
-                            : css.product_order_button}
+                            status === CONSTANTS.LOADING
+                            ||
+                            status === CONSTANTS.REJECTED
+                                ? css.product_order_button_disabled
+                                : css.product_order_button}
                         onClick={() => createOrder(productPrice, product, id)}>
-                        Замовити
+                        Order
                     </button>
                 </div>
             </div>

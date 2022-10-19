@@ -62,18 +62,26 @@ const ProductDetails = () => {
     } = singleProduct;
 
     useEffect(() => {
+        window.scroll(0, 0);
+
         dispatch(getProductInformationByProductId({ productId: id }));
+
         if (productIngredients.length === 0) {
             dispatch(getAllProductIngredients());
         }
+
         setCarouselArray([productPhoto, productBigPhoto]);
+
         setProduct(products.find(product => product.id === id));
+
         if (!category) {
             dispatch(getCategoryById({ id: categoryId }));
         }
         if (products.length === 0) {
+
             dispatch(getAllProducts());
         }
+
     }, [id, products, category, productIngredients]);
 
     const moveToIngredients = () => {
@@ -86,6 +94,10 @@ const ProductDetails = () => {
                 id,
             }
         ));
+
+        return function () {
+            window.scroll(0, 0);
+        }
     };
 
     return (
@@ -125,7 +137,7 @@ const ProductDetails = () => {
                                          alt="size"/>
                                 </span>
                                         <span>
-                                            Розмір: 30см
+                                            Size: 30cm
                                         </span>
                                     </div>
                                     :
@@ -137,7 +149,7 @@ const ProductDetails = () => {
                                          src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/weight.svg"
                                          alt="weight"/>
                                 </span>
-                                <span>Вага: {product ? product.productWeight : productWeight}г</span>
+                                <span>Weight: {product ? product.productWeight : productWeight}g</span>
                             </div>
                         </div>
                         <div className={
@@ -153,10 +165,10 @@ const ProductDetails = () => {
                                     <div>
                                         <div className={css.add_ingredients} onClick={() => moveToIngredients()}>
                                             <span className={css.add_ingredient_button}>+</span>
-                                            <span>Додати складники</span>
+                                            <span>Add ingredients</span>
                                         </div>
                                         <div>
-                                            Додатки: <span className={css.total_adds_count}>{selectedProductIngredientsTotalCount}</span> грн
+                                            Additions: <span className={css.total_adds_count}>{selectedProductIngredientsTotalCount}</span> UAH
                                         </div>
                                     </div>
                                     :
@@ -164,7 +176,7 @@ const ProductDetails = () => {
                             }
                             <div>
                                 <div className={css.counter_box}>
-                                    <span>Кількість:</span>
+                                    <span>Amount:</span>
                                     <span className={css.counter}>
                                         <OrderComponentButton
                                             totalCount={product ? product.totalCount : totalCount}
@@ -173,9 +185,9 @@ const ProductDetails = () => {
                                     </span>
                                 </div>
                                 <div className={css.price_box}>
-                                    <span>Всього:</span>
+                                    <span>Total:</span>
                                     <span className={css.price}>{product ? product.productPrice : productPrice}</span>
-                                    <span>грн</span>
+                                    <span>UAH</span>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +208,7 @@ const ProductDetails = () => {
                                     :
                                     css.order_button
                             }
-                                    onClick={() => createOrder(product ? product.productPrice : productPrice, product, id)}>Додати у кошик
+                                    onClick={() => createOrder(product ? product.productPrice : productPrice, product, id)}>Add to card
                             </button>
                         </div>
                     </div>
@@ -206,7 +218,7 @@ const ProductDetails = () => {
                 category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
                     ?
                     <div className={css.product_ingredients_container}>
-                        <div className={css.product_ingredients_text}>Додатки до {category.name}</div>
+                        <div className={css.product_ingredients_text}>Extra ingredients for {category.name}</div>
                         <ProductIngredients productIngredients={productIngredients} id={id} categoryId={categoryId}/>
                     </div>
                     :

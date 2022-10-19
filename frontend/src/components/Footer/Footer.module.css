@@ -13,75 +13,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.block_first_content_one {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-}
-
-.block_first_content_two {
-    margin-top: 3vh;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-
-}
-
-.image {
-    width: 55%;
-    height: 80%;
-}
-
-.community_block {
-    width: 70%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.community_block > div {
-    width: 15%;
-    height: 8vh;
-    margin: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background-color: #f3f3f3;
-    border-radius: 1vh;
-    cursor: pointer;
-}
-
-svg {
-    width: 5vh;
-    height: 5vh;
-}
-
-.bank_cards_block {
-    width: 30%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.bank_cards_block > div {
-    width: 45%;
-    height: 8vh;
-    margin: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.card_image {
-    width: 60%;
-    height: 60%;
 }
 
 .block_second {
@@ -97,45 +29,13 @@ svg {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
-.telephone_block {
-    width: 100%;
-    font-size: 5vh;
-    height: 20%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.block_first > img {
+    width: 60%;
+    height: 50%;
 }
 
-.download_mobile_text {
-    width: 100%;
-    font-size: 2vh;
-    height: 20%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.download_label_box {
-    width: 100%;
-    font-size: 2vh;
-    height: 20%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.download_label {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
 

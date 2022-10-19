@@ -159,10 +159,11 @@
     width: 94%;
     height: 100%;
     outline: none;
-    font-size: 24px;
+    font-size: 2.5vh;
     border: 1px solid #e8e8e8;
     padding: 0 3%;
     transition: 0.3s;
+    resize: none;
 }
 
 .order_comment_input:hover, .chosen_address_comment_input:hover {

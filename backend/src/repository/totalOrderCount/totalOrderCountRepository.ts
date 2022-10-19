@@ -1,6 +1,5 @@
 import {
-    DeleteResult,
-    EntityRepository, getManager, Repository, UpdateResult,
+    DeleteResult, EntityRepository, getManager, Repository, UpdateResult,
 } from 'typeorm';
 import { ITotalOrderCount, TotalOrderCount } from '../../entity';
 import { ITotalOrderCountRepository } from './totalOrderCountRepositoryInterface';
@@ -64,13 +63,10 @@ class TotalOrderCountRepository extends Repository<TotalOrderCount> implements I
             .delete({ productUniqueData: deletePath });
     }
 
-    public async deleteAllTotalOrderCount(): Promise<void> {
-        await getManager()
+    public async deleteAllTotalOrderCount(): Promise<DeleteResult> {
+        return getManager()
             .getRepository(TotalOrderCount)
-            .find()
-            .then((data) => data.forEach((element) => getManager()
-                .getRepository(TotalOrderCount)
-                .delete({ id: element.id })));
+            .delete({});
     }
 }
 

@@ -1,6 +1,8 @@
 import { NextFunction, Response } from 'express';
 import { IRequestExtended } from '../interface';
-import { customerDataSelfPickupOrderService, customerProductsForSelfPickupService } from '../service';
+import {
+    customerDataSelfPickupOrderService, customerProductsForSelfPickupService, totalOrderCountService, userOrderService,
+} from '../service';
 import { CustomerProductsForSelfPickup } from '../entity';
 
 class CustomerOrderSelfPickupController {
@@ -34,6 +36,8 @@ class CustomerOrderSelfPickupController {
                         });
                     });
                 });
+            await totalOrderCountService.deleteAllTotalOrderCount();
+            await userOrderService.deleteAllUserOrders();
 
             res.json(customerData);
         } catch (e) {

@@ -36,7 +36,7 @@ const OrderTypeShopDelivery = () => {
                        required={true}
                        value={user ? user.firstName : ''}
                 />
-                <label>Ваше ім`я*</label>
+                <label>Your name*</label>
                 <div className={css.errors_span}>{errors.firstName && <span>{errors.firstName.message}</span>}</div>
             </div>
             <div className={css.chosen_order_client_firstName_box}>
@@ -45,7 +45,7 @@ const OrderTypeShopDelivery = () => {
                        required={true}
                        value={user ? user.lastName : ''}
                 />
-                <label>Ваше прізвище*</label>
+                <label>Your last name*</label>
                 <div className={css.errors_span}>{errors.lastName && <span>{errors.lastName.message}</span>}</div>
             </div>
             <div className={css.chosen_order_client_email_box}>
@@ -54,7 +54,7 @@ const OrderTypeShopDelivery = () => {
                        required={true}
                        value={user ? user.email : ''}
                 />
-                <label>Емейл*</label>
+                <label>Email*</label>
                 <div className={css.errors_span}>{errors.email && <span>{errors.email.message}</span>}</div>
             </div>
             <div className={css.chosen_order_client_city_box}>
@@ -70,13 +70,12 @@ const OrderTypeShopDelivery = () => {
                 !localStorage.getItem(TokenType.ACCESS) && !localStorage.getItem(TokenType.REFRESH)
                     ?
                     <div className={css.checked_registration_block}>
-                        Ви не зареєстровані, <span className={css.move_to_login_box}>
+                        You are not registered, <span className={css.move_to_login_box}>
                         <NavLink to={'/login'}
-                                 className={css.move_to_login}>увійдіть
+                                 className={css.move_to_login}>log
                         </NavLink>
                     </span>
-                        щоб
-                        використати бонуси.
+                        in to use bonuses.
                     </div>
                     :
                     <></>
@@ -87,7 +86,7 @@ const OrderTypeShopDelivery = () => {
                            className={css.chosen_order_client_street_input}
                            required={true}
                     />
-                    <label>Вулиця*</label>
+                    <label>Street*</label>
                     <div className={css.errors_span}>{errors.street &&
                         <span>{errors.street.message}</span>}
                     </div>
@@ -97,15 +96,15 @@ const OrderTypeShopDelivery = () => {
                            className={css.chosen_order_client_house_input}
                            required={true}
                     />
-                    <label>№ будинку*</label>
+                    <label>House number*</label>
                     <div className={css.errors_span}>{errors.houseNumber &&
                         <span>{errors.houseNumber.message}</span>}
                     </div>
                 </div>
             </div>
             <div className={errors.houseNumber || errors.street ? css.order_comment_button : css.order_comment}>
-                <input type="text"{...register('orderComment')}
-                       placeholder={'Коментар до замовлення...'}
+                <textarea type="text"{...register('orderComment')}
+                       placeholder={'Comment on the order...'}
                        className={css.order_comment_input}
                 />
                 <div className={css.errors_span}>{errors.orderComment &&
@@ -118,7 +117,7 @@ const OrderTypeShopDelivery = () => {
                            className={css.chosen_order_client_entrance_input}
                            required={true}
                     />
-                    <label>Під'їзд</label>
+                    <label>Entrance</label>
                     <div className={css.errors_span}>{errors.entrance &&
                         <span>{errors.entrance.message}</span>}</div>
                 </div>
@@ -127,7 +126,7 @@ const OrderTypeShopDelivery = () => {
                            className={css.chosen_order_client_flour_input}
                            required={true}
                     />
-                    <label>Поверх</label>
+                    <label>Flour</label>
                     <div className={css.errors_span}>{errors.flour &&
                         <span>{errors.flour.message}</span>}</div>
                 </div>
@@ -136,7 +135,7 @@ const OrderTypeShopDelivery = () => {
                            className={css.chosen_order_client_office_input}
                            required={true}
                     />
-                    <label>Кв.\ офіс</label>
+                    <label>Flat\Office</label>
                     <div className={css.errors_span}>{errors.office &&
                         <span>{errors.office.message}</span>}</div>
                 </div>
@@ -145,7 +144,7 @@ const OrderTypeShopDelivery = () => {
                            className={css.chosen_order_client_intercom_input}
                            required={true}
                     />
-                    <label>Домофон</label>
+                    <label>Intercom</label>
                     <div className={css.errors_span}>{errors.intercom &&
                         <span>{errors.intercom.message}</span>}</div>
                 </div>
@@ -156,8 +155,8 @@ const OrderTypeShopDelivery = () => {
                     css.address_comment_bottom
                     :
                     css.address_comment}>
-                <input type="text"{...register('addressComment')}
-                       placeholder={'Коментар до адреси...'}
+                <textarea type="text"{...register('addressComment')}
+                       placeholder={'Comment on the address...'}
                        className={css.chosen_address_comment_input}
                 />
                 <div className={css.errors_span}>{errors.addressComment &&
