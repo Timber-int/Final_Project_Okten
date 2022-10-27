@@ -22,18 +22,18 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 
 .orders_container {
-    width: 45%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .self_pickup_orders_container {
-    width: 45%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -65,4 +65,18 @@
     cursor: pointer;
     color: #e53935;
     border: none;
+}
+
+.search_input_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+.search_input {
+    width: 70%;
+    font-size: 32px;
+    border-radius: 10px;
+    padding: 10px;
 }

@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
     "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -25,13 +26,13 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
+    "node-cron": "^3.0.1",
     "nodemailer": "^6.7.5",
     "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
     "typeorm": "^0.2.45",
     "typescript": "^4.5.5",
-    "uuid": "^8.3.2",
-    "node-cron": "^3.0.1",
-    "cookie-parser": "^1.4.6"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -52,9 +53,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "nodemon": "^2.0.15",
-    "rimraf": "^3.0.2",
     "ts-node": "^10.5.0",
-    "tsc-watch": "^4.6.0"
+    "tsc-watch": "^4.6.2"
   },
   "author": "",
   "license": "ISC"

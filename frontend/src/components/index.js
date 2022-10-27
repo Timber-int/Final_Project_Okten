@@ -35,3 +35,6 @@ export * from './DrinkReadMoreReadLess/DrinkReadMoreReadLess';
 export * from './SushiReadMoreReadLess/SushiReadMoreReadLess';
 export * from './OrderElement/OrderElement';
 export * from './SelfPickupElement/SelfPickupElement';
+export * from './ChangePassword/ChangePassword';
+export * from './SetNewPassword/SetNewPassword';
+export * from './CustomerProduct/CustomerProduct';

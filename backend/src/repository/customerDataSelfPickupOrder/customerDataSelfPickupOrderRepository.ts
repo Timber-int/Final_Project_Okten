@@ -13,7 +13,7 @@ class CustomerDataSelfPickupOrderRepository extends Repository<CustomerDataSelfP
     public async getCustomerDataSelfPickupOrder(): Promise<ICustomerDataSelfPickupOrder[]> {
         return getManager()
             .getRepository(CustomerDataSelfPickupOrder)
-            .find();
+            .find({ relations: ['products'] });
     }
 }
 

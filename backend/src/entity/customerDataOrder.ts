@@ -128,5 +128,5 @@ export class CustomerDataOrder extends DefaultValue implements ICustomerDataOrde
         user: User;
 
     @OneToMany(() => CustomerProductsForOrder, (CustomerProductsForOrder) => CustomerProductsForOrder.customer)
-        productsOrder: CustomerProductsForOrder[];
+        products: CustomerProductsForOrder[];
 }

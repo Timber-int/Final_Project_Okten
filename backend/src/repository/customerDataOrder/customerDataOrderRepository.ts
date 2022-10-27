@@ -13,7 +13,7 @@ class CustomerDataOrderRepository extends Repository<CustomerDataOrder> implemen
     public async getCustomerDataOrder(): Promise<ICustomerDataOrder[]> {
         return getManager()
             .getRepository(CustomerDataOrder)
-            .find();
+            .find({ relations: ['products'] });
     }
 }
 

@@ -32,11 +32,14 @@
 
 .first_block {
     width: 45%;
+    height: 50%;
     padding: 0.5vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
     margin: 1%;
+    position: sticky;
+    top: 20vh;
 }
 
 .second_block {

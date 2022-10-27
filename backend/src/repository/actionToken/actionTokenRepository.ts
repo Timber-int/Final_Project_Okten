@@ -3,7 +3,7 @@ import {
 } from 'typeorm';
 import { ActionToken } from '../../entity';
 import { IActionTokenRepository } from './actionTokenRepositoryInterface';
-import { IActionTokenDataToSave } from '../../interface/tokenInterfaces';
+import { IActionTokenDataToSave } from '../../interface';
 
 @EntityRepository(ActionToken)
 export class ActionTokenRepository extends Repository<ActionToken> implements IActionTokenRepository {

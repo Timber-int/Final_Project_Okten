@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { IRequestExtended } from '../interface';
-import { CONSTANTS, TokenType, UserRole } from '../constants';
+import { TokenType, UserRole } from '../constants';
 import { MESSAGE } from '../message';
 import { STATUS } from '../errorCode';
 import { ErrorHandler } from '../errorHandler';
@@ -88,22 +88,28 @@ class AuthMiddleware {
 
     public async checkActionToken(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const actionToken = req.get(CONSTANTS.AUTHORIZATION);
+            const authorizationHeader = req.headers.authorization;
+
+            if (!authorizationHeader) {
+                next(new ErrorHandler(MESSAGE.UNAUTHORIZED, STATUS.CODE_404));
+                return;
+            }
+
+            const actionToken = authorizationHeader.split(' ')[3];
 
             if (!actionToken) {
                 next(new ErrorHandler(MESSAGE.NOT_TOKEN, STATUS.CODE_404));
                 return;
             }
-
             const {
-                userEmail,
                 userId,
+                userEmail,
             } = await tokenService.verifyToken(actionToken, TokenType.ACTION);
 
             const actionTokenFromDB = await tokenService.getActionTokenById(userId);
 
             if (!actionTokenFromDB) {
-                next(new ErrorHandler(MESSAGE.TOKEN_NOT_VALID, STATUS.CODE_401));
+                next(new ErrorHandler(MESSAGE.TOKEN_NOT_VALID, STATUS.CODE_400));
                 return;
             }
 

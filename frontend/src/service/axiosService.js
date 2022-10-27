@@ -10,7 +10,7 @@ export const axiosService = axios.create({
 });
 
 axiosService.interceptors.request.use(config => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem(TokenType.ACCESS)} ${localStorage.getItem(TokenType.REFRESH)}`;
+    config.headers.Authorization = `Bearer ${localStorage.getItem(TokenType.ACCESS)} ${localStorage.getItem(TokenType.REFRESH)} ${localStorage.getItem(TokenType.ACTION)}`;
     return config;
 });
 
@@ -18,7 +18,7 @@ axiosService.interceptors.response.use(config => {
     return config;
 }, async (error) => {
     const originalRequest = error.config;
-    if ((error.response.status === 401 || error.response.status === 500 ) && error.config && !error.config._isRetry) {
+    if ((error.response.status === 401 || error.response.status === 500) && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
         try {
             const response = await authService.refresh(baseURL + urls.auth + urls.refresh);

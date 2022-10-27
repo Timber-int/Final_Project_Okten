@@ -16,6 +16,7 @@ export interface ICustomerDataSelfPickupOrder extends IDefaultValue {
     totalOrderCount: number,
     usedOrderType: string,
     servetStatus: boolean,
+    products?: CustomerProductsForSelfPickup[];
 }
 
 @Entity('customerselfpickuporders', { database: CONSTANTS.DATA_BASE })

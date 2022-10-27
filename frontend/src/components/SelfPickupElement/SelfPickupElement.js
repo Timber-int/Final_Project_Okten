@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './SelfPickupElement.module.css';
+import { CustomerProduct } from '../CustomerProduct/CustomerProduct';
 
 const SelfPickupElement = ({
     numElem,
@@ -10,8 +11,9 @@ const SelfPickupElement = ({
         lastName,
         address,
         usedOrderType,
+        products,
         totalOrderCount,
-        createdAt
+        createdAt,
     } = order;
 
     return (
@@ -24,8 +26,10 @@ const SelfPickupElement = ({
                 <div>Data: {createdAt.slice(0, 10)}</div>
                 <div>Time: {createdAt.slice(11, 19)}</div>
             </div>
-            <div className={css.products_block}>
-                Products array...
+            <div className={css.products_container}>
+                {
+                    products.map(product => (<CustomerProduct key={product.id} product={product}/>))
+                }
             </div>
         </div>
     );

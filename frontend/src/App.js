@@ -7,6 +7,7 @@ import {
     ActionPage,
     AdminPage,
     CategoryPage,
+    ChangePasswordPage,
     CityAddressDetailsComponentPage,
     CityAddressPage,
     CityPage,
@@ -25,13 +26,13 @@ import {
     ProductIngredientsComponentDetailsPage,
     ProductIngredientsPage,
     ProductPage,
-    RegistrationPage, ThankYouForYourOrderPage
+    RegistrationPage, SetNewPasswordPage,
+    ThankYouForYourOrderPage
 } from './pages';
-import { checkAuth, getAllCities } from './store';
+import { getAllCities } from './store';
 import { useDispatch } from 'react-redux';
 import { ProductsPage } from './pages/ProductsPage/ProductsPage';
 import { ProductsComponentDetailsPage } from './pages/ProductsComponentDetailsPage/ProductsComponentDetailsPage';
-import { TokenType } from './constants';
 import { RequireAuth } from './components/hoc';
 
 const App = () => {
@@ -42,9 +43,6 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getAllCities());
-        // if (localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)) {
-        //     dispatch(checkAuth());
-        // }
     }, [path]);
 
     return (
@@ -54,6 +52,8 @@ const App = () => {
                 <Route path={'productId/:id'} element={<ProductDetailsPage/>}/>
                 <Route path={'registration'} element={<RegistrationPage/>}/>
                 <Route path={'login'} element={<LoginPage/>}/>
+                <Route path={'changePassword'} element={<ChangePasswordPage/>}/>
+                <Route path={'setNewPassword'} element={<SetNewPasswordPage/>}/>
                 <Route path={'deliveryHardPage/:id'} element={<DeliveryHardPage/>}/>
                 <Route path={'orderPage'} element={<OrderPage/>}/>
                 <Route path={'action'} element={<ActionPage/>}/>

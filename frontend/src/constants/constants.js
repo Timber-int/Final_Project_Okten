@@ -4,6 +4,7 @@ export const CONSTANTS = {
     DATA_BASE: 'Online_shop',
     USER: 'user',
     ADMIN: 'admin',
+    CHANGE_USER_PASSWORD_DATA: 'userChangePassword',
 
     ORDER: 'order',
     SELF_PICKUP: 'selfPickup',

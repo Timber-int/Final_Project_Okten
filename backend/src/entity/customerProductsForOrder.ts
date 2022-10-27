@@ -84,7 +84,7 @@ export class CustomerProductsForOrder extends DefaultValue implements ICustomerP
     })
         customerId: number;
 
-    @ManyToOne(() => CustomerDataOrder, (CustomerDataOrder) => CustomerDataOrder.productsOrder)
+    @ManyToOne(() => CustomerDataOrder, (CustomerDataOrder) => CustomerDataOrder.products)
     @JoinColumn({ name: 'customerId' })
         customer: CustomerDataOrder;
 }

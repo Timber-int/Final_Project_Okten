@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CustomerProduct } from '../CustomerProduct/CustomerProduct';
 import css from './OrderElement.module.css';
 
 const OrderElement = ({
@@ -13,8 +14,14 @@ const OrderElement = ({
         street,
         usedOrderType,
         totalOrderCount,
-        createdAt
+        createdAt,
+        products,
+        flour,
+        houseNumber,
+        intercom,
+        office,
     } = order;
+
     return (
         <div className={css.order_box}>
             <div className={css.order_block}>
@@ -23,11 +30,17 @@ const OrderElement = ({
                 <div>City: {city}</div>
                 <div>Street: {street}</div>
                 <div>Order price: <span className={css.element}>{totalOrderCount}</span> UAH</div>
+                <div>Flour: {flour}</div>
+                <div>House number: {houseNumber}</div>
+                <div>Intercom: {intercom}</div>
+                <div>Office: {office}</div>
                 <div>Data: {createdAt.slice(0, 10)}</div>
                 <div>Time: {createdAt.slice(11, 19)}</div>
             </div>
-            <div className={css.products_block}>
-                Products array...
+            <div className={css.products_container}>
+                {
+                    products.map(product => (<CustomerProduct key={product.id} product={product}/>))
+                }
             </div>
         </div>
     );

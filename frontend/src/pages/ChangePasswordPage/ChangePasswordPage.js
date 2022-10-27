@@ -1,12 +1,11 @@
 import React from 'react';
 
+import { ChangePassword } from '../../components';
 import { useSelector } from 'react-redux';
-import { Login } from '../../components';
 import { CONSTANTS } from '../../constants';
-import css from './LoginPage.module.css';
-import { NavLink } from 'react-router-dom';
+import css from './ChangePasswordPage.module.css';
 
-const LoginPage = () => {
+const ChangePasswordPage = () => {
 
     const {
         serverErrors,
@@ -14,14 +13,15 @@ const LoginPage = () => {
     } = useSelector(state => state['authReducer']);
 
     return (
-        <div className={css.login_container}>
+        <div className={css.change_password_container}>
+            <div className={css.change_password_text}>
+                Pleace enter your email
+            </div>
             <div className={css.server_errors_container}>{serverErrors}</div>
-            <div className={css.login_form}>Login form</div>
             {status === CONSTANTS.LOADING ? <div className={css.loading_container}>Loading...</div> : <></>}
-            <Login/>
-            <NavLink to={'/changePassword'} className={css.move_to_change_password}>I forgot my password</NavLink>
+            <ChangePassword/>
         </div>
     );
 };
 
-export { LoginPage };
+export { ChangePasswordPage };

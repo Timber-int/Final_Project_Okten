@@ -47,7 +47,7 @@ class TokenService {
         if (tokenType === TokenType.ACTION) {
             secretWord = config.SECRET_PASSWORD_KEY;
         }
-
+        console.log(token);
         return jwt.verify(token, secretWord as string) as IUserPayload;
     }
 

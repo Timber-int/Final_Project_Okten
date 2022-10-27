@@ -17,6 +17,7 @@ const RegistrationPage = () => {
         <div className={css.registration_container}>
             <div className={css.server_errors_container}>{serverErrors}</div>
             {status === CONSTANTS.LOADING ? <div className={css.loading_container}>Loading...</div> : <></>}
+            <div className={css.registration_form}>Registration form</div>
             <Registration/>
             <NavLink to={'/login'} className={css.move_to_login}>I already have an account</NavLink>
         </div>

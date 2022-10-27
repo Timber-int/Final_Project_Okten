@@ -24,4 +24,6 @@ export * from './PaymentPage/PaymentPage';
 export * from './LoginPage/LoginPage';
 export * from './CustomerPage/CustomerPage';
 export * from './ThankYouForYourOrderPage/ThankYouForYourOrderPage';
+export * from './ChangePasswordPage/ChangePasswordPage';
+export * from './SetNewPasswordPage/SetNewPasswordPage';
 

@@ -82,8 +82,8 @@ const customerOrderSlice = createSlice({
         serverErrors: null,
         status: null,
         servetStatus: false,
-        orders:[],
-        selfPickupOrders:[],
+        orders: [],
+        selfPickupOrders: [],
     },
     reducers: {
         setUserData: (state, action) => {
@@ -94,6 +94,20 @@ const customerOrderSlice = createSlice({
         },
         deleteUserData: (state, action) => {
             state.userData = null;
+        },
+        sortAllCustomerOrderByTotalCount: (state, action) => {
+            state.orders = state.orders.sort((a, b) => b.totalOrderCount - a.totalOrderCount);
+            state.selfPickupOrders = state.selfPickupOrders.sort((a, b) => b.totalOrderCount - a.totalOrderCount);
+        },
+        sortAllCustomerOrderByProductsCount: (state, action) => {
+            state.orders = state.orders.sort((a, b) => b.products.length - a.products.length);
+            state.selfPickupOrders = state.selfPickupOrders.sort((a, b) => b.products.length - a.products.length);
+        },
+        sortAllCustomerOrderDate: (state, action) => {
+            state.orders = state.orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            state.selfPickupOrders = state.selfPickupOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        },
+        sortAllCustomerOrderByAddress: (state, action) => {
         }
     },
     extraReducers: {
@@ -127,7 +141,7 @@ const customerOrderSlice = createSlice({
         },
         [getCustomerOrderSelfPickup.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
-            state.selfPickupOrders=action.payload.customerOrderDataSelfPickup;
+            state.selfPickupOrders = action.payload.customerOrderDataSelfPickup;
             state.serverErrors = null;
         },
         [getCustomerOrderSelfPickup.rejected]: (state, action) => {
@@ -155,10 +169,19 @@ const {
     setUserData,
     setServeStatus,
     deleteUserData,
+    sortAllCustomerOrderByTotalCount,
+    sortAllCustomerOrderDate,
+    sortAllCustomerOrderByAddress,
+    sortAllCustomerOrderByProductsCount,
 } = customerOrderSlice.actions;
+
 export const customerOrderAction = {
     setUserData,
     setServeStatus,
-    deleteUserData
+    deleteUserData,
+    sortAllCustomerOrderByTotalCount,
+    sortAllCustomerOrderDate,
+    sortAllCustomerOrderByAddress,
+    sortAllCustomerOrderByProductsCount
 };
 export default customerOrderReducer;

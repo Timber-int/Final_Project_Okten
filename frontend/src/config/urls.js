@@ -18,4 +18,6 @@ export const urls = {
     customerOrderSelfPickup: '/customerOrderSelfPickup',
     totalCounts: '/totalCounts',
     partnerRequests: '/partnerRequests',
+    forgotPassword: '/forgot/password',
+    setNewPassword: '/forgot/password/set',
 };

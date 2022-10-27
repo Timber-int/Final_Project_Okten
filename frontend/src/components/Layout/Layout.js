@@ -119,7 +119,6 @@ const Layout = () => {
                         </div>
                     </div>
                 </NavLink>
-                {/* <NavLink to={'/adminPage'}>AdminPage</NavLink> */}
             </div>
             <div className={css.outlet}>
                 <Outlet/>

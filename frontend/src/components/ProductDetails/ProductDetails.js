@@ -78,7 +78,6 @@ const ProductDetails = () => {
             dispatch(getCategoryById({ id: categoryId }));
         }
         if (products.length === 0) {
-
             dispatch(getAllProducts());
         }
 
