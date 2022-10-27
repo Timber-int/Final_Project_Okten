@@ -12,3 +12,5 @@ export * from './totalOrderCountRouter';
 export * from './partnersRequestRouter';
 export * from './customerOrderRouter';
 export * from './customerOrderSelfPickupRouter';
+export * from './customerProductsForOrderRouter';
+export * from './customerProductsForSelfPickupRouter';

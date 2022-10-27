@@ -7,3 +7,4 @@ export * from './citySlice';
 export * from './productInformationSlice';
 export * from './totalOrderCountSlice';
 export * from './partnersRequestSlice';
+export * from './productsOrderSlice';

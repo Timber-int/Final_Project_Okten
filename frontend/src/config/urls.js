@@ -20,4 +20,6 @@ export const urls = {
     partnerRequests: '/partnerRequests',
     forgotPassword: '/forgot/password',
     setNewPassword: '/forgot/password/set',
+    customerProductsForOrder: '/customerProductsForOrder',
+    customerProductsForSelfPickup: '/customerProductsForSelfPickup',
 };

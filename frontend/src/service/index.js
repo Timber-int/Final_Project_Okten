@@ -10,4 +10,6 @@ export * from './orderService';
 export * from './totalCountService';
 export * from './partnersRequestService';
 export * from './customerOrderService';
+export * from './productOrderService';
+export * from './productSelfPickupService';
 

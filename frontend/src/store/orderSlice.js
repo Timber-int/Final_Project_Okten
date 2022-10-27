@@ -170,6 +170,7 @@ export const setProductToOrder = createAsyncThunk(
                 productId: id,
                 categoryId,
             };
+            await dispatch(orderAction.setProductToTheCard({ productData: orderData }));
 
             const data = await orderService.createOrder(orderData);
 
@@ -190,6 +191,7 @@ const orderSlice = createSlice({
         status: null,
         usedOrderType: CONSTANTS.ORDER,
         discount: 0,
+        productsCard:  [],
     },
     reducers: {
         setOrderType: (state, action) => {
@@ -210,6 +212,13 @@ const orderSlice = createSlice({
         },
         deleteAllOrderProduct: (state, action) => {
             state.chosenOrderProducts = [];
+        },
+        setProductToTheCard: (state, action) => {
+            const productData = action.payload.productData;
+            console.log(productData);
+            console.log(state.productsCard);
+            // localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(state.productsCard));
+
         }
 
     },
@@ -286,7 +295,9 @@ const {
     deleteSingleOrderProductById,
     plusOrderSingleProduct,
     minusOrderSingleProduct,
-    deleteAllOrderProduct
+    deleteAllOrderProduct,
+    setProductToTheCard,
+
 } = orderSlice.actions;
 
 export const orderAction = {
@@ -294,7 +305,8 @@ export const orderAction = {
     deleteSingleOrderProductById,
     plusOrderSingleProduct,
     minusOrderSingleProduct,
-    deleteAllOrderProduct
+    deleteAllOrderProduct,
+    setProductToTheCard,
 };
 
 export default orderReducer;

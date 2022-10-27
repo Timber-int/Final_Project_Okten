@@ -14,6 +14,8 @@ import { totalOrderCountRouter } from './totalOrderCountRouter';
 import { partnersRequestRouter } from './partnersRequestRouter';
 import { customerOrderRouter } from './customerOrderRouter';
 import { customerOrderSelfPickupRouter } from './customerOrderSelfPickupRouter';
+import { customerProductsForOrderRouter } from './customerProductsForOrderRouter';
+import { customerProductsForSelfPickupRouter } from './customerProductsForSelfPickupRouter';
 
 const router = Router();
 
@@ -30,6 +32,8 @@ router.use('/totalCounts', totalOrderCountRouter);
 router.use('/partnerRequests', partnersRequestRouter);
 router.use('/customerOrders', customerOrderRouter);
 router.use('/customerOrderSelfPickup', customerOrderSelfPickupRouter);
+router.use('/customerProductsForOrder', customerProductsForOrderRouter);
+router.use('/customerProductsForSelfPickup', customerProductsForSelfPickupRouter);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {

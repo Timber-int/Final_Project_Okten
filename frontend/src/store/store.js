@@ -10,6 +10,7 @@ import productInformationReducer from './productInformationSlice';
 import totalOrderCountReducer from './totalOrderCountSlice';
 import partnersRequestReducer from './partnersRequestSlice';
 import customerOrderReducer from './customerOrderSlice';
+import productOrderReducer from './productsOrderSlice';
 
 const store = configureStore({
     reducer: {
@@ -22,7 +23,8 @@ const store = configureStore({
         productInformationReducer,
         totalOrderCountReducer,
         partnersRequestReducer,
-        customerOrderReducer
+        customerOrderReducer,
+        productOrderReducer,
     }
 });
 

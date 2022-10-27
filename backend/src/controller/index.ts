@@ -10,3 +10,5 @@ export * from './userOrderController';
 export * from './totalOrderCountController';
 export * from './partnersRequestController';
 export * from './customerDataOrderController';
+export * from './customerProductsForOrderController';
+export * from './customerProductsForSelfPickupController';

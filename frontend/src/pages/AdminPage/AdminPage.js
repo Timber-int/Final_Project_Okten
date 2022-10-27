@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { OrderElement, SelfPickupElement } from '../../components';
 import { customerOrderAction, getCustomerOrder, getCustomerOrderSelfPickup } from '../../store/customerOrderSlice';
 import css from './AdminPage.module.css';
-import { logout } from '../../store';
+import { getProductsOrder, getProductsSelfPickup, logout } from '../../store';
 
 const checkIsTodayOrder = (array) => {
     return array.reduce((acc, order) => {
@@ -34,11 +34,18 @@ const AdminPage = () => {
         selfPickupOrders
     } = useSelector(state => state['customerOrderReducer']);
 
-    const [searchData, setSearchData] = useState('');
+    const {
+        productsOrder,
+        productSelfPickup
+    } = useSelector(state => state['productOrderReducer']);
 
+    const [searchData, setSearchData] = useState('');
+    console.log(productsOrder);
     useEffect(() => {
         dispatch(getCustomerOrder());
         dispatch(getCustomerOrderSelfPickup());
+        dispatch(getProductsOrder());
+        dispatch(getProductsSelfPickup());
     }, []);
 
     const logoutFormCustomerPage = () => {
@@ -83,7 +90,6 @@ const AdminPage = () => {
                         <button onClick={() => logoutFormCustomerPage()} className={css.logout_button}>Logout</button>
                     </div>
                     <div className={css.admin_information_content}>
-                        eeeeeeeeeeeeeeeeeee
                         {
 
                         }
