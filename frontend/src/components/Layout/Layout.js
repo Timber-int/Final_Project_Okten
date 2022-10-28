@@ -16,15 +16,12 @@ const Layout = () => {
     const dispatch = useDispatch();
 
     const {
-        totalOrderCount,
-    } = useSelector(state => state['totalOrderCountReducer']);
-
-    const {
         user: userRegistered,
     } = useSelector(state => state['authReducer']);
 
     const {
         status,
+        totalOrderCount,
     } = useSelector(state => state['orderReducer']);
 
     const {

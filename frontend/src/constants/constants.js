@@ -6,6 +6,7 @@ export const CONSTANTS = {
     ADMIN: 'admin',
     CHANGE_USER_PASSWORD_DATA: 'userChangePassword',
     PRODUCT_CARD: 'productCard',
+    TOTAL_ORDER_COUNT: 'totalOrderCount',
 
     ORDER: 'order',
     SELF_PICKUP: 'selfPickup',

@@ -17,13 +17,9 @@ const OrderPage = () => {
     const {
         usedOrderType,
         chosenOrderProducts,
-        discount,
-        money
-    } = useSelector(state => state['orderReducer']);
-
-    const {
         totalOrderCount,
-    } = useSelector(state => state['totalOrderCountReducer']);
+        discount,
+    } = useSelector(state => state['orderReducer']);
 
     const {
         userData,
@@ -82,6 +78,8 @@ const OrderPage = () => {
                     !JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD))
                     ||
                     !JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)).length
+                    ||
+                    JSON.parse(localStorage.getItem(CONSTANTS.TOTAL_ORDER_COUNT)) === 0
                         ?
                         <div className={css.not_order_container}>
                             <div className={css.bucket_empty}>Your basket is empty</div>

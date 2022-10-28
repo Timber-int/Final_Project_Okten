@@ -189,6 +189,7 @@ const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: {
         chosenOrderProducts: JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [],
+        totalOrderCount: JSON.parse(localStorage.getItem(CONSTANTS.TOTAL_ORDER_COUNT)) || 0,
         serverErrors: null,
         status: null,
         usedOrderType: CONSTANTS.ORDER,
@@ -200,8 +201,14 @@ const orderSlice = createSlice({
         },
         deleteSingleOrderProductById: (state, action) => {
             let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
-            state.chosenOrderProducts = state.chosenOrderProducts.filter(product => product.id !== action.payload.id);
+            if (productsCard.length === 0) return;
+            const id = action.payload.id;
+            const productToRemove = productsCard.find(product => product.id === id);
+            state.totalOrderCount -= productToRemove.productPrice;
+            state.chosenOrderProducts = state.chosenOrderProducts.filter(product => product.id !== id);
             productsCard = productsCard.filter(product => product.id !== action.payload.id);
+            localStorage.removeItem(CONSTANTS.TOTAL_ORDER_COUNT);
+            localStorage.setItem(CONSTANTS.TOTAL_ORDER_COUNT, JSON.stringify(state.totalOrderCount));
             localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
             localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         },
@@ -219,14 +226,18 @@ const orderSlice = createSlice({
 
             const updatedProduct = productsCard.find(product => product.id === productData.id);
 
+            state.totalOrderCount += updatedProduct.productPrice / updatedProduct.totalCount;
+
             state.chosenOrderProducts = state.chosenOrderProducts.map(product => product.id === updatedProduct.id ? { ...updatedProduct } : product);
 
+            localStorage.removeItem(CONSTANTS.TOTAL_ORDER_COUNT);
+            localStorage.setItem(CONSTANTS.TOTAL_ORDER_COUNT, JSON.stringify(state.totalOrderCount));
             localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
             localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         },
         minusOrderSingleProduct: (state, action) => {
             const productData = action.payload.productData;
-            console.log(productData);
+
             let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
 
             if (productData.totalCount <= 1) return;
@@ -239,8 +250,12 @@ const orderSlice = createSlice({
 
             const updatedProduct = productsCard.find(product => product.id === productData.id);
 
+            state.totalOrderCount -= updatedProduct.productPrice / updatedProduct.totalCount;
+
             state.chosenOrderProducts = state.chosenOrderProducts.map(product => product.id === updatedProduct.id ? { ...updatedProduct } : product);
 
+            localStorage.removeItem(CONSTANTS.TOTAL_ORDER_COUNT);
+            localStorage.setItem(CONSTANTS.TOTAL_ORDER_COUNT, JSON.stringify(state.totalOrderCount));
             localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
             localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         },
@@ -280,9 +295,12 @@ const orderSlice = createSlice({
                 productId: id,
                 categoryId,
             };
+
             if (productsCard.length === 0) {
                 productsCard.push({ id: uuidv4(), ...productData });
                 localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
+                state.totalOrderCount += productData.productPrice;
+                localStorage.setItem(CONSTANTS.TOTAL_ORDER_COUNT, JSON.stringify(productData.productPrice));
                 return;
             }
 
@@ -309,11 +327,17 @@ const orderSlice = createSlice({
                         :
                         product
                 );
+                state.totalOrderCount += productData.productPrice;
+                localStorage.removeItem(CONSTANTS.TOTAL_ORDER_COUNT);
+                localStorage.setItem(CONSTANTS.TOTAL_ORDER_COUNT, JSON.stringify(state.totalOrderCount));
                 localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
                 return;
             }
 
             productsCard.push({ id: uuidv4(), ...productData });
+            state.totalOrderCount += productData.productPrice;
+            localStorage.removeItem(CONSTANTS.TOTAL_ORDER_COUNT);
+            localStorage.setItem(CONSTANTS.TOTAL_ORDER_COUNT, JSON.stringify(state.totalOrderCount));
             localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         }
 
