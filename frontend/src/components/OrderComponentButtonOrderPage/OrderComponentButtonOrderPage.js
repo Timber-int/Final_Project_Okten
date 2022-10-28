@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { minusOrderProduct, minusTotalOrderCount, plusOrderProduct, plusTotalOrderCount } from '../../store';
-import css from './OrderComponentButtonOrderPage.module.css';
+import { orderAction } from '../../store';
 import { CONSTANTS } from '../../constants';
+import css from './OrderComponentButtonOrderPage.module.css';
 
 const OrderComponentButtonOrderPage = ({
     orderData,
@@ -24,11 +24,9 @@ const OrderComponentButtonOrderPage = ({
     const { status } = useSelector(state => state['orderReducer']);
 
     const minusOrderProductFunc = () => {
-        dispatch(minusOrderProduct({
-            productDataId: {
-                id,
-            },
+        dispatch(orderAction.minusOrderSingleProduct({
             productData: {
+                id,
                 productId,
                 categoryId,
                 productPrice,
@@ -40,11 +38,9 @@ const OrderComponentButtonOrderPage = ({
     };
 
     const plusOrderProductFunc = () => {
-        dispatch(plusOrderProduct({
-            productDataId: {
-                id,
-            },
+        dispatch(orderAction.plusOrderSingleProduct({
             productData: {
+                id,
                 productId,
                 categoryId,
                 productPrice,

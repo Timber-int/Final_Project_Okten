@@ -11,7 +11,7 @@ import {
     getAllProductIngredients,
     getAllProducts,
     getCategoryById,
-    getProductInformationByProductId,
+    getProductInformationByProductId, orderAction,
     setProductToOrder
 } from '../../store';
 import { baseURL } from '../../config';
@@ -87,10 +87,9 @@ const ProductDetails = () => {
         window.scroll(0, 800);
     };
 
-    const createOrder = async (productPrice, product, id) => {
-        await dispatch(setProductToOrder({
-                product,
-                id,
+    const createOrder =  ( productToCard) => {
+        dispatch(orderAction.setProductToTheCard({
+                productToCard,
             }
         ));
 
@@ -207,7 +206,7 @@ const ProductDetails = () => {
                                     :
                                     css.order_button
                             }
-                                    onClick={() => createOrder(product ? product.productPrice : productPrice, product, id)}>Add to card
+                                    onClick={() => createOrder(product)}>Add to card
                             </button>
                         </div>
                     </div>

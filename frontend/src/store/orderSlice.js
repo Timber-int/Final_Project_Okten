@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+
 import { CONSTANTS } from '../constants';
 import { orderService } from '../service';
 import { createTotalOrderCount, minusTotalOrderCount, plusTotalOrderCount } from './totalOrderCountSlice';
@@ -186,39 +188,133 @@ export const setProductToOrder = createAsyncThunk(
 const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: {
-        chosenOrderProducts: [],
+        chosenOrderProducts: JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [],
         serverErrors: null,
         status: null,
         usedOrderType: CONSTANTS.ORDER,
         discount: 0,
-        productsCard:  [],
     },
     reducers: {
         setOrderType: (state, action) => {
             state.usedOrderType = action.payload.orderType;
         },
         deleteSingleOrderProductById: (state, action) => {
-            state.chosenOrderProducts = state.chosenOrderProducts.filter(element => element.id !== action.payload.id);
+            let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
+            state.chosenOrderProducts = state.chosenOrderProducts.filter(product => product.id !== action.payload.id);
+            productsCard = productsCard.filter(product => product.id !== action.payload.id);
+            localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
+            localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         },
         plusOrderSingleProduct: (state, action) => {
-            const orderFromDB = action.payload.updatedOrderData.data;
 
-            state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id ? { ...orderFromDB } : element);
+            const productData = action.payload.productData;
+
+            let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
+
+            productsCard = productsCard.map(product => product.id === productData.id ? {
+                ...product,
+                productPrice: product.productPrice + product.productPrice / product.totalCount,
+                totalCount: product.totalCount + 1,
+            } : product);
+
+            const updatedProduct = productsCard.find(product => product.id === productData.id);
+
+            state.chosenOrderProducts = state.chosenOrderProducts.map(product => product.id === updatedProduct.id ? { ...updatedProduct } : product);
+
+            localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
+            localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         },
         minusOrderSingleProduct: (state, action) => {
-            const orderFromDB = action.payload.updatedOrderData.data;
+            const productData = action.payload.productData;
+            console.log(productData);
+            let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
 
-            state.chosenOrderProducts = state.chosenOrderProducts.map(element => element.id === orderFromDB.id ? { ...orderFromDB } : element);
+            if (productData.totalCount <= 1) return;
+
+            productsCard = productsCard.map(product => product.id === productData.id ? {
+                ...product,
+                productPrice: product.productPrice - product.productPrice / product.totalCount,
+                totalCount: product.totalCount <= 1 ? product.totalCount : product.totalCount - 1,
+            } : product);
+
+            const updatedProduct = productsCard.find(product => product.id === productData.id);
+
+            state.chosenOrderProducts = state.chosenOrderProducts.map(product => product.id === updatedProduct.id ? { ...updatedProduct } : product);
+
+            localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
+            localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         },
         deleteAllOrderProduct: (state, action) => {
+            // localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
             state.chosenOrderProducts = [];
         },
         setProductToTheCard: (state, action) => {
-            const productData = action.payload.productData;
-            console.log(productData);
-            console.log(state.productsCard);
-            // localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(state.productsCard));
+            const product = action.payload.productToCard;
 
+            let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
+
+            const {
+                productName,
+                productPhoto,
+                productBigPhoto,
+                productPrice,
+                productWeight,
+                description,
+                totalCount,
+                chosenProductIngredients,
+                id,
+                categoryId
+            } = product;
+
+            const productIngredients = chosenProductIngredients.join(',');
+
+            const productData = {
+                productName,
+                productPhoto,
+                productBigPhoto,
+                productPrice,
+                productWeight,
+                description,
+                totalCount,
+                productIngredients,
+                productId: id,
+                categoryId,
+            };
+            if (productsCard.length === 0) {
+                productsCard.push({ id: uuidv4(), ...productData });
+                localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
+                return;
+            }
+
+            const productFromLocalStorage = productsCard.find(product => {
+                return product.productName === productData.productName
+                    &&
+                    product.productIngredients === productData.productIngredients;
+            });
+
+            if (
+                productFromLocalStorage
+            ) {
+                localStorage.removeItem(CONSTANTS.PRODUCT_CARD);
+                productsCard = productsCard.map(product => product.productName === productData.productName
+                    &&
+                    product.productIngredients === productData.productIngredients
+                        ?
+                        {
+                            ...productData,
+                            id: productFromLocalStorage.id,
+                            totalCount: productData.totalCount + product.totalCount,
+                            productPrice: productData.productPrice + product.productPrice,
+                        }
+                        :
+                        product
+                );
+                localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
+                return;
+            }
+
+            productsCard.push({ id: uuidv4(), ...productData });
+            localStorage.setItem(CONSTANTS.PRODUCT_CARD, JSON.stringify(productsCard));
         }
 
     },

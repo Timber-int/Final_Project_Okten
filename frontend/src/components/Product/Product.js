@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
 import { baseURL } from '../../config';
-import { getProductInformationByProductId, setProductToOrder } from '../../store';
+import { getProductInformationByProductId, orderAction, setProductToOrder } from '../../store';
 import { CONSTANTS, DEFAULT_CATEGORY_NAME } from '../../constants';
 import css from './Product.module.css';
 
@@ -33,10 +33,9 @@ const Product = ({
         totalCount,
     } = product;
 
-    const createOrder = (productPrice, product, id) => {
-        dispatch(setProductToOrder({
-                product,
-                id,
+    const createOrder = (productToCard) => {
+        dispatch(orderAction.setProductToTheCard({
+            productToCard,
             }
         ));
     };
@@ -145,7 +144,7 @@ const Product = ({
                             status === CONSTANTS.REJECTED
                                 ? css.product_order_button_disabled
                                 : css.product_order_button}
-                        onClick={() => createOrder(productPrice, product, id)}>
+                        onClick={() => createOrder(product)}>
                         Order
                     </button>
                 </div>

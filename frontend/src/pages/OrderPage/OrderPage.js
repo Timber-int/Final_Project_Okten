@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { OrderComponentButtonOrderPage, OrderTypeSelfPickup, OrderTypeShopDelivery } from '../../components';
-import { deleteOrderProductById, deleteTotalOrderCount, getAllOrder, orderAction } from '../../store';
+import { orderAction } from '../../store';
 import { baseURL } from '../../config';
 import { createCustomerOrder, createCustomerOrderSelfPickup, customerOrderAction } from '../../store/customerOrderSlice';
 import { CONSTANTS } from '../../constants';
@@ -18,6 +18,7 @@ const OrderPage = () => {
         usedOrderType,
         chosenOrderProducts,
         discount,
+        money
     } = useSelector(state => state['orderReducer']);
 
     const {
@@ -33,19 +34,13 @@ const OrderPage = () => {
 
     const dispatch = useDispatch();
 
-    const deleteOrderProduct = (orderElement) => {
-        dispatch(deleteOrderProductById({
-            orderElement,
+    const deleteOrderProduct = (orderElementId) => {
+        dispatch(orderAction.deleteSingleOrderProductById({
+            id: orderElementId,
         }));
-        dispatch(deleteTotalOrderCount({ orderElement }));
     };
 
-    useEffect(() => {
-        dispatch(getAllOrder());
-    }, []);
-
     const makeOrder = () => {
-
         if (usedOrderType === CONSTANTS.ORDER) {
             dispatch(createCustomerOrder({
                 payload: {
@@ -84,7 +79,9 @@ const OrderPage = () => {
                         Orders are accepted from 10:00 to 22:00. Sorry for the inconvenience
                     </div>
                     :
-                    totalOrderCount === 0 && chosenOrderProducts.length === 0
+                    !JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD))
+                    ||
+                    !JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)).length
                         ?
                         <div className={css.not_order_container}>
                             <div className={css.bucket_empty}>Your basket is empty</div>
@@ -147,49 +144,52 @@ const OrderPage = () => {
                                         </div>
                                         <div className={css.order_table_body}>
                                             {
-                                                chosenOrderProducts.map(orderElement => (
-                                                    <div className={css.chosen_product_container_table} key={uuidv4()}>
-                                                        <div className={css.first_element}>
-                                                            <div>
-                                                                <img className={css.chosen_product_image}
-                                                                     src={baseURL + '/' + orderElement.productPhoto}
-                                                                     alt={`${orderElement.productName}`}/>
+                                                JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD))
+                                                &&
+                                                JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD))
+                                                    .map(orderElement => (
+                                                        <div className={css.chosen_product_container_table} key={uuidv4()}>
+                                                            <div className={css.first_element}>
+                                                                <div>
+                                                                    <img className={css.chosen_product_image}
+                                                                         src={baseURL + '/' + orderElement.productPhoto}
+                                                                         alt={`${orderElement.productName}`}/>
+                                                                </div>
+                                                                <div>
+                                                                    <div className={css.product_information_element}>{orderElement.productName}</div>
+                                                                    {
+                                                                        orderElement.productIngredients.length > 0
+                                                                            ?
+                                                                            <div className={css.product_information_element_product_ingredients}>
+                                                                                {
+                                                                                    orderElement.productIngredients.split(',')
+                                                                                        .map(element => (
+                                                                                            <div key={element}>
+                                                                                                {element},
+                                                                                            </div>
+                                                                                        ))
+                                                                                }
+                                                                            </div>
+                                                                            :
+                                                                            <></>
+                                                                    }
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <div className={css.product_information_element}>{orderElement.productName}</div>
-                                                                {
-                                                                    orderElement.productIngredients.length > 0
-                                                                        ?
-                                                                        <div className={css.product_information_element_product_ingredients}>
-                                                                            {
-                                                                                orderElement.productIngredients.split(',')
-                                                                                    .map(element => (
-                                                                                        <div key={element}>
-                                                                                            {element},
-                                                                                        </div>
-                                                                                    ))
-                                                                            }
-                                                                        </div>
-                                                                        :
-                                                                        <></>
-                                                                }
+                                                            <div className={css.second_element}>
+                                                                <OrderComponentButtonOrderPage
+                                                                    orderData={orderElement}
+                                                                />
                                                             </div>
+                                                            <div className={css.third_element}>
+                                                                <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
+                                                            </div>
+                                                            <div className={css.delete_order_product}
+                                                                 onClick={() => deleteOrderProduct(orderElement.id)}>
+                                                                ✖
+                                                            </div>
+                                                            <hr/>
                                                         </div>
-                                                        <div className={css.second_element}>
-                                                            <OrderComponentButtonOrderPage
-                                                                orderData={orderElement}
-                                                            />
-                                                        </div>
-                                                        <div className={css.third_element}>
-                                                            <span className={css.productPrice}>{orderElement.productPrice}</span> <span>UAH</span>
-                                                        </div>
-                                                        <div className={css.delete_order_product}
-                                                             onClick={() => deleteOrderProduct(orderElement)}>
-                                                            ✖
-                                                        </div>
-                                                        <hr/>
-                                                    </div>
-                                                ))
+                                                    ))
                                             }
                                         </div>
                                         <div className={css.order_price_container}>
