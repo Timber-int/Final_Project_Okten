@@ -9,8 +9,6 @@ export * from './productInformationService';
 export * from './fileService';
 export * from './productIngredientService';
 export * from './cityAddressService';
-export * from './userOrderService';
-export * from './totalOrderCountService';
 export * from './partnersRequestService';
 export * from './customerDataOrderService';
 export * from './customerProductsForOrderService';

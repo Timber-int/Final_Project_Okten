@@ -11,19 +11,19 @@ class AuthMiddleware {
     public async checkAccessToken(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
             const authorizationHeader = req.headers.authorization;
-            console.log(authorizationHeader);
+
             if (!authorizationHeader) {
                 next(new ErrorHandler(MESSAGE.UNAUTHORIZED, STATUS.CODE_404));
                 return;
             }
 
             const accessToken = authorizationHeader.split(' ')[1];
-            console.log(accessToken);
+
             const {
                 userEmail,
                 userId,
             } = await tokenService.verifyToken(accessToken, TokenType.ACCESS);
-            console.log(userEmail, userId);
+
             const tokenPairFromDB = await tokenService.getTokenById(userId);
 
             if (!tokenPairFromDB) {

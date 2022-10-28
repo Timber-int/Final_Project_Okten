@@ -1,8 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { IRequestExtended } from '../interface';
-import {
-    customerDataSelfPickupOrderService, customerProductsForSelfPickupService, totalOrderCountService, userOrderService,
-} from '../service';
+import { customerDataSelfPickupOrderService, customerProductsForSelfPickupService } from '../service';
 import { CustomerProductsForSelfPickup } from '../entity';
 
 class CustomerOrderSelfPickupController {
@@ -15,6 +13,8 @@ class CustomerOrderSelfPickupController {
                 servetStatus,
                 chosenOrderProducts,
             } = req.body;
+
+            console.log(req.body);
 
             if (chosenOrderProducts.length === 0) {
                 return;
@@ -36,8 +36,6 @@ class CustomerOrderSelfPickupController {
                         });
                     });
                 });
-            await totalOrderCountService.deleteAllTotalOrderCount();
-            await userOrderService.deleteAllUserOrders();
 
             res.json(customerData);
         } catch (e) {

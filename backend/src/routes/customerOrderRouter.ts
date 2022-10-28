@@ -10,6 +10,6 @@ router.post('/',
     customerDataOrderController.createCustomerDataOrder,
 );
 
-router.get('/', customerDataOrderController.getCustomerDataOrder);
+router.get('/', authMiddleware.checkAuthorizationHeader, customerDataOrderController.getCustomerDataOrder);
 
 export const customerOrderRouter = router;

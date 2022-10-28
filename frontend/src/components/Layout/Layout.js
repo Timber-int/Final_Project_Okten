@@ -6,7 +6,7 @@ import { ModalWindow } from '../ModalWindow/ModalWindow';
 import { Footer } from '../Footer/Footer';
 import { baseURL } from '../../config';
 import { CONSTANTS, TokenType } from '../../constants';
-import { cityActions, getAllCategories, getAllTotalOrderCount } from '../../store';
+import { cityActions, getAllCategories } from '../../store';
 import css from './Layout.module.css';
 
 const Layout = () => {
@@ -35,7 +35,6 @@ const Layout = () => {
 
     useEffect(() => {
         dispatch(getAllCategories());
-        dispatch(getAllTotalOrderCount());
     }, [totalOrderCount, chosenCity, city]);
 
     return (

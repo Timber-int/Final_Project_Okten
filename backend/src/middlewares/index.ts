@@ -7,5 +7,4 @@ export * from './fileMiddleware';
 export * from './productIngredientMiddleware';
 export * from './cityMiddleware';
 export * from './cityAddressMiddleware';
-export * from './totalOrderCountMiddleware';
 export * from './customerOrderMiddleware';

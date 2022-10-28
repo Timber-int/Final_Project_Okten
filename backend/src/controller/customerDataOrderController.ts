@@ -1,9 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { CustomerProductsForOrder } from '../entity';
 import { IRequestExtended } from '../interface';
-import {
-    customerDataOrderService, customerProductsForOrderService, totalOrderCountService, userOrderService,
-} from '../service';
+import { customerDataOrderService, customerProductsForOrderService } from '../service';
 
 class CustomerDataOrderController {
     public async createCustomerDataOrder(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
@@ -15,6 +13,8 @@ class CustomerDataOrderController {
                 servetStatus,
                 chosenOrderProducts,
             } = req.body;
+
+            console.log(req.body);
 
             if (chosenOrderProducts.length === 0) {
                 return;
@@ -36,9 +36,6 @@ class CustomerDataOrderController {
                         });
                     });
                 });
-
-            await totalOrderCountService.deleteAllTotalOrderCount();
-            await userOrderService.deleteAllUserOrders();
 
             res.json(customerData);
         } catch (e) {

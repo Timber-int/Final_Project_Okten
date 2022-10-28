@@ -37,13 +37,18 @@ const OrderPage = () => {
     };
 
     const makeOrder = () => {
+        // Проблема в тому що при додаванні продукту я не міняю state і chosenOrderProducts === []
+        // Це треба виправити............................................
+        // Зараз працює але трема ще стате змінити щоб працювало не від локалстореджа а від стате.
+
+
         if (usedOrderType === CONSTANTS.ORDER) {
             dispatch(createCustomerOrder({
                 payload: {
                     userData,
                     totalOrderCount,
                     usedOrderType,
-                    chosenOrderProducts,
+                    chosenOrderProducts: JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)),
                     servetStatus,
                 }
             }));
@@ -55,15 +60,15 @@ const OrderPage = () => {
                     userData,
                     totalOrderCount,
                     usedOrderType,
-                    chosenOrderProducts,
+                    chosenOrderProducts: JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)),
                     servetStatus,
                 }
             }));
         }
 
-        if (status === CONSTANTS.RESOLVED) {
-            navigate('/thanks', { replace: true });
-        }
+        // if (status === CONSTANTS.RESOLVED) {
+        //     navigate('/thanks', { replace: true });
+        // }
     };
 
     return (

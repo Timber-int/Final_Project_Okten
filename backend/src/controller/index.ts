@@ -6,8 +6,6 @@ export * from './productController';
 export * from './productIngredientController';
 export * from './cityController';
 export * from './cityAddressController';
-export * from './userOrderController';
-export * from './totalOrderCountController';
 export * from './partnersRequestController';
 export * from './customerDataOrderController';
 export * from './customerProductsForOrderController';

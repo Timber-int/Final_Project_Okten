@@ -9,8 +9,6 @@ import { productInformationRoute } from './productInformationRoute';
 import { productIngredientRouter } from './productIngredientRouter';
 import { cityRouter } from './cityRouter';
 import { cityAddressRouter } from './cityAddressRouter';
-import { userOrderRouter } from './userOrderRouter';
-import { totalOrderCountRouter } from './totalOrderCountRouter';
 import { partnersRequestRouter } from './partnersRequestRouter';
 import { customerOrderRouter } from './customerOrderRouter';
 import { customerOrderSelfPickupRouter } from './customerOrderSelfPickupRouter';
@@ -20,7 +18,6 @@ import { customerProductsForSelfPickupRouter } from './customerProductsForSelfPi
 const router = Router();
 
 router.use('/users', userRouter);
-router.use('/orders', userOrderRouter);
 router.use('/categories', categoryRouter);
 router.use('/products', productRouter);
 router.use('/productIngredients', productIngredientRouter);
@@ -28,7 +25,6 @@ router.use('/auth', authRouter);
 router.use('/productInformation', productInformationRoute);
 router.use('/cities', cityRouter);
 router.use('/cityAddress', cityAddressRouter);
-router.use('/totalCounts', totalOrderCountRouter);
 router.use('/partnerRequests', partnersRequestRouter);
 router.use('/customerOrders', customerOrderRouter);
 router.use('/customerOrderSelfPickup', customerOrderSelfPickupRouter);

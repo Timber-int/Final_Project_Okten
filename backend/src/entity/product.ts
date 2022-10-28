@@ -1,12 +1,10 @@
 import {
-    Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne,
+    Column, Entity, JoinColumn, ManyToOne, OneToOne,
 } from 'typeorm';
 import { CONSTANTS } from '../constants';
 import { DefaultValue } from './defaultValue';
 import { Category } from './category';
 import { IProductInformation, ProductInformation } from './productInformation';
-import { TotalOrderCount } from './totalOrderCount';
-import { UserOrder } from './userOrder';
 
 export interface IProduct {
     id: number,
@@ -18,8 +16,6 @@ export interface IProduct {
     productWeight: number,
     categoryId: number,
     productInformation?: ProductInformation,
-    totalOrderCount?: TotalOrderCount[],
-    userOrderElement?: UserOrder[],
 }
 
 @Entity('products', { database: CONSTANTS.DATA_BASE })
@@ -75,10 +71,4 @@ export class Product extends DefaultValue implements IProduct {
 
     @OneToOne(() => ProductInformation, (productInformation: IProductInformation) => productInformation.product)
         productInformation: ProductInformation;
-
-    @OneToMany(() => TotalOrderCount, (TotalOrderCount) => TotalOrderCount.product)
-        totalOrderCount: TotalOrderCount[];
-
-    @OneToMany(() => UserOrder, (UserOrder) => UserOrder.product)
-        userOrderElement: UserOrder[];
 }

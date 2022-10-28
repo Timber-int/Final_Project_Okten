@@ -6,8 +6,6 @@ export * from './categoryService';
 export * from './cityService';
 export * from './cityAddressService';
 export * from './productInformationService';
-export * from './orderService';
-export * from './totalCountService';
 export * from './partnersRequestService';
 export * from './customerOrderService';
 export * from './productOrderService';
