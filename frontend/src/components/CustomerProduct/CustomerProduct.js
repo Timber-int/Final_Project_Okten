@@ -2,7 +2,6 @@ import React from 'react';
 
 import { baseURL } from '../../config';
 import css from './CustomerProduct.module.css';
-import { CONSTANTS } from '../../constants';
 
 const CustomerProduct = ({ product }) => {
     const {
@@ -22,15 +21,12 @@ const CustomerProduct = ({ product }) => {
                     productBigPhoto
                         ?
                         <div className={css.images_container}>
-                            <img className={css.product_image} src={baseURL + '/' + productPhoto} alt={productName}/>
-                            <img className={css.product_image} src={baseURL + '/' + productBigPhoto} alt={productName}/>
+                            <img className={css.product_photo_one} src={baseURL + '/' + productPhoto} alt={productName}/>
+                            <img className={css.product_photo_two} src={baseURL + '/' + productBigPhoto} alt={productName}/>
                         </div>
                         :
-                        <div className={css.images_container}>
-                            <img className={css.product_image} src={baseURL + '/' + productPhoto} alt={productName}/>
-                            <img className={css.product_image}
-                                 src={'https://previews.123rf.com/images/shopplaywood/shopplaywood1603/shopplaywood160300005/53170750-flat-pizza-icon-.jpg'}
-                                 alt={productName}/>
+                        <div className={css.images_container_static}>
+                            <img className={css.product_photo_static} src={baseURL + '/' + productPhoto} alt={productName}/>
                         </div>
                 }
             </div>

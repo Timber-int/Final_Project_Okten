@@ -37,10 +37,6 @@ const OrderPage = () => {
     };
 
     const makeOrder = () => {
-        // Проблема в тому що при додаванні продукту я не міняю state і chosenOrderProducts === []
-        // Це треба виправити............................................
-        // Зараз працює але трема ще стате змінити щоб працювало не від локалстореджа а від стате.
-
 
         if (usedOrderType === CONSTANTS.ORDER) {
             dispatch(createCustomerOrder({
@@ -66,15 +62,15 @@ const OrderPage = () => {
             }));
         }
 
-        // if (status === CONSTANTS.RESOLVED) {
-        //     navigate('/thanks', { replace: true });
-        // }
+        if (status === CONSTANTS.RESOLVED) {
+            navigate('/thanks', { replace: true });
+        }
     };
 
     return (
         <div className={css.order_container}>
             {
-                new Date().getHours() < 7 || new Date().getHours() >= 22
+                new Date().getHours() < 6 || new Date().getHours() >= 22
                     ?
                     <div className={css.shop_is_closed}>
                         Orders are accepted from 10:00 to 22:00. Sorry for the inconvenience

@@ -34,7 +34,7 @@
 .loading .line_box .line {
     height: 10px;
     background-color: #e53935;
-    animation: loading 0.4s forwards cubic-bezier(0, 0, 0, 0);
+    animation: loading 0.6s forwards cubic-bezier(0, 0, 0, 0);
 }
 
 @keyframes loading {
@@ -66,6 +66,7 @@
 }
 
 .home_page {
+    width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -188,6 +189,7 @@
 }
 
 .information_menu {
+    width: 10%;
     position: relative;
     display: inline-block;
     float: right;
@@ -255,4 +257,18 @@ a {
 .customer_data_box:hover {
     background-color: #e53935;
     color: #FFD600;
+}
+
+.menu_center {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.menu_right {
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }

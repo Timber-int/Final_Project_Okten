@@ -6,17 +6,10 @@ import { ProductIngredients } from '../ProductIngredients/ProductIngredients';
 import { SelectedProductIngredients } from '../SelectedProductIngredients/SelectedProductIngredients';
 import { ProductImageCarousel } from '../ProductImageCarousel/ProductImageCarousel';
 import { OrderComponentButton } from '../OrderComponentButton/OrderComponentButton';
-import {
-    createTotalOrderCount,
-    getAllProductIngredients,
-    getAllProducts,
-    getCategoryById,
-    getProductInformationByProductId, orderAction,
-    setProductToOrder
-} from '../../store';
-import { baseURL } from '../../config';
-import { CONSTANTS, DEFAULT_CATEGORY_NAME } from '../../constants';
 import { ProductInformation } from '../ProductInformation/ProductInformation';
+import { getAllProductIngredients, getAllProducts, getCategoryById, getProductInformationByProductId, orderAction } from '../../store';
+import { CONSTANTS, DEFAULT_CATEGORY_NAME } from '../../constants';
+import { baseURL } from '../../config';
 import css from './ProductDetails.module.css';
 
 const ProductDetails = () => {
@@ -62,7 +55,7 @@ const ProductDetails = () => {
     } = singleProduct;
 
     useEffect(() => {
-        window.scroll(0, 0);
+        // window.scroll(0, 0);
 
         dispatch(getProductInformationByProductId({ productId: id }));
 
@@ -84,7 +77,7 @@ const ProductDetails = () => {
     }, [id, products, category, productIngredients]);
 
     const moveToIngredients = () => {
-        window.scroll(0, 800);
+        window.scroll(0, 900);
     };
 
     const createOrder =  ( productToCard) => {
@@ -93,9 +86,9 @@ const ProductDetails = () => {
             }
         ));
 
-        return function () {
-            window.scroll(0, 0);
-        }
+        // return function () {
+        //     window.scroll(0, 0);
+        // }
     };
 
     return (
@@ -214,6 +207,8 @@ const ProductDetails = () => {
             </div>
             {
                 category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.PIZZA.toLocaleLowerCase()
+                // ||
+                // category && category.name.toLocaleLowerCase() === DEFAULT_CATEGORY_NAME.SUSHI.toLocaleLowerCase()
                     ?
                     <div className={css.product_ingredients_container}>
                         <div className={css.product_ingredients_text}>Extra ingredients for {category.name}</div>

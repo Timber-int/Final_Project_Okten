@@ -17,10 +17,10 @@ const Layout = () => {
 
     const {
         user: userRegistered,
+        status,
     } = useSelector(state => state['authReducer']);
 
     const {
-        status,
         totalOrderCount,
     } = useSelector(state => state['orderReducer']);
 
@@ -52,18 +52,20 @@ const Layout = () => {
                 <NavLink className={css.home_page} to={'/'}>
                     <img className={css.logo_image} src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/logo-dark.svg" alt="logo"/>
                 </NavLink>
+                <div className={css.menu_center}>
                 <NavLink to={'/action'} className={css.category_path}>
                         <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'}
                                    alt={'action'}/></span>
                     <span>Special offers</span>
                 </NavLink>
-                {
-                    categories.map(category =>
-                        <NavLink key={category.id} to={'/'} state={category} className={css.category_path}>
-                            <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
-                            <span>{category.name}</span>
-                        </NavLink>)
-                }
+                    {
+                        categories.map(category =>
+                            <NavLink key={category.id} to={'/'} state={category} className={css.category_path}>
+                                <span><img className={css.category_image} src={baseURL + '/' + category.logo} alt={category.name}/></span>
+                                <span>{category.name}</span>
+                            </NavLink>)
+                    }
+                </div>
                 <div className={css.information_menu}>
                     <div className={css.information_path}>
                         <span>
@@ -83,38 +85,40 @@ const Layout = () => {
                         <NavLink className={css.information_drop_down_path} to={'/payment'}>Payment</NavLink>
                     </div>
                 </div>
-                <div className={css.city_box} onClick={() => dispatch(cityActions.setCityStatusTrue())}>
-                    <div>
-                        <img className={css.image_city_location}
-                             src="https://la.ua/drogobych/wp-content/themes/lapiec/assets/frontend/img/header_location.svg" alt="centerCity"/>
-                    </div>
-                    <div className={css.city_name}>{city ? city : chosenCity}</div>
-                </div>
-                {
-                    localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)
-                        ?
-                        <NavLink to={'/customerPanel'}>
-                            <div
-                                className={css.customer_data_box}>{userRegistered?.firstName[0].toUpperCase()}{userRegistered?.lastName[0].toUpperCase()}
-                            </div>
-                        </NavLink>
-                        :
-                        <NavLink to={'/registration'}>Sign in</NavLink>
-                }
-                <NavLink to={'/OrderPage'} className={css.order_total_count}>
-                    <div className={css.order_content}>
+                <div className={css.menu_right}>
+                    <div className={css.city_box} onClick={() => dispatch(cityActions.setCityStatusTrue())}>
                         <div>
-                            <img className={css.basket_image}
-                                 src={'https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/shopping-cart.svg'} alt="basket"/>
+                            <img className={css.image_city_location}
+                                 src="https://la.ua/drogobych/wp-content/themes/lapiec/assets/frontend/img/header_location.svg" alt="centerCity"/>
                         </div>
-                        <div>
+                        <div className={css.city_name}>{city ? city : chosenCity}</div>
+                    </div>
+                    {
+                        localStorage.getItem(TokenType.ACCESS) && localStorage.getItem(TokenType.REFRESH)
+                            ?
+                            <NavLink to={'/customerPanel'}>
+                                <div
+                                    className={css.customer_data_box}>{userRegistered?.firstName[0].toUpperCase()}{userRegistered?.lastName[0].toUpperCase()}
+                                </div>
+                            </NavLink>
+                            :
+                            <NavLink to={'/registration'}>Sign in</NavLink>
+                    }
+                    <NavLink to={'/OrderPage'} className={css.order_total_count}>
+                        <div className={css.order_content}>
+                            <div>
+                                <img className={css.basket_image}
+                                     src={'https://la.ua/wp-content/themes/lapiec/assets/frontend/img/icons/shopping-cart.svg'} alt="basket"/>
+                            </div>
+                            <div>
                             <span className={css.total_count}>
                                 {totalOrderCount}
                             </span>
-                            <span>UAH</span>
+                                <span>UAH</span>
+                            </div>
                         </div>
-                    </div>
-                </NavLink>
+                    </NavLink>
+                </div>
             </div>
             <div className={css.outlet}>
                 <Outlet/>

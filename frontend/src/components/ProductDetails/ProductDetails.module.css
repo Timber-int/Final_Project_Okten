@@ -1,10 +1,10 @@
 .product_details_container {
-    margin-top: 10vh;
+    margin-top: 5vh;
     width: 100%;
 }
 
 .product_ingredients_container {
-    margin-top: 10vh;
+    margin-top: 5vh;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -24,8 +24,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100vh;
-    min-height: 100vh;
 }
 
 .details_container > div {

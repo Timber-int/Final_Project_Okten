@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CONSTANTS, TokenType } from '../constants';
 import { authService } from '../service';
 import { baseURL, urls } from '../config';
+import { orderAction } from './orderSlice';
 
 export const registration = createAsyncThunk(
     'authSlice/registration',
@@ -53,6 +54,8 @@ export const logout = createAsyncThunk(
             const data = await authService.logout();
 
             await dispatch(authAction.userLogout());
+
+            await dispatch(orderAction.deleteAllOrderProduct());
 
             return { user: data };
 
