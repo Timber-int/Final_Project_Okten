@@ -7,6 +7,7 @@ import css from './ProductIngredientsComponentDetailsPage.module.css';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
 import { createProductIngredientValidator } from '../../validator';
+import { FaFileUpload } from 'react-icons/fa';
 
 const ProductIngredientsComponentDetailsPage = () => {
 
@@ -75,7 +76,13 @@ const ProductIngredientsComponentDetailsPage = () => {
             <div className={css.form_box}>
                 {serverErrors ? <div className={css.server_error_block}>{serverErrors}</div> : <></>}
                 <form key={category.id} onSubmit={handleSubmit(submit)} className={css.product_form}>
-                    <div><input type="file" {...register('productPhoto')} placeholder={'productPhoto...'}/></div>
+                    <div>
+                        <input className={css.file_input} id="uploadBtn" type="file" {...register('productPhoto')} placeholder={'productPhoto...'}/>
+                        <label className={css.file_label} htmlFor="uploadBtn">
+                            <FaFileUpload/>
+                            Upload photo
+                        </label>
+                    </div>
                     <div className={css.errors_span}>{errors.productPhoto && <span>{errors.productPhoto.message}</span>}</div>
                     <div><input type="text" {...register('productIngredientName')} placeholder={'productIngredientName...'}/></div>
                     <div className={css.errors_span}>{errors.productIngredientName && <span>{errors.productIngredientName.message}</span>}</div>

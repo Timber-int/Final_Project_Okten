@@ -17,7 +17,7 @@ const Layout = () => {
 
     const {
         user: userRegistered,
-        status,
+        status: authStatus,
     } = useSelector(state => state['authReducer']);
 
     const {
@@ -26,11 +26,16 @@ const Layout = () => {
 
     const {
         chosenCity,
-        cityStatus
+        cityStatus,
     } = useSelector(state => state['cityReducer']);
 
     const {
+        status: productStatus,
+    } = useSelector(state => state['productReducer']);
+
+    const {
         categories,
+        status: categoryStatus,
     } = useSelector(state => state['categoryReducer']);
 
     useEffect(() => {
@@ -41,7 +46,12 @@ const Layout = () => {
         <div>
             {!city || cityStatus === true ? <ModalWindow/> : <></>}
             <div className={css.loading}>
-                {status === CONSTANTS.LOADING
+                {
+                    (
+                        authStatus === CONSTANTS.LOADING
+                        || productStatus === CONSTANTS.LOADING
+                        || categoryStatus === CONSTANTS.LOADING
+                    )
                     &&
                     <div className={css.line_box}>
                         <div className={css.line}/>
@@ -53,11 +63,15 @@ const Layout = () => {
                     <img className={css.logo_image} src="https://la.ua/wp-content/themes/lapiec/assets/frontend/img/logo-dark.svg" alt="logo"/>
                 </NavLink>
                 <div className={css.menu_center}>
-                <NavLink to={'/action'} className={css.category_path}>
-                        <span><img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'}
-                                   alt={'action'}/></span>
-                    <span>Special offers</span>
-                </NavLink>
+                    <NavLink to={'/action'} className={css.category_path}>
+                        <span>
+                            <img className={css.category_image} src={'https://la.ua/wp-content/uploads/2021/06/menu-icon-1.svg'}
+                                 alt={'action'}
+                            />
+                        </span>
+                        <span>Special offers</span>
+                    </NavLink>
+                    <div className={css.separator}/>
                     {
                         categories.map(category =>
                             <NavLink key={category.id} to={'/'} state={category} className={css.category_path}>
@@ -65,6 +79,7 @@ const Layout = () => {
                                 <span>{category.name}</span>
                             </NavLink>)
                     }
+                    <div className={css.separator}/>
                 </div>
                 <div className={css.information_menu}>
                     <div className={css.information_path}>

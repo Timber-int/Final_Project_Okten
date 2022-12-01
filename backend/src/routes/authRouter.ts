@@ -20,6 +20,7 @@ router.post(
     },
     dataValidatorMiddleware.dataValidator,
     userMiddleware.checkIsUserExistsOnDB,
+    userMiddleware.setUserRole,
     authController.registration,
 );
 router.post(

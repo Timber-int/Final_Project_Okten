@@ -104,7 +104,7 @@ const OrderPage = () => {
                                                    onClick={e => dispatch(orderAction.setOrderType({ orderType: e.target.value }))}
                                                    value={'order'}
                                                    name={'chosenOrderType'}
-                                                   defaultChecked={true}
+                                                   defaultChecked={usedOrderType === CONSTANTS.ORDER}
                                             />
                                             <span className={css.chosen_order_type_name}>Delivery</span>
                                         </label>
@@ -113,6 +113,7 @@ const OrderPage = () => {
                                                    onClick={e => dispatch(orderAction.setOrderType({ orderType: e.target.value }))}
                                                    value={'selfPickup'}
                                                    name={'chosenOrderType'}
+                                                   defaultChecked={usedOrderType === CONSTANTS.SELF_PICKUP}
                                             />
                                             <span className={css.chosen_order_type_name}>Pickup</span>
                                         </label>

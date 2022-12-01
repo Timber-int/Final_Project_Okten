@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Category } from '../../components';
-import { createCategory, getAllCategories, updateCategoryById } from '../../store';
-import css from './CategoryPage.module.css';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
+import { Category } from '../../components';
+import { FaFileUpload } from 'react-icons/fa';
+import { createCategory, getAllCategories, updateCategoryById } from '../../store';
 import { createCategoryValidator } from '../../validator';
+import css from './CategoryPage.module.css';
 
 const CategoryPage = () => {
     const dispatch = useDispatch();
@@ -59,7 +60,13 @@ const CategoryPage = () => {
             <div className={css.category_form_container}>
                 {serverErrors ? <div className={css.server_error_block}>{serverErrors}</div> : <></>}
                 <form onSubmit={handleSubmit(submit)} className={css.category_form}>
-                    <div><input type="file" {...register('logo')} placeholder={'logo...'}/></div>
+                    <div>
+                        <input type="file" {...register('logo')} placeholder={'logo...'} id="uploadBtn" className={css.file_input}/>
+                        <label className={css.file_label} htmlFor="uploadBtn">
+                            <FaFileUpload/>
+                            Upload photo
+                        </label>
+                    </div>
                     <div className={css.errors_span}>{errors.logo && <span>{errors.logo.message}</span>}</div>
                     <div><input type="text" {...register('name')} placeholder={'name...'}/></div>
                     <div className={css.errors_span}>{errors.name && <span>{errors.name.message}</span>}</div>

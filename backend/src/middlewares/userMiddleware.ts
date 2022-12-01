@@ -5,6 +5,8 @@ import { ErrorHandler } from '../errorHandler';
 import { MESSAGE } from '../message';
 import { STATUS } from '../errorCode';
 import { IUser } from '../entity';
+import { UserRole } from '../constants';
+import { config } from '../config';
 
 class UserMiddleware {
     public async checkIsUserExistsOnDB(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
@@ -14,6 +16,18 @@ class UserMiddleware {
             if (userWithEmail) {
                 next(new ErrorHandler(MESSAGE.WRONG_EMAIL_OR_PASSWORD, STATUS.CODE_404));
                 return;
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    public async setUserRole(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+        try {
+            if (req.body.email === config.SECRET_ADMIN_EMAIL && req.body.password === config.SECRET_ADMIN_PASSWORD) {
+                req.body.role = UserRole.ADMIN;
             }
 
             next();

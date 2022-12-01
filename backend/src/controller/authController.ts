@@ -22,6 +22,8 @@ class AuthController {
 
             const userNormalized = await passwordService.userNormalization(user);
 
+            // await emailService.sendMail(user.email, EmailActionEnum.REGISTRATION, {});
+
             res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,

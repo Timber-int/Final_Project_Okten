@@ -8,6 +8,7 @@ import { ProductAdminContent } from '../../components';
 import { createProduct, getAllProducts, updateProductById } from '../../store';
 import { createProductValidator } from '../../validator';
 import css from './ProductsComponentDetailsPage.module.css';
+import { FaFileUpload } from 'react-icons/fa';
 
 const ProductsComponentDetailsPage = () => {
 
@@ -80,9 +81,21 @@ const ProductsComponentDetailsPage = () => {
             <div className={css.form_box}>
                 {serverErrors ? <div className={css.server_error_block}>{serverErrors}</div> : <></>}
                 <form key={category.id} onSubmit={handleSubmit(submit)} className={css.product_form}>
-                    <div><input type="file" {...register('productPhoto')} placeholder={'productPhoto...'}/></div>
+                    <div>
+                        <input className={css.file_input} type="file" {...register('productPhoto')} placeholder={'productPhoto...'} id="uploadBtnFirst"/>
+                        <label className={css.file_label} htmlFor="uploadBtnFirst">
+                            <FaFileUpload/>
+                            Upload photo
+                        </label>
+                    </div>
                     <div className={css.errors_span}>{errors.productPhoto && <span>{errors.productPhoto.message}</span>}</div>
-                    <div><input type="file" {...register('productBigPhoto')} placeholder={'productBigPhoto...'}/></div>
+                    <div>
+                        <input className={css.file_input} type="file" {...register('productBigPhoto')} placeholder={'productBigPhoto...'} id="uploadBtnSecond"/>
+                        <label className={css.file_label} htmlFor="uploadBtnSecond">
+                            <FaFileUpload/>
+                            Upload photo
+                        </label>
+                    </div>
                     <div className={css.errors_span}>{errors.productBigPhoto && <span>{errors.productBigPhoto.message}</span>}</div>
                     <div><input type="text" {...register('productName')} placeholder={'productName...'}/></div>
                     <div className={css.errors_span}>{errors.productName && <span>{errors.productName.message}</span>}</div>

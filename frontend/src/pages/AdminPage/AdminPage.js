@@ -5,6 +5,7 @@ import { OrderElement, SelfPickupElement } from '../../components';
 import { customerOrderAction, getCustomerOrder, getCustomerOrderSelfPickup } from '../../store/customerOrderSlice';
 import css from './AdminPage.module.css';
 import { getProductsOrder, getProductsSelfPickup, logout } from '../../store';
+import { CONSTANTS } from '../../constants';
 
 const checkIsTodayOrder = (array) => {
     return array.reduce((acc, order) => {
@@ -31,16 +32,19 @@ const AdminPage = () => {
 
     const {
         orders,
-        selfPickupOrders
+        selfPickupOrders,
+        status: orderStatus,
     } = useSelector(state => state['customerOrderReducer']);
 
     const {
         productsOrder,
-        productSelfPickup
+        productSelfPickup,
+        status: productStatus,
     } = useSelector(state => state['productOrderReducer']);
 
     const [searchData, setSearchData] = useState('');
     console.log(productsOrder);
+    console.log(productSelfPickup);
     useEffect(() => {
         dispatch(getCustomerOrder());
         dispatch(getCustomerOrderSelfPickup());
@@ -72,6 +76,15 @@ const AdminPage = () => {
 
     return (
         <div className={css.admin_content}>
+            <div className={css.loading}>
+                {
+                    (orderStatus === CONSTANTS.LOADING || productStatus === CONSTANTS.LOADING)
+                    &&
+                    <div className={css.line_box}>
+                        <div className={css.line}/>
+                    </div>
+                }
+            </div>
             <div className={css.navigation_block}>
                 <NavLink to={'/adminPage/category'}>Category</NavLink>
                 <NavLink to={'/adminPage/products'}>Products</NavLink>
