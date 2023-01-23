@@ -66,6 +66,7 @@ const App = () => {
                 <Route path={'/thanks'} element={<ThankYouForYourOrderPage/>}/>
                 <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>
+
             <Route path={'/adminPage'} element={<AdminPage/>}>
                 <Route path={'category'} element={<CategoryPage/>}/>
                 <Route path={'cities'} element={<CityPage/>}/>
