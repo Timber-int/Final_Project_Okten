@@ -265,9 +265,6 @@ const productSlice = createSlice({
     name: 'productSlice',
     initialState: {
         products: [],
-        page: null,
-        perPage: null,
-        itemCount: null,
         serverErrors: null,
         status: null,
         productDetails: null,
@@ -422,6 +419,13 @@ const productSlice = createSlice({
             state.productIngredients = state.productIngredients.map(productIngredient => productIngredient.id === id ? { ...updatedProductIngredient } : productIngredient);
             state.productIngredientDataToUpdate = null;
         },
+        setProductDataToUpdateDefault: (state, action) => {
+            state.productDataToUpdate = null;
+        },
+        setProductIngredientsDataToUpdateDefault: (state, action) => {
+            state.productIngredientDataToUpdate = null;
+        },
+
     },
     extraReducers: {
         [getAllProducts.pending]: (state, action) => {
@@ -430,17 +434,12 @@ const productSlice = createSlice({
         },
         [getAllProducts.fulfilled]: (state, action) => {
             state.status = CONSTANTS.RESOLVED;
-
-            const productArray = action.payload.productData.data;
-
+            const productArray = action.payload.productData;
             state.products = productArray.map(product => Object.assign(product, {
                 totalCount: 1,
                 defaultPrice: product.productPrice,
                 chosenProductIngredients: [],
             }));
-            state.page = action.payload.productData.page;
-            state.perPage = action.payload.productData.perPage;
-            state.itemCount = action.payload.productData.itemCount;
             state.serverErrors = null;
         },
         [getAllProducts.rejected]: (state, action) => {
@@ -554,6 +553,8 @@ const {
     deleteSingleProductIngredientById,
     updateSingleProductIngredientById,
     updateProductIngredientGetData,
+    setProductDataToUpdateDefault,
+    setProductIngredientsDataToUpdateDefault,
 } = productSlice.actions;
 
 export const productAction = {
@@ -569,6 +570,8 @@ export const productAction = {
     deleteSingleProductIngredientById,
     updateSingleProductIngredientById,
     updateProductIngredientGetData,
+    setProductDataToUpdateDefault,
+    setProductIngredientsDataToUpdateDefault
 };
 
 export default productReducer;

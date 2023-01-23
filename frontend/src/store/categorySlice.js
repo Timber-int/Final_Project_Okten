@@ -118,6 +118,7 @@ const categorySlice = createSlice({
     initialState: {
         categories: [],
         category: null,
+        categoryDataToUpdate:null,
     },
     reducers: {
         deleteSingleCategoryById: (state, action) => {
@@ -131,6 +132,9 @@ const categorySlice = createSlice({
         },
         updateCategoryGetData: (state, action) => {
             state.categoryDataToUpdate = action.payload.category;
+        },
+        setCategoryGetDataDefault: (state, action) => {
+            state.categoryDataToUpdate = null;
         },
 
     },
@@ -184,12 +188,14 @@ const {
     deleteSingleCategoryById,
     updateCategoryGetData,
     updateSingleCategoryById,
+    setCategoryGetDataDefault
 } = categorySlice.actions;
 
 export const categoryAction = {
     deleteSingleCategoryById,
     updateCategoryGetData,
     updateSingleCategoryById,
+    setCategoryGetDataDefault
 };
 
 export default categoryReducer;

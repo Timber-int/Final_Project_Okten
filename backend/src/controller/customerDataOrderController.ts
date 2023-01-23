@@ -1,7 +1,8 @@
 import { NextFunction, Response } from 'express';
 import { CustomerProductsForOrder } from '../entity';
 import { IRequestExtended } from '../interface';
-import { customerDataOrderService, customerProductsForOrderService } from '../service';
+import { customerDataOrderService, customerProductsForOrderService, emailService } from '../service';
+import { EmailActionEnum } from '../emailInformation';
 
 class CustomerDataOrderController {
     public async createCustomerDataOrder(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
@@ -13,8 +14,6 @@ class CustomerDataOrderController {
                 servetStatus,
                 chosenOrderProducts,
             } = req.body;
-
-            console.log(req.body);
 
             if (chosenOrderProducts.length === 0) {
                 return;
@@ -36,6 +35,13 @@ class CustomerDataOrderController {
                         });
                     });
                 });
+
+            await emailService.sendMail(userData.email, EmailActionEnum.SEND_ORDER_DATA, {
+                userData,
+                chosenOrderProducts,
+                totalOrderCount,
+                usedOrderType,
+            });
 
             res.json(customerData);
         } catch (e) {

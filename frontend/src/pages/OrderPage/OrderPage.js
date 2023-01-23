@@ -9,6 +9,7 @@ import { baseURL } from '../../config';
 import { createCustomerOrder, createCustomerOrderSelfPickup, customerOrderAction } from '../../store/customerOrderSlice';
 import { CONSTANTS } from '../../constants';
 import css from './OrderPage.module.css';
+import orderReducer from '../../store/orderSlice';
 
 const OrderPage = () => {
 
@@ -48,6 +49,8 @@ const OrderPage = () => {
                     servetStatus,
                 }
             }));
+            dispatch(customerOrderAction.deleteUserData());
+            dispatch(orderAction.setOrderTypeDefault());
         }
 
         if (usedOrderType === CONSTANTS.SELF_PICKUP) {
@@ -60,6 +63,8 @@ const OrderPage = () => {
                     servetStatus,
                 }
             }));
+            dispatch(customerOrderAction.deleteUserData());
+            dispatch(orderAction.setOrderTypeDefault());
         }
 
         if (status === CONSTANTS.RESOLVED) {

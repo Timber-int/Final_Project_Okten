@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            /*width: 100vw;*/
+            /*display: flex;*/
+            /*flex-wrap: wrap;*/
+            /*justify-content: center;*/
+            /*align-items: center;*/
+            /*height: 100vh;*/
+            /*min-height: 100vh;*/
+        }
+
+        .user_data_box {
+            width: 100%;
+            font-size: 32px;
+        }
+
+        .total_order_count_box {
+            width: 100%;
+            font-size: 32px;
+        }
+
+        .total_count {
+            color: #e53935;
+            font-size: 44px;
+        }
+
+        .order_type_box {
+            width: 100%;
+            font-size: 32px;
+        }
+
+        .products_data {
+            width: 100%;
+            font-size: 32px;
+        }
+
+        .products_container {
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .product_box {
+            width: 95%;
+        }
+
+        .product_box > div {
+            width: 45%;
+        }
+
+        .product_name {
+            color: #e53935;
+        }
+
+        .product_name_container {
+            font-size: 32px;
+        }
+
+        .product_ingredients_container {
+            width: 100%;
+            font-size: 32px;
+            color: #e53935;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product_ingredient {
+            width: 100%;
+            font-size: 32px;
+        }
+
+        .price {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="user_data_box">Thank for you order: {{this.userData.lastName}} {{this.userData.firstName}}</div>
+    <div class="total_order_count_box">Total order count: <span class="total_count">{{this.totalOrderCount}}</span> UAH
+    </div>
+    <div class="order_type_box">Order type: {{this.usedOrderType}}</div>
+    <div class="products_data">You order products:</div>
+    <div class="products_container">
+        <hr>
+        {{#each chosenOrderProducts}}
+            <div class="product_box">
+                <div class="product_name_container">Product name: <span class="product_name">{{this.productName}}</span>
+                </div>
+                <div class="price">Price: <span class="total_count"> {{this.productPrice}}</span> UAH</div>
+                <div class="product_ingredient">Product ingredients:</div>
+                <div class="product_ingredients_container">
+                    {{this.productIngredients}}
+                </div>
+            </div>
+            <hr>
+        {{/each}}
+    </div>
+</div>
+</body>
+</html>

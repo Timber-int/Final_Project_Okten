@@ -212,7 +212,6 @@ class AuthMiddleware {
             }
 
             await userService.comparePassword(config.SECRET_ADMIN_PASSWORD as string, userFromDB.password);
-
             if (userFromDB.role !== UserRole.ADMIN) {
                 next(new ErrorHandler(MESSAGE.USER_DOES_NOT_HAVE_ADMINISTRATOR_RIGHTS, STATUS.CODE_404));
                 return;

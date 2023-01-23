@@ -20,8 +20,8 @@ class EmailService {
         const html = await this._templateRender.render(templateName, context);
 
         const emailTransporter = nodemailer.createTransport({
-            from: 'Admin',
             service: 'gmail',
+            from: 'Admin',
             auth: {
                 user: config.NO_REPLY_EMAIL,
                 pass: config.NO_REPLY_EMAIL_PASSWORD,

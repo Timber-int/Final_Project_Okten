@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ProductIngredientAdminContent } from '../../components';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProductIngredient, getAllProductIngredients, updateProductIngredientById } from '../../store';
+import { createProductIngredient, getAllProductIngredients, productAction, updateProductIngredientById } from '../../store';
 import css from './ProductIngredientsComponentDetailsPage.module.css';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
@@ -71,6 +71,11 @@ const ProductIngredientsComponentDetailsPage = () => {
         }
     };
 
+    const clear = () => {
+        dispatch(productAction.setProductIngredientsDataToUpdateDefault());
+        reset();
+    };
+
     return (
         <div className={css.product_ingredients_content}>
             <div className={css.form_box}>
@@ -95,6 +100,13 @@ const ProductIngredientsComponentDetailsPage = () => {
                                value={productIngredientDataToUpdate ? 'Update' : 'Create'}/>
                     </div>
                 </form>
+                {
+                    productIngredientDataToUpdate
+                        ?
+                        <button className={css.clear_button} onClick={() => clear()}>Clear</button>
+                        :
+                        <></>
+                }
             </div>
             <div className={css.products_ingredients_box}>
                 {

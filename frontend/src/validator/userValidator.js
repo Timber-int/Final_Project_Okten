@@ -56,6 +56,14 @@ export const userBodyForLoginValidator = Joi.object({
         .messages({
             'string.pattern.base': 'Password not valid',
         }),
+    confirmPassword: Joi.string()
+        .regex(CONSTANTS.PASSWORD_REGEXP)
+        .required()
+        .trim()
+        .equal(Joi.ref('password'))
+        .messages({
+            'string.pattern.base': 'Confirm password not valid',
+        }),
 });
 
 export const setNewUserPasswordValidator = Joi.object({

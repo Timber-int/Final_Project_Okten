@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { OrderElement, SelfPickupElement } from '../../components';
 import { customerOrderAction, getCustomerOrder, getCustomerOrderSelfPickup } from '../../store/customerOrderSlice';
-import css from './AdminPage.module.css';
 import { getProductsOrder, getProductsSelfPickup, logout } from '../../store';
 import { CONSTANTS } from '../../constants';
+import css from './AdminPage.module.css';
 
 const checkIsTodayOrder = (array) => {
     return array.reduce((acc, order) => {
@@ -37,14 +37,11 @@ const AdminPage = () => {
     } = useSelector(state => state['customerOrderReducer']);
 
     const {
-        productsOrder,
-        productSelfPickup,
         status: productStatus,
     } = useSelector(state => state['productOrderReducer']);
 
     const [searchData, setSearchData] = useState('');
-    console.log(productsOrder);
-    console.log(productSelfPickup);
+
     useEffect(() => {
         dispatch(getCustomerOrder());
         dispatch(getCustomerOrderSelfPickup());

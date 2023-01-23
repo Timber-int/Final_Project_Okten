@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
 import { Category } from '../../components';
 import { FaFileUpload } from 'react-icons/fa';
-import { createCategory, getAllCategories, updateCategoryById } from '../../store';
+import { categoryAction, createCategory, getAllCategories, updateCategoryById } from '../../store';
 import { createCategoryValidator } from '../../validator';
 import css from './CategoryPage.module.css';
 
@@ -55,6 +55,11 @@ const CategoryPage = () => {
         }
     };
 
+    const clear = () => {
+        dispatch(categoryAction.setCategoryGetDataDefault());
+        reset();
+    };
+
     return (
         <div className={css.category_container}>
             <div className={css.category_form_container}>
@@ -72,6 +77,13 @@ const CategoryPage = () => {
                     <div className={css.errors_span}>{errors.name && <span>{errors.name.message}</span>}</div>
                     <div><input className={css.category_create_update_button} type="submit" value={categoryDataToUpdate ? 'Update' : 'Create'}/></div>
                 </form>
+                {
+                    categoryDataToUpdate
+                        ?
+                        <button className={css.clear_button} onClick={() => clear()}>Clear</button>
+                        :
+                        <></>
+                }
             </div>
             <div className={css.category_container_block}>
                 {

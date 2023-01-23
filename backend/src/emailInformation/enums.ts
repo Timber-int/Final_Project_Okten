@@ -13,4 +13,6 @@ export enum EmailActionEnum {
     SEND_SURPRISE_MESSAGE,
     // eslint-disable-next-line no-unused-vars
     REQUEST_PARTNERS_MESSAGE,
+    // eslint-disable-next-line no-unused-vars
+    SEND_ORDER_DATA,
 }

@@ -6,13 +6,7 @@ import { fileService, productService } from '../service';
 class ProductController {
     public async getAllProducts(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const {
-                page,
-                perPage,
-                ...other
-            } = req.query;
-
-            const products = await productService.getAllProducts(other, Number(page), Number(perPage));
+            const products = await productService.getAllProducts();
 
             res.json(products);
         } catch (e) {

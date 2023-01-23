@@ -55,7 +55,7 @@ const ProductDetails = () => {
     } = singleProduct;
 
     useEffect(() => {
-        // window.scroll(0, 0);
+        window.scroll(0, 0);
 
         dispatch(getProductInformationByProductId({ productId: id }));
 

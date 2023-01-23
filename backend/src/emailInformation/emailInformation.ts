@@ -31,4 +31,8 @@ export const emailInformation = {
         subject: 'Partners request',
         templateName: 'partnersRequest',
     },
+    [EmailActionEnum.SEND_ORDER_DATA]: {
+        subject: 'Send order data',
+        templateName: 'orderData',
+    },
 };

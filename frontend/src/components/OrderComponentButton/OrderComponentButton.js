@@ -18,7 +18,10 @@ const OrderComponentButton = ({
                           id,
                           totalCount,
                       }
-                  }))}>-</span>
+                  }))}
+            >
+                -
+            </span>
             <span>
                     <input type="number" onChange={event => dispatch(productAction.setProductCount({
                         setProduct: {

@@ -1,7 +1,8 @@
 import { NextFunction, Response } from 'express';
 import { IRequestExtended } from '../interface';
-import { customerDataSelfPickupOrderService, customerProductsForSelfPickupService } from '../service';
+import { customerDataSelfPickupOrderService, customerProductsForSelfPickupService, emailService } from '../service';
 import { CustomerProductsForSelfPickup } from '../entity';
+import { EmailActionEnum } from '../emailInformation';
 
 class CustomerOrderSelfPickupController {
     public async createCustomerDataOrderSelfPickup(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
@@ -13,8 +14,6 @@ class CustomerOrderSelfPickupController {
                 servetStatus,
                 chosenOrderProducts,
             } = req.body;
-
-            console.log(req.body);
 
             if (chosenOrderProducts.length === 0) {
                 return;
@@ -36,6 +35,13 @@ class CustomerOrderSelfPickupController {
                         });
                     });
                 });
+
+            await emailService.sendMail(userData.email, EmailActionEnum.SEND_ORDER_DATA, {
+                userData,
+                chosenOrderProducts,
+                totalOrderCount,
+                usedOrderType,
+            });
 
             res.json(customerData);
         } catch (e) {

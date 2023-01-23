@@ -11,6 +11,7 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .form_box {
     width: 100%;
     display: flex;
@@ -44,7 +45,7 @@
 }
 
 .errors_span {
-    margin:  3vh 0 1vh 0;
+    margin: 3vh 0 1vh 0;
     font-size: 18px;
     display: flex;
     align-items: center;
@@ -61,6 +62,23 @@
 
 .product_information_create_update_button:hover {
     background-color: #FFFFFF;
+}
+
+.clear_button:hover {
+    background-color: #FFFFFF;
+}
+
+.clear_button {
+    width: 42%;
+    margin-top: 5vh;
+    cursor: pointer;
+    background-color: #FFD600;
+    border: 1px solid #FFD600;
+    transition: 0.5s;
+    color: #0E0E0E;
+    border-radius: 5vh;
+    padding: 1vh;
+    font-size: 18px;
 }
 
 .server_error_block {

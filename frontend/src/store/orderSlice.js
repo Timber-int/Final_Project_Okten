@@ -17,6 +17,9 @@ const orderSlice = createSlice({
         setOrderType: (state, action) => {
             state.usedOrderType = action.payload.orderType;
         },
+        setOrderTypeDefault: (state, action) => {
+            state.usedOrderType = CONSTANTS.ORDER;
+        },
         deleteSingleOrderProductById: (state, action) => {
             let productsCard = JSON.parse(localStorage.getItem(CONSTANTS.PRODUCT_CARD)) || [];
             if (productsCard.length === 0) return;
@@ -174,7 +177,7 @@ const {
     minusOrderSingleProduct,
     deleteAllOrderProduct,
     setProductToTheCard,
-
+    setOrderTypeDefault,
 } = orderSlice.actions;
 
 export const orderAction = {
@@ -184,6 +187,7 @@ export const orderAction = {
     minusOrderSingleProduct,
     deleteAllOrderProduct,
     setProductToTheCard,
+    setOrderTypeDefault,
 };
 
 export default orderReducer;

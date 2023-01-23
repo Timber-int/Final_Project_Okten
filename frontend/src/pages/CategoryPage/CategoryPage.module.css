@@ -92,3 +92,19 @@
 .category_create_update_button:hover {
     background-color: #FFFFFF;
 }
+.clear_button:hover {
+    background-color: #FFFFFF;
+}
+
+.clear_button {
+    width: 42%;
+    margin-top: 5vh;
+    cursor: pointer;
+    background-color: #FFD600;
+    border: 1px solid #FFD600;
+    transition: 0.5s;
+    color: #0E0E0E;
+    border-radius: 5vh;
+    padding: 1vh;
+    font-size: 18px;
+}

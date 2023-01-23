@@ -120,7 +120,7 @@
 .city_box {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    /*align-items: center;*/
     cursor: pointer;
 }
 
@@ -139,6 +139,7 @@
 
 .city_name {
     font-size: 34px;
+    margin-left: 10px;
 }
 
 .category_image {

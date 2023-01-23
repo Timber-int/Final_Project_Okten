@@ -139,6 +139,9 @@ export const productInformationSlice = createSlice({
             state.productInformation = state.productInformation.map(productInformation => productInformation.id === id ? { ...updatedProductInformation } : productInformation);
             state.productInformationDataToUpdate = null;
         },
+        setProductInformationDataToUpdateDefault: (state, action) => {
+            state.productInformationDataToUpdate = null;
+        }
     },
     extraReducers: {
         [getAllProductsInformation.pending]: (state, action) => {
@@ -212,13 +215,15 @@ const productInformationReducer = productInformationSlice.reducer;
 const {
     deleteSingleProductInformationById,
     updateProductInformationGetData,
-    updateSingleProductInformationById
+    updateSingleProductInformationById,
+    setProductInformationDataToUpdateDefault,
 } = productInformationSlice.actions;
 
 export const productInformationAction = {
     deleteSingleProductInformationById,
     updateProductInformationGetData,
-    updateSingleProductInformationById
+    updateSingleProductInformationById,
+    setProductInformationDataToUpdateDefault,
 };
 
 export default productInformationReducer;

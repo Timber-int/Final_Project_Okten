@@ -1,11 +1,10 @@
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { IProduct } from '../entity';
-import { IPaginationResponse } from '../interface';
 import { productRepository } from '../repository';
 
 class ProductService {
-    public async getAllProducts(filterObject: Partial<IProduct>, page: number, perPage: number): Promise<IPaginationResponse<IProduct>> {
-        return productRepository.getAllProducts(filterObject, perPage, page);
+    public async getAllProducts(): Promise<IProduct[]> {
+        return productRepository.getAllProducts();
     }
 
     public async getProductById(id: number): Promise<IProduct | undefined> {

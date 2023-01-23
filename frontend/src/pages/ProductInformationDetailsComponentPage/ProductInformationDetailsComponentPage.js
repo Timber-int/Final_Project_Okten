@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { ProductInformationAdminContent } from '../../components';
-import { createProductInformation, getAllProductsInformation, updateProductsInformationById } from '../../store';
+import { createProductInformation, getAllProductsInformation, productInformationAction, updateProductsInformationById } from '../../store';
 
 import css from './ProductInformationDetailsComponentPage.module.css';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
@@ -66,6 +66,11 @@ const ProductInformationDetailsComponentPage = () => {
         }
     };
 
+    const clear = () => {
+        dispatch(productInformationAction.setProductInformationDataToUpdateDefault());
+        reset();
+    };
+
     return (
         <div className={css.product_address_content}>
             <div className={css.form_box}>
@@ -79,9 +84,22 @@ const ProductInformationDetailsComponentPage = () => {
                     <div className={css.errors_span}>{errors.productFats && <span>{errors.productFats.message}</span>}</div>
                     <div><input type="number" {...register('productProteins')} placeholder={'productProteins...'}/></div>
                     <div className={css.errors_span}>{errors.productProteins && <span>{errors.productProteins.message}</span>}</div>
-                    <div><input className={css.product_information_create_update_button} type="submit"
-                                value={productInformationDataToUpdate ? 'Update' : 'Create'}/></div>
+                    <div>
+                        <input className={css.product_information_create_update_button}
+                               type="submit"
+                               value={productInformationDataToUpdate
+                                   ? 'Update'
+                                   : 'Create'}
+                        />
+                    </div>
                 </form>
+                {
+                    productInformationDataToUpdate
+                        ?
+                        <button className={css.clear_button} onClick={() => clear()}>Clear</button>
+                        :
+                        <></>
+                }
             </div>
             <div className={css.products_ingredients_box}>
                 {

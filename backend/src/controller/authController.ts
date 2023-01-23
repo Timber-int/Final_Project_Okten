@@ -5,7 +5,6 @@ import {
 } from '../service';
 import { IUser } from '../entity';
 import { MESSAGE } from '../message';
-import { CONSTANTS } from '../constants';
 
 class AuthController {
     public async registration(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
@@ -23,11 +22,6 @@ class AuthController {
             const userNormalized = await passwordService.userNormalization(user);
 
             // await emailService.sendMail(user.email, EmailActionEnum.REGISTRATION, {});
-
-            res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
-                maxAge: 30 * 24 * 60 * 60 * 1000,
-                httpOnly: true,
-            });
 
             res.json({
                 accessToken,
@@ -68,11 +62,6 @@ class AuthController {
             });
 
             const userNormalized = await passwordService.userNormalization(req.user);
-            console.log(userNormalized);
-            res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
-                maxAge: 30 * 24 * 60 * 60 * 1000,
-                httpOnly: true,
-            });
 
             res.json({
                 accessToken,
@@ -93,8 +82,6 @@ class AuthController {
             } = req.user as IUser;
 
             await tokenService.deleteToken(id);
-
-            res.clearCookie(CONSTANTS.REFRESH_TOKEN);
 
             res.json(`${MESSAGE.LOGOUT_USER} ${firstName} ${lastName}`);
         } catch (e) {
@@ -126,13 +113,6 @@ class AuthController {
             });
 
             const userNormalized = await passwordService.userNormalization(req.user);
-
-            res.clearCookie(CONSTANTS.REFRESH_TOKEN);
-
-            res.cookie(CONSTANTS.REFRESH_TOKEN, refreshToken, {
-                maxAge: 30 * 24 * 60 * 60 * 1000,
-                httpOnly: true,
-            });
 
             res.json({
                 accessToken,

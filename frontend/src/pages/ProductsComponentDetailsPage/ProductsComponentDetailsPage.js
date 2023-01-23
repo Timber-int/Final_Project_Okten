@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi/dist/joi';
 
 import { ProductAdminContent } from '../../components';
-import { createProduct, getAllProducts, updateProductById } from '../../store';
+import { createProduct, getAllProducts, productAction, updateProductById } from '../../store';
 import { createProductValidator } from '../../validator';
 import css from './ProductsComponentDetailsPage.module.css';
 import { FaFileUpload } from 'react-icons/fa';
@@ -76,6 +76,11 @@ const ProductsComponentDetailsPage = () => {
         }
     };
 
+    const clear = () => {
+        dispatch(productAction.setProductDataToUpdateDefault());
+        reset();
+    }
+
     return (
         <div className={css.products_container}>
             <div className={css.form_box}>
@@ -109,6 +114,13 @@ const ProductsComponentDetailsPage = () => {
                         <input type="submit" className={css.product_create_update_button} value={productDataToUpdate ? 'Update' : 'Create'}/>
                     </div>
                 </form>
+                {
+                    productDataToUpdate
+                        ?
+                        <button className={css.clear_button} onClick={() => clear()}>Clear</button>
+                        :
+                        <></>
+                }
             </div>
             <div className={css.product_box}>
                 {

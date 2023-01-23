@@ -2,28 +2,14 @@ import {
     DeleteResult, EntityRepository, getManager, Repository, UpdateResult,
 } from 'typeorm';
 import { IProduct, Product } from '../../entity';
-import { IPaginationResponse } from '../../interface';
 import { IProductRepository } from './productRepositoryInterface';
 
 @EntityRepository(Product)
 class ProductRepository extends Repository<Product> implements IProductRepository {
-    public async getAllProducts(searchObject: Partial<IProduct> = {}, limit: number = 20, page: number = 1): Promise<IPaginationResponse<IProduct>> {
-        const skip = limit * (page - 1);
-
-        const [products, itemCount] = await getManager()
+    public async getAllProducts(): Promise<IProduct[]> {
+        return getManager()
             .getRepository(Product)
-            .findAndCount({
-                where: searchObject,
-                skip,
-                take: limit,
-            });
-
-        return {
-            page,
-            perPage: limit,
-            itemCount,
-            data: products,
-        };
+            .find();
     }
 
     public async getProductById(id: number): Promise<IProduct | undefined> {
